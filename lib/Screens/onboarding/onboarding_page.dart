@@ -24,9 +24,9 @@ class OnboardingPage extends StatelessWidget {
         child:  Column(
           children: [
             _spacing(),
-            const Text(AppStrings.entertainment,
+            const Text(AppStrings.entertainment,textAlign: TextAlign.center,
               style: TextStyle(fontSize: AppFontSize.extraLarge,
-                  fontWeight: FontWeight.w900),),
+                  fontWeight: FontWeight.w900, ),),
             _spacing(),
             const Text(AppStrings.onboarding,
               style: TextStyle(fontSize: AppFontSize.large,
