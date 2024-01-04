@@ -1,16 +1,41 @@
-# movie_flutter_demo
+<h1 align="left">OTT App Demo in Flutter</h1>
 
-A new Flutter project.
+###
 
-## Getting Started
+<p align="left">Create an OTT application where it shows the available movies and performs other functions.</p>
 
-This project is a starting point for a Flutter application.
+###
 
-A few resources to get you started if this is your first Flutter project:
+<h3 align="left">App features</h3>
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+###
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<p align="left">1. Registration<br>2. Login<br>3. Profile<br>4. Home<br>5. Favorites<br>6. Details</p>
+
+###
+
+<h3 align="left">Screen Shots</h3>
+
+###
+
+<div align="left">
+  <img src="/screenshots/onboarding.png" height="300" alt="onboarding"  />
+</div>
+
+###
+
+<h3 align="left">Dependencies</h3>
+
+###
+
+<p align="left">cupertino_icons: ^1.0.2<br>  flutter_bloc:<br>  dio:<br>  go_router:<br>  shared_preferences:<br>  retrofit:<br>  json_annotation:</p>
+
+###
+
+<h3 align="left">Project Structure</h3>
+
+###
+
+<p align="left">Hello World!!</p>
+
+###
