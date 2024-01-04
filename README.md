@@ -19,7 +19,7 @@
 ###
 
 <div align="left">
-  <img src="https://github.com/debabrataroy1/movie_flutter_demo/blob/main/screenshots/onboarding.png?raw=true" height="300" alt="onboarding"  />
+  <img src="https://github.com/debabrataroy1/movie_flutter_demo/blob/main/screenshots/onboarding.jpg?raw=true" height="300" alt="onboarding"  />
 </div>
 
 ###
