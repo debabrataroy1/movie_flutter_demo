@@ -1,6 +1,6 @@
 
 class AppStrings {
-  static const String home = "home";
+  static const String home = "Home";
   static const String entertainment = "Unlimited entertainment on one platform";
   static const String onboarding = "Login and enjoy movies";
   static const String getStarted = "Get Started";
@@ -15,5 +15,7 @@ class AppStrings {
   static const String signMessage = "Please sign in to continue";
   static const String dontHaveAccount = "Don\'t have an account?";
   static const String signUp = " SignUp ";
-  static const String incorrectPassword = "'Email id or password incorrect'";
+  static const String incorrectPassword = "Email id or password incorrect";
+  static const String favourites = "Favourites";
+  static const String account = "Account";
 }

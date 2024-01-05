@@ -12,6 +12,7 @@ class ThemeManager {
   ThemeManager._init();
 
   ThemeData? get light => ThemeData(
+    canvasColor: Colors.white,
       brightness: Brightness.light,
       primaryColor: AppColors.primaryColor,
       scaffoldBackgroundColor: const Color(0xfffafafa),
@@ -49,11 +50,12 @@ class ThemeManager {
       scaffoldBackgroundColor: const Color(0xff303030),
       cardColor: const Color(0xff424242),
       dividerColor: const Color(0x1fffffff),
+      canvasColor: Colors.grey.shade900,
       colorScheme: const ColorScheme(
         brightness: Brightness.dark,
         primary: Color(0xff212121),
         onPrimary: Color(0xffffffff),
-        secondary: Color(0xff212121),
+        secondary: AppColors.primaryColor,
         onSecondary: Color(0xff212121),
         error: Color(0xffd32f2f),
         onError: Color(0xffd32f2f),
