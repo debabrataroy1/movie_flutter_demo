@@ -46,7 +46,8 @@ class _LoginState extends State<Login> {
   }
 
   Widget _emailTextField() {
-    return AppTextField(AppStrings.emailAddress,
+    return AppTextField(
+      label: AppStrings.emailAddress,
       controller: _emailEditingController,
       validator: (value) {
         if (value != null) {
@@ -62,7 +63,8 @@ class _LoginState extends State<Login> {
   }
 
   Widget _passwordTextField() {
-    return AppTextField(AppStrings.password,
+    return AppTextField(
+      label: AppStrings.password,
       controller: _passwordEditingController,
       isPassword: true,
       validator: (value) {

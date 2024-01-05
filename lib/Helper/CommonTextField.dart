@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 
 class AppTextField extends StatefulWidget {
-   AppTextField(label, {
+  AppTextField({
+    required this.label,
     this.controller,
     this.validator,
     this.isPassword = false,
@@ -12,7 +13,7 @@ class AppTextField extends StatefulWidget {
     Key? key,
   }) : super(key: key);
 
-  late String label;
+  final String label;
   final TextEditingController? controller;
   final bool isPassword, required;
   final FormFieldValidator? validator;
@@ -20,7 +21,7 @@ class AppTextField extends StatefulWidget {
   final int? maxLines;
 
   @override
-  _AppTextFieldState createState() => _AppTextFieldState();
+  State<AppTextField> createState() => _AppTextFieldState();
 }
 
 class _AppTextFieldState extends State<AppTextField> {
