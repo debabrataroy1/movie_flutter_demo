@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:movie_flutter_demo/Constants/app_constants.dart';
 import 'package:movie_flutter_demo/Constants/app_string_constant.dart';
 import 'package:movie_flutter_demo/Helper/CommonButton.dart';
@@ -10,7 +11,7 @@ class OnboardingPage extends StatelessWidget {
   Widget _spacing() {
     return const SizedBox(height: AppSpacing.regular,);
   }
-  Widget _bottom() {
+  Widget _bottom(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(left: AppPaddings.regular, right: AppPaddings.regular),
       decoration: BoxDecoration(
@@ -32,7 +33,9 @@ class OnboardingPage extends StatelessWidget {
               style: TextStyle(fontSize: AppFontSize.large,
                   fontWeight: FontWeight.w600),),
             _spacing(),
-            AppElevatedButton( AppStrings.getStarted, () { })
+            AppElevatedButton( AppStrings.getStarted, () {
+              context.go('/login');
+            })
           ],),
       ),);
   }
@@ -51,7 +54,7 @@ class OnboardingPage extends StatelessWidget {
                       SafeArea(
                           child: ImageView(asset: AppImages.logo,height: AppIconSize.logo,width: AppIconSize.logo,)),
                       const Spacer(),
-                      _bottom()
+                      _bottom(context)
                     ],
                   ),
                 )

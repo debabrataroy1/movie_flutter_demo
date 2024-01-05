@@ -13,32 +13,33 @@ class ThemeManager {
 
   ThemeData? get light => ThemeData(
       brightness: Brightness.light,
-      primaryColor: const Color(0xffdb0000),
+      primaryColor: AppColors.primaryColor,
       scaffoldBackgroundColor: const Color(0xfffafafa),
       cardColor: const Color(0xffffffff),
       dividerColor: const Color(0x1f000000),
       colorScheme: const ColorScheme(
           brightness: Brightness.light,
-          primary: Color(0xffdb0000),
+          primary: AppColors.primaryColor,
           onPrimary: Color(0xffffffff),
-          secondary: Color(0xffdb0000),
-          onSecondary: Color(0xffdb0000),
+          secondary: AppColors.primaryColor,
+          onSecondary: AppColors.primaryColor,
           error: Color(0xffd32f2f),
           onError: Color(0xffd32f2f),
           background: Color(0xffFAFAFA),
           onBackground: Color(0xffb0a2f6),
           surface: Color(0xff9784f3),
-          onSurface: Color(0xffffffff)),
+          onSurface: Color(0xff000000)),
       elevatedButtonTheme: ElevatedButtonThemeData(
-          style:  ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xffdb0000),
-            padding: const EdgeInsets.symmetric(horizontal: AppPaddings.regular, vertical: AppPaddings.small),
-              textStyle: const TextStyle(
-                fontSize: AppFontSize.regular,
-                fontWeight: FontWeight.w600,
-                color: Color(0xffffffff),
-              )
-          ),
+        style: ElevatedButton.styleFrom(
+            backgroundColor: AppColors.primaryColor,
+            padding: const EdgeInsets.symmetric(
+                horizontal: AppPaddings.regular, vertical: AppPaddings.small),
+            textStyle: const TextStyle(
+              fontSize: AppFontSize.regular,
+              fontWeight: FontWeight.w600,
+              color: Color(0xffffffff),
+            )
+        ),
       )
   );
 
@@ -61,15 +62,31 @@ class ThemeManager {
         surface: Color(0xff000000),
         onSurface: Color(0xffffffff),
       ),
+      textSelectionTheme: const TextSelectionThemeData(
+        cursorColor: AppColors.primaryColor,
+      ),
+      inputDecorationTheme: const InputDecorationTheme(
+        labelStyle: TextStyle(
+          color: Colors.grey,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            style: BorderStyle.solid,
+            width: 2,
+            color: AppColors.primaryColor,
+          ),
+        ),
+      ),
       elevatedButtonTheme: ElevatedButtonThemeData(
-          style:  ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xffdb0000),
-            padding: const EdgeInsets.symmetric(horizontal: AppPaddings.regular, vertical: AppPaddings.small),
-            textStyle: const TextStyle(
-              fontSize: AppFontSize.regular,
-              fontWeight: FontWeight.w600,
-              color: Color(0xffffffff),
-            )
+          style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.primaryColor,
+              padding: const EdgeInsets.symmetric(
+                  horizontal: AppPaddings.regular, vertical: AppPaddings.small),
+              textStyle: const TextStyle(
+                fontSize: AppFontSize.regular,
+                fontWeight: FontWeight.w600,
+                color: Color(0xffffffff),
+              )
           )
       )
   );

@@ -38,3 +38,9 @@ class AppSpacing {
 class AppColors {
   static const Color primaryColor =  Color(0xffdb0000);
 }
+
+class AppData {
+  static const String email = 'test@mail.com';
+  static const String password = '12345678';
+  static const String encryptKey = 'ttn#123&dev&ott#';
+}
