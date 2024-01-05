@@ -41,6 +41,7 @@ dependencies:
   shared_preferences:
   retrofit:
   json_annotation:
+  encrypt:
 
 dev_dependencies:
   flutter_test:
