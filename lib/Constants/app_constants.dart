@@ -1,18 +1,11 @@
 
 import 'dart:ui';
-
-import 'package:flutter/material.dart';
-
-import 'package:flutter/material.dart';
-
 import 'package:flutter/material.dart';
 
 class AppPaddings {
   static const double small = 12;
   static const double regular = 16;
   static const double large = 20;
-
-
 }
 
 class AppIconSize {
