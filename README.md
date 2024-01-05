@@ -10,7 +10,18 @@
 
 ###
 
-<p align="left">1. Registration<br>2. Login<br>3. Profile<br>4. Home<br>5. Favorites<br>6. Details</p>
+<p align="left">
+<ol>
+  <li style="text-decoration:line-through">Onboarding</li>
+<li>Registration</li>
+<li>Login</li>
+<li>Tabbar</li>
+<li>Profile</li>
+<li>Home</li>
+<li>Favorites</li>
+<li>Details</li>
+</ol>
+</p>
 
 ###
 
@@ -36,6 +47,20 @@
 
 ###
 
-<p align="left">Hello World!!</p>
+<ol>
+  <li>assets</li>
+<ul>
+  <li>images</li>
+</ul> 
+  <li>lib</li>
+<ul>
+  <li>Constants</li>
+<li>Helper</li>
+<li>NetworkManager</li>
+<li>Routes</li>
+<li>Screens</li>
+<li>Theme</li>
+</ul> 
+</ol> 
 
 ###
