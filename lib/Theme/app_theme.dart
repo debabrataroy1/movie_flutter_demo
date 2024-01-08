@@ -47,8 +47,8 @@ class ThemeManager {
   ThemeData? get dark => ThemeData(
       brightness: Brightness.dark,
       primaryColor: const Color(0xff212121),
-      scaffoldBackgroundColor: const Color(0xff303030),
-      cardColor: const Color(0xff424242),
+      scaffoldBackgroundColor: const Color(0xff000000),
+      cardColor: const Color(0xff303030),
       dividerColor: const Color(0x1fffffff),
       canvasColor: Colors.grey.shade900,
       colorScheme: const ColorScheme(

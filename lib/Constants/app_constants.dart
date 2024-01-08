@@ -3,12 +3,18 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class AppPaddings {
+  static const double extraSmall = 8;
   static const double small = 12;
   static const double regular = 16;
   static const double large = 20;
 }
 
+class AppBorderRadius {
+  static const double regular = 8;
+}
+
 class AppIconSize {
+  static const double extraSmall = 8;
   static const double small = 12;
   static const double regular = 16;
   static const double large = 20;
@@ -35,7 +41,9 @@ class AppFontSize {
 }
 
 class AppSpacing {
+  static const double extraSmall = 12;
   static const double small = 12;
+  static const double medium = 16;
   static const double regular = 20;
   static const double large = 24;
 }
@@ -48,4 +56,5 @@ class AppData {
   static const String email = 'test@mail.com';
   static const String password = '12345678';
   static const String encryptKey = 'ttn#123&dev&ott#';
+  static const String apiKey = '060e7c76aff06a20ca4a875981216f3f';
 }

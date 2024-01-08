@@ -18,4 +18,5 @@ class AppStrings {
   static const String incorrectPassword = "Email id or password incorrect";
   static const String favourites = "Favourites";
   static const String account = "Account";
+  static const String recentMovies = "Recent Movies";
 }

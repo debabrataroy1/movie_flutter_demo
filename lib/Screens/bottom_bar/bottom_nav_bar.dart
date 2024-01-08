@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_flutter_demo/Constants/app_constants.dart';
 import 'package:movie_flutter_demo/Constants/app_string_constant.dart';
 import 'package:movie_flutter_demo/Screens/account/account_page.dart';
 import 'package:movie_flutter_demo/Screens/favourites/favourites_page.dart';
+import 'package:movie_flutter_demo/Screens/home/bloc/home_bloc.dart';
 import 'package:movie_flutter_demo/Screens/home/home_page.dart';
+import 'package:movie_flutter_demo/Screens/home/repository/home_repository.dart';
 
 class AppBottomBar extends StatefulWidget {
   const AppBottomBar({super.key});
@@ -15,8 +18,10 @@ class AppBottomBar extends StatefulWidget {
 class _AppBottomBarState extends State<AppBottomBar> {
   int _selectedIndex = 0;
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    HomePage(),
+    final List<Widget> _widgetOptions = [
+    BlocProvider(
+        create: ( context)=>HomeBloc(repository: HomeRepositoryImp()),
+        child: const HomePage()),
     FavouritesPage(),
     AccountPage(),
   ];

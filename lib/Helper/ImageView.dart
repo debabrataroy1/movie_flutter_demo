@@ -7,7 +7,7 @@ class ImageView extends StatelessWidget {
   double height;
   double width;
   BoxFit fit;
-  ImageView({Key? key, this.url,this.asset, this.width = 0.0, this.height = 0.0,this.fit= BoxFit.fill}) : super(key: key);
+  ImageView({Key? key, this.url,this.asset, this.width = 0.0, this.height = 0.0,this.fit= BoxFit.cover}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +22,7 @@ class ImageView extends StatelessWidget {
         fit: fit,
         width:  width != 0.0 ?  width : null,
         height: height != 0.0 ?  height : null
+
     );
   }
 }
