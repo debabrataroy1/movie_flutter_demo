@@ -13,9 +13,10 @@ abstract class APIServices {
     dio.interceptors
         .add(InterceptorsWrapper(onError: (DioException e, handler) {
       DioCustomError err =
-          DioCustomError(DioExceptions.fromDioError(e).message ?? '', e);
+      DioCustomError(DioExceptions.fromDioError(e).message ?? '', e);
       return handler.next(err);
     }));
     return _APIServices(dio, baseUrl: baseUrl);
   }
+
 }

@@ -1,0 +1,22 @@
+{
+  "home": "Home",
+  "entertainment": "Unlimited entertainment on one platform",
+  "onboarding": "Login and enjoy movies",
+  "getStarted": "Get Started",
+  "emailIsRequired": "Email id is required",
+  "enterValidEmail": "Enter a valid email id",
+  "passwordIsRequired": "Password is required",
+  "shortPasswordMsg": "Password is required",
+  "shortPasswordMsg": "Password is too short",
+  "messageIsRequired": "field is required",
+  "emailAddress": "Email Id",
+  "password": "Password",
+  "login": "Login",
+  "signMessage": "Please sign in to continue",
+  "dontHaveAccount": "Don\\'t have an account?",
+  "signUp": " SignUp ",
+  "incorrectPassword": "Email id or password incorrect",
+  "favourites": "Favourites",
+  "account": "Account",
+  "recentMovies": "Recent Movies"
+}

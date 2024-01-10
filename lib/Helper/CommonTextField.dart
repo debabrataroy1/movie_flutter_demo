@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 
 class AppTextField extends StatefulWidget {
-  AppTextField({
+  const AppTextField({
     required this.label,
     this.controller,
     this.validator,
@@ -55,7 +55,7 @@ class _AppTextFieldState extends State<AppTextField> {
             setState(() {
               _obscureText = !_obscureText;
             });
-          },
+          }
         )
             : null,
       ),

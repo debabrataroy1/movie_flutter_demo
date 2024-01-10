@@ -1,34 +1,45 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-Widget AppTextButton(
-    String text,
-    VoidCallback onPressed,
-    {
-      Color? textColor,
-      double? fontSize,
-      FontWeight? fontWeight,
-    }) {
-  return TextButton(onPressed: onPressed,
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: fontSize,
-          fontWeight: fontWeight,
-          color: textColor,
-        ),
-      ));
-}
-Widget AppElevatedButton(
-    String text,
-    VoidCallback onPressed,
-    ) {
-  return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton(onPressed: onPressed,
-          child: Text(
-            text,
+class AppTextButton extends StatelessWidget {
+  String title;
+  VoidCallback? onPressed;
+  Color? textColor;
+  double? fontSize;
+  FontWeight? fontWeight;
+
+  AppTextButton({super.key, required this.title, this.onPressed, this.textColor, this.fontSize, this.fontWeight});
+
+  @override
+  Widget build(BuildContext context) {
+
+    return TextButton(onPressed: onPressed,
+        child: Text(
+          title,
+          style: TextStyle(
+            fontSize: fontSize,
+            fontWeight: fontWeight,
+            color: textColor
           )
-      )
-  );
+        )
+    );
+  }
+}
+
+class AppElevatedButton extends StatelessWidget {
+   String title;
+   VoidCallback? onPressed;
+
+  AppElevatedButton({super.key, required this.title, this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+        width: double.infinity,
+        child: ElevatedButton(onPressed: onPressed,
+            child: Text(
+                title
+            )
+        )
+    );
+  }
 }

@@ -1,41 +1,97 @@
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_flutter_demo/Constants/app_shared_pref.dart';
 import 'package:movie_flutter_demo/Routes/app_router_constants.dart';
+import 'package:movie_flutter_demo/Screens/account/account_page.dart';
 import 'package:movie_flutter_demo/Screens/bottom_bar/bottom_nav_bar.dart';
+import 'package:movie_flutter_demo/Screens/favourites/favourites_page.dart';
 import 'package:movie_flutter_demo/Screens/login/login_page.dart';
 import 'package:flutter/material.dart';
 import '../Screens/home/home_page.dart';
 import '../Screens/onboarding/onboarding_page.dart';
+part 'app_router_config.g.dart';
 
 class AppRouter {
   GoRouter router = GoRouter(
-    initialLocation: '/',
-      routes: [
-        GoRoute(name: AppRouteName.home,
-            path: '/home',
-        builder: (context, state) => const HomePage()),
-        GoRoute(name: AppRouteName.onboarding,
-            path: '/',
-            builder: (context, state) => const OnboardingPage()
-        ),
-        GoRoute(name: AppRouteName.login,
-            path: '/login',
-            builder: (context, state) => const Login()
-        ),
-        GoRoute(name: AppRouteName.bottomBar,
-            path: '/bottomBar',
-            builder: (context, state) => const AppBottomBar()
-        )
-      ],
+      initialLocation: '/',
+      routes: $appRoutes,
       redirect: (BuildContext context, GoRouterState state) async {
-       if (state.fullPath == '/') {
-         var isLogin = await AppSharedPref.isLogin();
-         if (isLogin) {
-          return '\\${AppRouteName.bottomBar}';
-         } else {
-          return null;
-         }
-       }
-    }
+        var app = GetIt.instance<AppSharedPref>();
+        if (state.fullPath == '/') {
+          var isLogin = await app.getBool(key: AppSharedPrefKey.loginStatus);
+          if (isLogin) {
+            return const BottombarRoute().location;
+          } else {
+            return null;
+          }
+        }
+      }
   );
+}
+
+@TypedGoRoute<LoginRoute>(
+  path: '/${AppRouteName.login}',
+)
+class LoginRoute extends GoRouteData {
+  const LoginRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const Login();
+}
+
+
+@TypedGoRoute<OnboardingRoute>(
+  path: '/',
+)
+class OnboardingRoute extends GoRouteData {
+  const OnboardingRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const OnboardingPage();
+}
+
+@TypedGoRoute<HomeRoute>(
+  path: '/${AppRouteName.home}',
+)
+class HomeRoute extends GoRouteData {
+  const HomeRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const HomePage();
+}
+
+@TypedGoRoute<BottombarRoute>(
+  path: '/${AppRouteName.bottomBar}',
+)
+class BottombarRoute extends GoRouteData {
+  const BottombarRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const AppBottomBar();
+}
+
+@TypedGoRoute<AccountRoute>(
+  path: '/${AppRouteName.account}',
+)
+class AccountRoute extends GoRouteData {
+  const AccountRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const AccountPage();
+}
+
+@TypedGoRoute<FavouritesRoute>(
+  path: '/${AppRouteName.favourites}',
+)
+class FavouritesRoute extends GoRouteData {
+  const FavouritesRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const FavouritesPage();
 }
