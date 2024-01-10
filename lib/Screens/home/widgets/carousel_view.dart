@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_flutter_demo/Constants/api_constants.dart';
-import 'package:movie_flutter_demo/Constants/app_constants.dart';
+import 'package:movie_flutter_demo/Constants/color_constants.dart';
+import 'package:movie_flutter_demo/Constants/icon_size_constants.dart';
 import 'package:movie_flutter_demo/Helper/ImageView.dart';
 import 'package:movie_flutter_demo/Models/home_model.dart';
 
@@ -57,12 +58,12 @@ class _CarouselViewState extends State<CarouselView> with SingleTickerProviderSt
             color: AppColors.primaryColor.withOpacity(0.72),
             blurRadius: 4.0,
             spreadRadius: 1.0
-          ) : BoxShadow(
-            color: Colors.transparent,
+          ) : const BoxShadow(
+            color: Colors.transparent
           )
         ],
         shape: BoxShape.circle,
-        color: isActive ? AppColors.primaryColor : Color(0XFFEAEAEA)
+        color: isActive ? AppColors.primaryColor : const Color(0XFFEAEAEA)
       )
     );
   }
@@ -85,7 +86,7 @@ class _CarouselViewState extends State<CarouselView> with SingleTickerProviderSt
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: widget.movieList?.map((element) {
                   return _indicator(element == widget.movieList?[_currentPage]);
-                }).toList() ?? []),
+                }).toList() ?? [])
           )
         )
     );

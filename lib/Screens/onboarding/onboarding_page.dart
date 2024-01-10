@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:movie_flutter_demo/Constants/app_constants.dart';
-import 'package:movie_flutter_demo/Constants/app_string_constant.dart';
+import 'package:movie_flutter_demo/gen/assets.gen.dart';
+import 'package:movie_flutter_demo/Constants/color_constants.dart';
+import 'package:movie_flutter_demo/Constants/font_size_constants.dart';
+import 'package:movie_flutter_demo/Constants/icon_size_constants.dart';
+import 'package:movie_flutter_demo/Constants/padding_constants.dart';
+import 'package:movie_flutter_demo/Constants/spacing_constants.dart';
+import 'package:movie_flutter_demo/Extensions/build_context_extension.dart';
 import 'package:movie_flutter_demo/Helper/CommonButton.dart';
-import 'package:movie_flutter_demo/Helper/ImageView.dart';
 
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({super.key});
@@ -25,15 +29,15 @@ class OnboardingPage extends StatelessWidget {
         child:  Column(
           children: [
             _spacing(),
-            const Text(AppStrings.entertainment,textAlign: TextAlign.center,
-              style: TextStyle(fontSize: AppFontSize.extraLarge,
+             Text(context.l10n.entertainment,textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: AppFontSize.extraLarge,
                   fontWeight: FontWeight.w900, ),),
             _spacing(),
-            const Text(AppStrings.onboarding,
-              style: TextStyle(fontSize: AppFontSize.large,
+             Text(context.l10n.onboarding,
+              style: const TextStyle(fontSize: AppFontSize.large,
                   fontWeight: FontWeight.w600),),
             _spacing(),
-            AppElevatedButton( AppStrings.getStarted, () {
+            AppElevatedButton(title: context.l10n.getStarted,onPressed:  () {
               context.go('/login');
             })
           ],),
@@ -44,7 +48,7 @@ class OnboardingPage extends StatelessWidget {
     return Scaffold(
         body:  Stack(
           children: [
-            ImageView(asset: AppImages.moviePoster,height: double.infinity,),
+            Assets.images.moviePoster.image(height: double.infinity, fit: BoxFit.fill),
             Positioned(
                 child: Container(
                   color: Colors.black.withAlpha(120),
@@ -52,7 +56,8 @@ class OnboardingPage extends StatelessWidget {
                   child: Column(
                     children: [
                       SafeArea(
-                          child: ImageView(asset: AppImages.logo,height: AppIconSize.logo,width: AppIconSize.logo,)),
+                          child:Assets.images.logo.image(height: AppIconSize.logo, width: AppIconSize.logo)
+                      ),
                       const Spacer(),
                       _bottom(context)
                     ],

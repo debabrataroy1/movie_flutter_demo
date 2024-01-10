@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:movie_flutter_demo/Constants/api_constants.dart';
-import 'package:movie_flutter_demo/Constants/app_constants.dart';
-import 'package:movie_flutter_demo/Constants/app_string_constant.dart';
+import 'package:movie_flutter_demo/Constants/color_constants.dart';
+import 'package:movie_flutter_demo/Constants/font_size_constants.dart';
+import 'package:movie_flutter_demo/Constants/icon_size_constants.dart';
+import 'package:movie_flutter_demo/Constants/padding_constants.dart';
+import 'package:movie_flutter_demo/Constants/spacing_constants.dart';
+import 'package:movie_flutter_demo/Extensions/build_context_extension.dart';
 import 'package:movie_flutter_demo/Helper/CommonButton.dart';
-import 'package:movie_flutter_demo/Routes/app_router_constants.dart';
+import 'package:movie_flutter_demo/Routes/app_router_config.dart';
+import 'package:movie_flutter_demo/gen/assets.gen.dart';
 import '../../Helper/CommonTextField.dart';
-import '../../Helper/ImageView.dart';
 import '../../Utils/validator.dart';
 import 'bloc/login_cubit.dart';
 import 'bloc/state/login_state.dart';
@@ -47,14 +50,13 @@ class _LoginState extends State<Login> {
 
   Widget _emailTextField() {
     return AppTextField(
-      label: AppStrings.emailAddress,
+      label: context.l10n.emailAddress,
       controller: _emailEditingController,
       validator: (value) {
         if (value != null) {
           if (Validator.isEmailValid(value) != null) {
             return Validator.isEmailValid(value);
           }
-          return null;
         }
         return null;
       },
@@ -64,7 +66,7 @@ class _LoginState extends State<Login> {
 
   Widget _passwordTextField() {
     return AppTextField(
-      label: AppStrings.password,
+      label: context.l10n.password,
       controller: _passwordEditingController,
       isPassword: true,
       validator: (value) {
@@ -72,11 +74,10 @@ class _LoginState extends State<Login> {
           if (Validator.isValidPassword(value) != null) {
             return Validator.isValidPassword(value);
           }
-          return null;
         }
         return null;
       },
-      inputType: TextInputType.visiblePassword,
+      inputType: TextInputType.visiblePassword
     );
   }
 
@@ -85,15 +86,15 @@ class _LoginState extends State<Login> {
         listener: (context, state) {
           if (state is LoginError) {
             SnackBar snackBar = SnackBar(
-              content: Text(state.message ?? ''),
+              content: Text(state.message ?? '')
             );
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           } else if (state is LoginSuccessState) {
-            context.go('\\${AppRouteName.home}');
+            const BottombarRoute().pushReplacement(context);
           }
         },
         builder: (context, state) {
-          return AppElevatedButton(AppStrings.login, () {
+          return AppElevatedButton(title: context.l10n.login, onPressed: () {
             _validateForm();
           });
         });
@@ -109,13 +110,13 @@ class _LoginState extends State<Login> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize:MainAxisSize.min,
         children: <Widget>[
-          ImageView(asset: AppImages.logo,height: AppIconSize.logo, width: AppIconSize.logo),
+          Assets.images.logo.image(height: AppIconSize.logo, width: AppIconSize.logo),
           _commonSpacing(),
-          const Text(AppStrings.login,
-            style: TextStyle(fontSize: AppFontSize.extraLarge, fontWeight: FontWeight.w600)),
+           Text(context.l10n.login,
+            style: const TextStyle(fontSize: AppFontSize.extraLarge, fontWeight: FontWeight.w600)),
           _commonSpacing(),
-          const Text(AppStrings.signMessage,
-            style: TextStyle(fontSize: AppFontSize.regular, fontWeight: FontWeight.w400),),
+           Text(context.l10n.signMessage,
+            style: const TextStyle(fontSize: AppFontSize.regular, fontWeight: FontWeight.w400)),
           const SizedBox(height: AppSpacing.large),
           _emailTextField(),
           _commonSpacing(),
@@ -123,18 +124,17 @@ class _LoginState extends State<Login> {
           _commonSpacing(),
           _loginButton(),
           _commonSpacing(),
-          const Row(
+           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(AppStrings.dontHaveAccount,
-                style: TextStyle(fontSize: AppFontSize.regular, fontWeight: FontWeight.w400),),
-              Text(AppStrings.signUp,
-                style: TextStyle(fontSize: AppFontSize.regular,
+              Text(context.l10n.dontHaveAccount,
+                style: const TextStyle(fontSize: AppFontSize.regular, fontWeight: FontWeight.w400)),
+              Text(context.l10n.signUp,
+                style: const TextStyle(fontSize: AppFontSize.regular,
                     fontWeight: FontWeight.w700,
-                    color: AppColors.primaryColor),),
-            ],)
-        ],
-      ),
+                    color: AppColors.primaryColor))
+            ])
+        ])
     );
   }
 
@@ -147,11 +147,11 @@ class _LoginState extends State<Login> {
             child: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.only(left: AppPaddings.regular, right: AppPaddings.regular),
-                child:_loginForm(),
-              ),
-            ),
+                child:_loginForm()
+              )
+            )
           )
-      ),
+      )
     );
   }
 }

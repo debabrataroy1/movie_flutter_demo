@@ -4,4 +4,6 @@ class AppRouteName {
   static const String onboarding = "onboarding";
   static const String login = "login";
   static const String bottomBar = "bottomBar";
+  static const String account = "account";
+  static const String favourites = "favourites";
 }

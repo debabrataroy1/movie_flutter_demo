@@ -1,41 +1,35 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
+enum AppSharedPrefKey {
+  email,
+  password,
+  loginStatus
+}
+
 class AppSharedPref {
-  static const String email = "emailId";
-  static const String password = "username";
-  static const String loginStatus = "loginStatus";
 
-  static setEmail(String email) async {
+   setString({required AppSharedPrefKey key, required String value}) async {
+
     SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setString(email, email);
+    pref.setString(key.name, value);
   }
 
-  static Future<String> getEmail() async {
+   Future<String> getString({required AppSharedPrefKey key}) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    return pref.getString(email) ?? "";
+    return pref.getString(key.name) ?? "";
   }
 
-  static setIsLogin(bool isLogin) async {
+   setBool({required AppSharedPrefKey key, required bool value}) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setBool(loginStatus, isLogin);
+    preferences.setBool(key.name, value);
   }
 
-  static Future<bool> isLogin() async {
+   Future<bool> getBool({required AppSharedPrefKey key}) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    bool isLogin = pref.getBool(loginStatus) ?? false;
-    return isLogin;
+    return pref.getBool(key.name) ?? false;
   }
 
-  static setPassword(String value) async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setString(password, value);
-  }
-
-  static Future<String> getPassword() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    return pref.getString(password) ?? "";
-  }
-  static void clear() async {
+   void clear() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.clear();
   }

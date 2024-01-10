@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movie_flutter_demo/Constants/app_constants.dart';
+import 'package:movie_flutter_demo/Constants/color_constants.dart';
+import 'package:movie_flutter_demo/Constants/font_size_constants.dart';
+import 'package:movie_flutter_demo/Constants/padding_constants.dart';
 
 class ThemeManager {
   static ThemeManager? _instance;

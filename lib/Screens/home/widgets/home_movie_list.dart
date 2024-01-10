@@ -1,8 +1,9 @@
-
 import 'package:flutter/material.dart';
-import 'package:movie_flutter_demo/Constants/api_constants.dart';
-import 'package:movie_flutter_demo/Constants/app_constants.dart';
 import 'package:movie_flutter_demo/Constants/app_string_constant.dart';
+import 'package:movie_flutter_demo/Constants/font_size_constants.dart';
+import 'package:movie_flutter_demo/Constants/padding_constants.dart';
+import 'package:movie_flutter_demo/Constants/spacing_constants.dart';
+import 'package:movie_flutter_demo/Extensions/build_context_extension.dart';
 import 'package:movie_flutter_demo/Helper/bottom_loader.dart';
 import 'package:movie_flutter_demo/Models/home_model.dart';
 import 'package:movie_flutter_demo/Screens/home/widgets/movie_item.dart';
@@ -18,7 +19,7 @@ class HomeMovieList extends StatelessWidget {
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(AppStrings.recentMovies, style: TextStyle(fontSize: AppFontSize.large,
+               Text(context.l10n.recentMovies, style:const TextStyle(fontSize: AppFontSize.large,
                   fontWeight: FontWeight.w600)),
               const SizedBox(height: AppSpacing.extraSmall),
               ListView.builder(

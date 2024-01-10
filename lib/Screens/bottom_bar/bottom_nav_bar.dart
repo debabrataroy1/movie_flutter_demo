@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_flutter_demo/Constants/app_constants.dart';
 import 'package:movie_flutter_demo/Constants/app_string_constant.dart';
+import 'package:movie_flutter_demo/Constants/icons_constants.dart';
+import 'package:movie_flutter_demo/Extensions/build_context_extension.dart';
+import 'package:movie_flutter_demo/Routes/app_router_config.dart';
 import 'package:movie_flutter_demo/Screens/account/account_page.dart';
 import 'package:movie_flutter_demo/Screens/favourites/favourites_page.dart';
 import 'package:movie_flutter_demo/Screens/home/bloc/home_bloc.dart';
@@ -34,22 +36,21 @@ class _AppBottomBarState extends State<AppBottomBar> {
 
   Widget _bottomBar() {
     return BottomNavigationBar(
-      items: const <BottomNavigationBarItem>[
+      items:[
         BottomNavigationBarItem(
-          icon: Icon(AppIcons.home),
-          label: AppStrings.home,
+          icon:const Icon(AppIcons.home),
+          label: context.l10n.home
         ),
         BottomNavigationBarItem(
-          icon: Icon(AppIcons.favourites),
-          label: AppStrings.favourites,
+          icon:const Icon(AppIcons.favourites),
+          label: context.l10n.favourites
         ),
         BottomNavigationBarItem(
-          icon: Icon(AppIcons.account),
-          label: AppStrings.account,
-        ),
-      ],
+          icon:const Icon(AppIcons.account),
+          label: context.l10n.account
+        )],
       currentIndex: _selectedIndex,
-      onTap: _onItemTapped,
+      onTap: _onItemTapped
     );
   }
 
@@ -57,7 +58,7 @@ class _AppBottomBarState extends State<AppBottomBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       body:  _widgetOptions.elementAt(_selectedIndex),
-      bottomNavigationBar: _bottomBar(),
+      bottomNavigationBar: _bottomBar()
     );
   }
 }
