@@ -32,6 +32,7 @@
 <div align="left">
   <img src="https://github.com/debabrataroy1/movie_flutter_demo/blob/main/screenshots/onboarding.jpg?raw=true" height="300" alt="onboarding"  />
   <img src="https://github.com/debabrataroy1/movie_flutter_demo/blob/main/screenshots/login.jpg?raw=true" height="300" alt="onboarding"  />
+  <img src="https://github.com/debabrataroy1/movie_flutter_demo/blob/main/screenshots/home.jpg?raw=true" height="300" alt="onboarding"  />
 
 </div>
 
@@ -41,7 +42,9 @@
 
 ###
 
-<p align="left">cupertino_icons: ^1.0.2<br>  flutter_bloc:<br>  dio:<br>  go_router:<br>  shared_preferences:<br>  retrofit:<br>  json_annotation:</p>
+<p align="left">cupertino_icons: ^1.0.2<br>  flutter_bloc:<br>  dio:<br>  go_router:<br>  shared_preferences:<br>  retrofit:<br>  json_annotation:
+<br> get_it: <br> flutter_localizations: <br> go_router_builder: <br> flutter_gen_runner:
+</p>
 
 ###
 
