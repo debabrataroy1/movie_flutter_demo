@@ -18,5 +18,7 @@
   "incorrectPassword": "Email id or password incorrect",
   "favourites": "Favourites",
   "account": "Account",
-  "recentMovies": "Recent Movies"
+  "recentMovies": "Recent Movies",
+  "adult": "Adult",
+  "ua": "UA"
 }

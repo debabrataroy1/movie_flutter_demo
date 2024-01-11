@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:movie_flutter_demo/Constants/api_constants.dart';
+import 'package:movie_flutter_demo/Constants/app_size_constants.dart';
+import 'package:movie_flutter_demo/Constants/border_radius_constants.dart';
 import 'package:movie_flutter_demo/Constants/color_constants.dart';
 import 'package:movie_flutter_demo/Constants/icon_size_constants.dart';
+import 'package:movie_flutter_demo/Constants/padding_constants.dart';
 import 'package:movie_flutter_demo/Helper/ImageView.dart';
 import 'package:movie_flutter_demo/Models/home_model.dart';
 
@@ -17,19 +20,19 @@ class _CarouselViewState extends State<CarouselView> with SingleTickerProviderSt
 
   late AnimationController _animationController;
   int _currentPage = 0;
-  int totalPage = 0;
+  int _totalPage = 0;
   late PageController _pageController;
 
   @override
   void initState() {
     super.initState();
-    totalPage = widget.movieList?.length ?? 0;
+    _totalPage = widget.movieList?.length ?? 0;
     _pageController = PageController(initialPage: 0);
     _animationController = AnimationController(vsync: this, duration: const Duration(seconds: 5));
     _animationController.addListener(() {
       if (_animationController.status == AnimationStatus.completed) {
         _animationController.reset();
-        if (_currentPage < (totalPage - 1)) {
+        if (_currentPage < (_totalPage - 1)) {
           _currentPage++;
         } else {
           _currentPage = 0;
@@ -49,14 +52,14 @@ class _CarouselViewState extends State<CarouselView> with SingleTickerProviderSt
 
   Widget _indicator(bool isActive) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 4.0),
+      margin: const EdgeInsets.symmetric(horizontal: AppPaddings.mini),
       height: AppIconSize.extraSmall,
       width: AppIconSize.extraSmall,
       decoration: BoxDecoration(
         boxShadow: [
           isActive ? BoxShadow(
             color: AppColors.primaryColor.withOpacity(0.72),
-            blurRadius: 4.0,
+            blurRadius: AppBorderRadius.small,
             spreadRadius: 1.0
           ) : const BoxShadow(
             color: Colors.transparent
@@ -74,7 +77,7 @@ class _CarouselViewState extends State<CarouselView> with SingleTickerProviderSt
         child: Align(
           alignment: FractionalOffset.bottomCenter,
           child: Container(
-            height: 30,
+            height: ContanierSize.regular,
             decoration: BoxDecoration(
                 gradient: LinearGradient(
                     begin: Alignment.bottomCenter,
@@ -96,11 +99,11 @@ class _CarouselViewState extends State<CarouselView> with SingleTickerProviderSt
   Widget build(BuildContext context) {
     _animationController.forward();
     return SizedBox(
-        height: MediaQuery.of(context).size.width / 2,
+        height: AppSize.width / 2,
         child: Stack(
         children: [
           PageView.builder(
-            itemCount: totalPage,
+            itemCount: _totalPage,
             scrollDirection: Axis.horizontal,
             controller: _pageController,
             onPageChanged: (value) {

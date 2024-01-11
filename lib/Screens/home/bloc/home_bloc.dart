@@ -9,6 +9,7 @@ class HomeBloc extends Bloc<HomeBlocEvent, HomeBlocState> {
   HomeRepository? repository;
   HomeResponse? carouselData;
   List<MovieData> homeListData = [];
+  int pageNo = 2;
 
   HomeBloc({this.repository}) : super(HomeInitialState()) {
     on<HomeBlocEvent>(mapEventToState);
@@ -16,16 +17,22 @@ class HomeBloc extends Bloc<HomeBlocEvent, HomeBlocState> {
 
   void mapEventToState(HomeBlocEvent event, Emitter<HomeBlocState> emit) async {
     try {
-      var model = await repository?.getHomeData(event.pageNo);
+      HomeResponse? model;
+      if( event is HomeFetchDataEvent) {
+        emit(HomeLoadMoreState(true));
+        model = await repository?.getHomeData(pageNo);
+      } else {
+        model = await repository?.getHomeData(1);
+      }
       if (model != null) {
         if( event is FetchCarouselDataEvent) {
           carouselData = model;
           emit(HomeCarouselSuccessState());
         } else {
-          model.results?.forEach((element) {
-            homeListData.add(element);
-          });
-          emit(HomeListSuccessState((model.page ?? 2) + 1));
+          homeListData.addAll( model.results ?? []);
+          pageNo++;
+          emit(HomeListSuccessState());
+          emit(HomeLoadMoreState(false));
         }
       } else {
         emit(HomeError(''));
