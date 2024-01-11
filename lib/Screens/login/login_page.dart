@@ -54,8 +54,8 @@ class _LoginState extends State<Login> {
       controller: _emailEditingController,
       validator: (value) {
         if (value != null) {
-          if (Validator.isEmailValid(value) != null) {
-            return Validator.isEmailValid(value);
+          if (Validator.isEmailValid(context, email: value) != null) {
+            return Validator.isEmailValid(context, email: value);
           }
         }
         return null;
@@ -71,8 +71,8 @@ class _LoginState extends State<Login> {
       isPassword: true,
       validator: (value) {
         if (value != null) {
-          if (Validator.isValidPassword(value) != null) {
-            return Validator.isValidPassword(value);
+          if (Validator.isValidPassword(context, password: value) != null) {
+            return Validator.isValidPassword(context, password: value);
           }
         }
         return null;
