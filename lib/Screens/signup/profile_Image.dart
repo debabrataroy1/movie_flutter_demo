@@ -31,7 +31,7 @@ class _ProfileImageState extends State<ProfileImage> {
                   alignment: AlignmentDirectional.center,
                   decoration: BoxDecoration(
                     border: Border.all(
-                        color: Colors.red,
+                        color: AppColors.primaryColor,
                         width: 2.0
                     ),
                     borderRadius: BorderRadius.circular(AppBorderRadius.extraLarge),
@@ -47,7 +47,7 @@ class _ProfileImageState extends State<ProfileImage> {
               top: 60,
               child: InkWell(
                   onTap:(){
-                    AppImagePicker(context, pickerImage:(image){
+                    AppImagePicker(context, pickerImage:(image) {
                       setState(() {
                         _pickedImage = image;
                       });
@@ -59,9 +59,9 @@ class _ProfileImageState extends State<ProfileImage> {
                   child: Container(
                       padding: const EdgeInsets.all(AppPaddings.mini),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: AppColors.whiteTextColor,
                         border: Border.all(
-                          color: Colors.red,
+                          color: AppColors.primaryColor,
                           width: 1.0,
                         ),
                         borderRadius: BorderRadius.circular(AppBorderRadius.medium),

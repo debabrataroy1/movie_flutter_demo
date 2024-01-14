@@ -10,9 +10,17 @@ class FileManager {
     return localImage;
   }
 
-  Future<File> getFile(String fileName) async {
+  Future<File?> getFile(String fileName) async {
+    if (fileName.isEmpty) {
+      return null;
+    }
     String path = await _getPath();
-    return File('$path/$fileName');
+    File file = File('$path/$fileName');
+    if (file.existsSync()) {
+    return file;
+    } else {
+      return null;
+    }
   }
 
   Future<String> _getPath() async {

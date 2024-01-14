@@ -34,5 +34,14 @@
   "genderIsRequired": "Please select gender",
   "chooseImage": "Choose image source",
   "camera": "Camera",
-  "gallery":  "Gallery"
+  "gallery":  "Gallery",
+  "personalInformation": "Personal Information",
+  "utilities": "Utilities",
+  "logout": "Logout",
+  "clearAppData": "Clear app data",
+  "cancel": "Cancel",
+  "logoutMessage": "Are you sure you want to logout?",
+  "delete": "Delete",
+  "dataDeleteMessage": "Are you sure you want to clear app data?",
+  "clear": "Clear"
 }

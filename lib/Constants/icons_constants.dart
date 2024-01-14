@@ -5,4 +5,7 @@ class AppIcons {
   static const favourites = Icons.favorite_border_outlined;
   static const favouriteFill = Icons.favorite;
   static const edit = Icons.edit;
+  static const logout = Icons.logout;
+  static const clear = Icons.cleaning_services;
+  static const arrow = Icons.chevron_right_rounded;
 }

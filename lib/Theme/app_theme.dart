@@ -55,7 +55,7 @@ class ThemeManager {
       canvasColor: Colors.grey.shade900,
       colorScheme: const ColorScheme(
         brightness: Brightness.dark,
-        primary: Color(0xff212121),
+        primary: AppColors.primaryColor,
         onPrimary: Color(0xffffffff),
         secondary: AppColors.primaryColor,
         onSecondary: Color(0xff212121),
