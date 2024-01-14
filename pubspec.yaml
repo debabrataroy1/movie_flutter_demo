@@ -61,6 +61,9 @@ dev_dependencies:
   retrofit:
   json_annotation:
   go_router_builder:
+  image_picker:
+  path_provider:
+  path:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -79,6 +82,9 @@ flutter:
     - assets/images/placeholder.png
     - assets/images/movie-poster.jpg
     - assets/images/logo.png
+    - assets/images/other.png
+    - assets/images/woman.png
+    - assets/images/man.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

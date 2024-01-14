@@ -13,6 +13,7 @@ List<RouteBase> get $appRoutes => [
       $bottombarRoute,
       $accountRoute,
       $favouritesRoute,
+      $signupRoute,
     ];
 
 RouteBase get $loginRoute => GoRouteData.$route(
@@ -138,6 +139,28 @@ extension $FavouritesRouteExtension on FavouritesRoute {
 
   String get location => GoRouteData.$location(
         '/favourites',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $signupRoute => GoRouteData.$route(
+      path: '/signup',
+      factory: $SignupRouteExtension._fromState,
+    );
+
+extension $SignupRouteExtension on SignupRoute {
+  static SignupRoute _fromState(GoRouterState state) => const SignupRoute();
+
+  String get location => GoRouteData.$location(
+        '/signup',
       );
 
   void go(BuildContext context) => context.go(location);

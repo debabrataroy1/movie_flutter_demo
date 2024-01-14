@@ -3,7 +3,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 enum AppSharedPrefKey {
   email,
   password,
-  loginStatus
+  loginStatus,
+  fullName,
+  dob,
+  gender,
+  profileImage
 }
 
 class AppSharedPref {

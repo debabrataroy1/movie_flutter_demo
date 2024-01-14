@@ -15,16 +15,26 @@ class $AssetsImagesGen {
   /// File path: assets/images/logo.png
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
 
+  /// File path: assets/images/man.png
+  AssetGenImage get man => const AssetGenImage('assets/images/man.png');
+
   /// File path: assets/images/movie-poster.jpg
   AssetGenImage get moviePoster =>
       const AssetGenImage('assets/images/movie-poster.jpg');
+
+  /// File path: assets/images/other.png
+  AssetGenImage get other => const AssetGenImage('assets/images/other.png');
 
   /// File path: assets/images/placeholder.png
   AssetGenImage get placeholder =>
       const AssetGenImage('assets/images/placeholder.png');
 
+  /// File path: assets/images/woman.png
+  AssetGenImage get woman => const AssetGenImage('assets/images/woman.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [logo, moviePoster, placeholder];
+  List<AssetGenImage> get values =>
+      [logo, man, moviePoster, other, placeholder, woman];
 }
 
 class Assets {

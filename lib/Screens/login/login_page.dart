@@ -129,10 +129,15 @@ class _LoginState extends State<Login> {
             children: [
               Text(context.l10n.dontHaveAccount,
                 style: const TextStyle(fontSize: AppFontSize.regular, fontWeight: FontWeight.w400)),
-              Text(context.l10n.signUp,
-                style: const TextStyle(fontSize: AppFontSize.regular,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.primaryColor))
+              InkWell(
+                onTap: (){
+                  const SignupRoute().go(context);
+                },
+                child: Text(context.l10n.signUp,
+                  style: const TextStyle(fontSize: AppFontSize.regular,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.primaryColor)),
+              )
             ])
         ])
     );

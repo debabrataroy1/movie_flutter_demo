@@ -11,9 +11,10 @@ import 'state/login_state.dart';
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginInitialState()) { }
 
-  void loginIn(Map request) async{
-    if (request[LoginApiKeys.email] == AppData.email && request[LoginApiKeys.password] == AppData.password) {
-      var sharedInstance = AppInjector.getIt<AppSharedPref>();
+  void loginIn(Map request) async {
+    var sharedInstance = AppInjector.getIt<AppSharedPref>();
+    if (request[LoginApiKeys.email] == await sharedInstance.getString(key: AppSharedPrefKey.email)
+        && request[LoginApiKeys.password] == AppUtility.decrypt(AppData.encryptKey, await sharedInstance.getString(key: AppSharedPrefKey.password))) {
       sharedInstance.setString(key:AppSharedPrefKey.email,value:request[LoginApiKeys.email]);
       sharedInstance.setString(key:AppSharedPrefKey.password,value:AppUtility.encrypt(AppData.encryptKey, request[LoginApiKeys.password]).base64);
       sharedInstance.setBool(key:AppSharedPrefKey.loginStatus,value: true);

@@ -10,6 +10,7 @@ import 'package:movie_flutter_demo/Screens/home/bloc/home_bloc.dart';
 import 'package:movie_flutter_demo/Screens/home/repository/home_repository.dart';
 import 'package:movie_flutter_demo/Screens/login/login_page.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_flutter_demo/Screens/signup/signup_page.dart';
 import '../Screens/home/home_page.dart';
 import '../Screens/onboarding/onboarding_page.dart';
 part 'app_router_config.g.dart';
@@ -99,4 +100,15 @@ class FavouritesRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       const FavouritesPage();
+}
+
+@TypedGoRoute<SignupRoute>(
+  path: '/${AppRouteName.signup}',
+)
+class SignupRoute extends GoRouteData {
+  const SignupRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+       SignupPage();
 }

@@ -4,4 +4,5 @@ class AppIcons {
   static const account = Icons.account_circle_outlined;
   static const favourites = Icons.favorite_border_outlined;
   static const favouriteFill = Icons.favorite;
+  static const edit = Icons.edit;
 }

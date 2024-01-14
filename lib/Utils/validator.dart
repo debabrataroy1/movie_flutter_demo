@@ -31,4 +31,13 @@ class Validator {
     }
     return null;
   }
+  static String? isValidName(BuildContext context, {String? name}) {
+    var nameRegexp = RegExp(r"^[a-zA-Z]+$");
+    if (isEmpty(name)) {
+      return  context.l10n.nameIsRequired;
+    } else if (!nameRegexp.hasMatch(name ?? '')) {
+      return context.l10n.enterValidName;
+    }
+    return null;
+  }
 }
