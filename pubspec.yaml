@@ -39,8 +39,10 @@ dependencies:
   dio:
   go_router:
   shared_preferences:
-  retrofit:
-  json_annotation:
+  encrypt:
+  get_it:
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:
@@ -55,6 +57,13 @@ dev_dependencies:
   retrofit_generator:
   build_runner:
   json_serializable:
+  flutter_gen_runner:
+  retrofit:
+  json_annotation:
+  go_router_builder:
+  image_picker:
+  path_provider:
+  path:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -66,11 +75,16 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  generate: true
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/
-  #   - images/a_dot_ham.jpeg
+    - assets/images/placeholder.png
+    - assets/images/movie-poster.jpg
+    - assets/images/logo.png
+    - assets/images/other.png
+    - assets/images/woman.png
+    - assets/images/man.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
