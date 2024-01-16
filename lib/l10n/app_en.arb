@@ -43,5 +43,10 @@
   "logoutMessage": "Are you sure you want to logout?",
   "delete": "Delete",
   "dataDeleteMessage": "Are you sure you want to clear app data?",
-  "clear": "Clear"
+  "clear": "Clear",
+  "successfullyAdd": "Movie successfully added in WishList",
+  "successfullyRemoved": "Movie successfully removed from WishList",
+  "dbError": "Unable to update data",
+  "myFavouriteList": "Favourite List",
+  "noFavouriteYet": "No Favourite Yet"
 }

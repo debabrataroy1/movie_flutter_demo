@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 
 class AppSize {
@@ -9,4 +7,5 @@ class AppSize {
 
 class ContanierSize {
   static const double regular = 30.0;
+  static const double extraLarge = 120.0;
 }

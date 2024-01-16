@@ -32,7 +32,8 @@ class _AccountPageState extends State<AccountPage> {
     super.initState();
   }
   getData() async {
-    _pickedImage = await FileManager().getFile(await sharedInstance.getString(key: AppSharedPrefKey.profileImage));
+    FileManager fileManager = AppInjector.getIt<FileManager>();
+    _pickedImage = await fileManager.getFile(await sharedInstance.getString(key: AppSharedPrefKey.profileImage));
     name = await sharedInstance.getString(key: AppSharedPrefKey.fullName);
     email = await sharedInstance.getString(key: AppSharedPrefKey.email);
     dob = await sharedInstance.getString(key: AppSharedPrefKey.dob);

@@ -1,16 +1,12 @@
 import 'package:movie_flutter_demo/Constants/app_data.dart';
 import 'package:movie_flutter_demo/di/injector.dart';
-import '../../../Models/home_model.dart';
-import '../../../NetworkManager/api_services.dart';
+import 'package:movie_flutter_demo/Models/home_model.dart';
+import 'package:movie_flutter_demo/NetworkManager/api_services.dart';
 
-abstract class HomeRepository {
-  Future<HomeResponse?> getHomeData(int pageNo);
-}
-
-class HomeRepositoryImp implements HomeRepository {
+class HomeRepository {
   late APIServices _apiServices;
 
-  HomeRepositoryImp() {
+  HomeRepository() {
     _apiServices = AppInjector.getIt<APIServices>();
   }
 

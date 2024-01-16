@@ -1,4 +1,8 @@
 
+import 'dart:ffi';
+
+import 'package:movie_flutter_demo/Models/home_model.dart';
+
 abstract class HomeBlocEvent {
 
   @override

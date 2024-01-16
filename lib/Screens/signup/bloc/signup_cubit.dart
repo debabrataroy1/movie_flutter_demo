@@ -11,9 +11,9 @@ import 'package:movie_flutter_demo/di/injector.dart';
 import 'package:path/path.dart';
 
 class SignupCubit extends Cubit<SignupState> {
-  SignupCubit() : super(SignupInitialState()) { }
+  SignupCubit() : super(SignupInitialState());
 
-  void signup(Map request) async{
+  void signup(Map request) async {
       var sharedInstance = AppInjector.getIt<AppSharedPref>();
       sharedInstance.setString(key:AppSharedPrefKey.fullName, value:request[LoginApiKeys.name]);
       sharedInstance.setString(key:AppSharedPrefKey.gender, value:request[LoginApiKeys.gender]);
@@ -21,7 +21,8 @@ class SignupCubit extends Cubit<SignupState> {
       sharedInstance.setString(key:AppSharedPrefKey.email, value:request[LoginApiKeys.email]);
       sharedInstance.setString(key:AppSharedPrefKey.password,value:AppUtility.encrypt(AppData.encryptKey, request[LoginApiKeys.password]).base64);
       if (request[LoginApiKeys.image] is File) {
-       var path = await FileManager().saveFile(request[LoginApiKeys.image]);
+        FileManager fileManager = AppInjector.getIt<FileManager>();
+        var path = await fileManager.saveFile(request[LoginApiKeys.image]);
        sharedInstance.setString(key:AppSharedPrefKey.profileImage, value:basename(path.path));
       }
       sharedInstance.setBool(key:AppSharedPrefKey.loginStatus,value: true);

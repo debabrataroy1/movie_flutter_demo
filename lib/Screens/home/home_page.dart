@@ -5,126 +5,93 @@ import 'package:movie_flutter_demo/Helper/bottom_loader.dart';
 import 'package:movie_flutter_demo/Screens/home/bloc/event/home_bloc_event.dart';
 import 'package:movie_flutter_demo/Screens/home/widgets/carousel_view.dart';
 import 'package:movie_flutter_demo/Screens/home/widgets/home_movie_list.dart';
-
 import 'bloc/home_bloc.dart';
 import 'bloc/state/home_bloc_state.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomePage extends StatelessWidget {
+  final ScrollController _scrollController = ScrollController();
+  List<int> _wishListItems = [];
+  late HomeBloc homeBloc;
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  late HomeBloc _homeBloc;
-  @override
-  void initState() {
-    _homeBloc = context.read<HomeBloc>();
-    _homeBloc.add(FetchCarouselDataEvent());
-    _loadMoreData();
-
-    super.initState();
+  HomePage( {super.key}) {
+    _scrollController.addListener(_scrollListener);
   }
 
   _loadMoreData() {
-    _homeBloc.add(HomeFetchDataEvent());
+    homeBloc.mapEventToState(HomeFetchDataEvent());
   }
 
-  bool _onNotification(ScrollNotification notification) {
-    if (notification is ScrollEndNotification &&
-        notification.metrics.extentAfter == 0 &&
-        (_homeBloc.pageNo < (_homeBloc.carouselData?.totalPages ?? 0))) {
+  bool _scrollListener() {
+    if (_scrollController.position.extentAfter == 0 &&
+        (homeBloc.pageNo < (homeBloc.carouselData?.totalPages ?? 0))
+        && !homeBloc.isLoading) {
       _loadMoreData();
     }
     return false;
   }
 
-  Widget _blocListener() {
-    return BlocListener<HomeBloc, HomeBlocState>(
-        listenWhen: (context, state) {
-          return state is HomeError;
-        },
-        listener: (context, state) {
-          if (state is HomeError) {
-            SnackBar snackBar = SnackBar(
-                content: Text(state.message ?? '')
-            );
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          }
-        },
-        child: Container()
-    );
-  }
-
-  Widget _carouselWidget() {
-    return BlocBuilder<HomeBloc, HomeBlocState>(
-        buildWhen: (context, state) {
-          return state is HomeCarouselSuccessState;
-        },
-        bloc: _homeBloc,
-        builder: (context, state) {
-          if (state is HomeCarouselSuccessState) {
-            return  Visibility(
-                visible: (_homeBloc.carouselData?.results?.length ?? 0) > 0,
-                child: CarouselView(_homeBloc.carouselData?.results));
-          }
-          return const SizedBox.shrink();
-        }
-    );
-  }
-  Widget _listWidget() {
-    return BlocBuilder<HomeBloc, HomeBlocState>(
-        buildWhen: (context, state) {
-          return state is HomeListSuccessState;
-        },
-        bloc: _homeBloc,
-        builder: (context, state) {
-          if (state is HomeListSuccessState) {
-            return  Visibility(
-                visible: _homeBloc.homeListData.isNotEmpty,
-                child: HomeMovieList(_homeBloc.homeListData));
-          }
-          return const SizedBox.shrink();
-        }
-    );
-  }
-
-  Widget _bottomWidget() {
-    return BlocBuilder<HomeBloc, HomeBlocState>(
-      buildWhen: (context, state) {
-        return state is HomeLoadMoreState;
-      },
-      bloc: _homeBloc,
-      builder: (context, state) {
-        if (state is HomeLoadMoreState) {
-          return  Visibility(
-              visible: state.isLoadMore ?? false,
-              child: const BottomLoader());
-        }
-        return const SizedBox.shrink();
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+    homeBloc = context.read<HomeBloc>();
     return Scaffold(
         appBar: AppBar(title: Text(context.l10n.home)),
-        body:NotificationListener<ScrollNotification>(
-            onNotification: _onNotification,
-            child: BlocProvider<HomeBloc>(
-                create: (context)=> _homeBloc,
-                child: SingleChildScrollView(
-                    child:Column(
-                        children: [
-                          _blocListener(),
-                          _carouselWidget(),
-                          _listWidget(),
-                          _bottomWidget()
-                        ])
-                )
-            )
+        body:SingleChildScrollView(
+            controller: _scrollController,
+            child:Column(
+                children: [
+                  BlocListener<HomeBloc, HomeBlocState>(
+                      listenWhen: (context, state) {
+                        return state is HomeError || state is AllWishListState;
+                      },
+                      listener: (context, state) {
+                        if (state is HomeError) {
+                          SnackBar snackBar = SnackBar(
+                              content: Text(state.message ?? '')
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        } if (state is AllWishListState) {
+                          _wishListItems = state.wishListItems;
+                        }
+                      },
+                    child: const SizedBox.shrink(),
+                  ),
+                  BlocBuilder<HomeBloc, HomeBlocState>(
+                      buildWhen: (context, state) {
+                        return state is HomeCarouselSuccessState;
+                      },
+                      builder: (context, state) {
+                        return  Visibility(
+                            visible: (homeBloc.carouselData?.results?.length ?? 0) > 0,
+                            child: CarouselView(homeBloc.carouselData?.results));
+                      }
+                  ),
+                  BlocBuilder<HomeBloc, HomeBlocState>(
+                      buildWhen: (context, state) {
+                        return state is HomeListSuccessState;
+                      },
+                      builder: (context, state) {
+                        return  Visibility(
+                            visible: homeBloc.homeListData.isNotEmpty,
+                            child: HomeMovieList(context.l10n.recentMovies, homeBloc.homeListData, wishListAction:(id, isAdded){
+                              if (isAdded) {
+                                _wishListItems.add(id);
+                              } else {
+                                _wishListItems.remove(id);
+                              }
+                            }, wishListItems: _wishListItems));
+                      }
+                  ),
+                  BlocBuilder<HomeBloc, HomeBlocState>(
+                      buildWhen: (context, state) {
+                        return state is HomeLoadMoreState;
+                      },
+                      builder: (context, state) {
+                        return  Visibility(
+                            visible: (state as HomeLoadMoreState).isLoadMore ?? false,
+                            child: const BottomLoader());
+                      }
+                  )
+                ])
         )
     );
   }

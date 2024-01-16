@@ -13,7 +13,6 @@ enum AppSharedPrefKey {
 class AppSharedPref {
 
   setString({required AppSharedPrefKey key, required String value}) async {
-
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString(key.name, value);
   }

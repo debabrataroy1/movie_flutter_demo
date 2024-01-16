@@ -9,7 +9,7 @@ import 'package:movie_flutter_demo/di/injector.dart';
 import 'state/login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit() : super(LoginInitialState()) { }
+  LoginCubit() : super(LoginInitialState());
 
   void loginIn(Map request) async {
     var sharedInstance = AppInjector.getIt<AppSharedPref>();

@@ -65,8 +65,8 @@ class HomeRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       BlocProvider(
-          create: ( context)=>HomeBloc(repository: HomeRepositoryImp()),
-          child: const HomePage());
+          create: ( context)=> HomeBloc(repository: HomeRepository()),
+          child:  HomePage());
 }
 
 @TypedGoRoute<BottombarRoute>(
@@ -99,7 +99,7 @@ class FavouritesRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) =>
-      const FavouritesPage();
+      FavouritesPage();
 }
 
 @TypedGoRoute<SignupRoute>(
