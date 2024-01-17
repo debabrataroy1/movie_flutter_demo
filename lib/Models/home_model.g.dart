@@ -32,7 +32,8 @@ MovieData _$MovieDataFromJson(Map<String, dynamic> json) => MovieData(
       voteAverage: (json['vote_average'] as num?)?.toDouble(),
       voteCount: json['vote_count'] as int?,
       language: json['original_language'] as String?,
-    );
+      poster: json['poster_path'] as String?,
+    )..popularity = (json['popularity'] as num?)?.toDouble();
 
 Map<String, dynamic> _$MovieDataToJson(MovieData instance) => <String, dynamic>{
       'backdrop_path': instance.imageUrl,
@@ -44,5 +45,7 @@ Map<String, dynamic> _$MovieDataToJson(MovieData instance) => <String, dynamic>{
       'release_date': instance.releaseDate,
       'vote_count': instance.voteCount,
       'vote_average': instance.voteAverage,
+      'popularity': instance.popularity,
       'original_language': instance.language,
+      'poster_path': instance.poster,
     };

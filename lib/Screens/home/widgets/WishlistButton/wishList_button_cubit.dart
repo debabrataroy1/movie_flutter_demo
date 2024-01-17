@@ -3,11 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_flutter_demo/Extensions/build_context_extension.dart';
 import 'package:movie_flutter_demo/Models/home_model.dart';
 import 'package:movie_flutter_demo/Screens/home/widgets/WishlistButton/wishlist_cubit_state.dart';
-import 'package:movie_flutter_demo/Utils/DBManager.dart';
+import 'package:movie_flutter_demo/Utils/db_manager.dart';
 import 'package:movie_flutter_demo/di/injector.dart';
 
 class WishListCubit extends Cubit<WishListState> {
-  WishListCubit() : super(WishListInitState()) { }
+  WishListCubit() : super(WishListInitState());
+
+  void reloadUI() {
+    emit(WishListInitState());
+  }
 
   void addRemoveWishlist(BuildContext context, MovieData movie, {bool isNeedToAdd = true}) async {
     var db = AppInjector.getIt<DBManager>();

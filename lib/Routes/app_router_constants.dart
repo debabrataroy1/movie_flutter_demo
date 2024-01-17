@@ -7,4 +7,5 @@ class AppRouteName {
   static const String account = "account";
   static const String favourites = "favourites";
   static const String signup = "signup";
+  static const String detail = "details";
 }

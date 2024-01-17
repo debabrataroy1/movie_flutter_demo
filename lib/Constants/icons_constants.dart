@@ -8,4 +8,6 @@ class AppIcons {
   static const logout = Icons.logout;
   static const clear = Icons.cleaning_services;
   static const arrow = Icons.chevron_right_rounded;
+  static const share = Icons.share;
+  static const back = Icons.arrow_back_ios;
 }

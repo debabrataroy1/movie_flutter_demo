@@ -153,7 +153,7 @@ class SignupPage extends StatelessWidget {
                                           );
                                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                         } else if (state is SignupSuccessState) {
-                                          const BottombarRoute().pushReplacement(context);
+                                          const BottombarRoute().go(context);
                                         }
                                       },
                                       builder: (context, state) {

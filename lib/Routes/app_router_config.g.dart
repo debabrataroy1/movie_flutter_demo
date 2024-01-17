@@ -14,6 +14,7 @@ List<RouteBase> get $appRoutes => [
       $accountRoute,
       $favouritesRoute,
       $signupRoute,
+      $detailRoute,
     ];
 
 RouteBase get $loginRoute => GoRouteData.$route(
@@ -171,4 +172,30 @@ extension $SignupRouteExtension on SignupRoute {
       context.pushReplacement(location);
 
   void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $detailRoute => GoRouteData.$route(
+      path: '/details',
+      factory: $DetailRouteExtension._fromState,
+    );
+
+extension $DetailRouteExtension on DetailRoute {
+  static DetailRoute _fromState(GoRouterState state) => DetailRoute(
+        state.extra as (MovieData, bool, dynamic Function(int, bool)?),
+      );
+
+  String get location => GoRouteData.$location(
+        '/details',
+      );
+
+  void go(BuildContext context) => context.go(location, extra: $extra);
+
+  Future<T?> push<T>(BuildContext context) =>
+      context.push<T>(location, extra: $extra);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location, extra: $extra);
+
+  void replace(BuildContext context) =>
+      context.replace(location, extra: $extra);
 }

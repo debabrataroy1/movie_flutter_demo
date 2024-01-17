@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:movie_flutter_demo/Constants/app_size_constants.dart';
 import 'package:movie_flutter_demo/Routes/app_router_config.dart';
 import 'package:movie_flutter_demo/gen/assets.gen.dart';
@@ -40,7 +39,7 @@ class OnboardingPage extends StatelessWidget {
                           fontWeight: FontWeight.w600, color: AppColors.whiteTextColor)),
                   _spacing(),
                   AppElevatedButton(title: context.l10n.getStarted,onPressed:  () {
-                    const LoginRoute().go(context);
+                    const LoginRoute().push(context);
                   })
                 ])
         )

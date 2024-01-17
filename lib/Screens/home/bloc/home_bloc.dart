@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_flutter_demo/Models/home_model.dart';
-import 'package:movie_flutter_demo/Utils/DBManager.dart';
+import 'package:movie_flutter_demo/Utils/db_manager.dart';
 import 'package:movie_flutter_demo/di/injector.dart';
 import 'package:movie_flutter_demo/Screens/home/repository/home_repository.dart';
 import 'package:movie_flutter_demo/Screens/home/bloc/state/home_bloc_state.dart';
@@ -8,10 +8,10 @@ import 'package:movie_flutter_demo/Screens/home/bloc/event/home_bloc_event.dart'
 
 class HomeBloc extends Bloc<HomeBlocEvent, HomeBlocState> {
   HomeRepository? repository;
-  HomeResponse? carouselData;
+  int totalPages = 0;
   List<MovieData> homeListData = [];
+  List<MovieData> homeCarouselData = [];
   int pageNo = 2;
-  bool isLoading = false;
 
   HomeBloc({this.repository}) : super(HomeInitialState()) {
     mapEventToState(FetchCarouselDataEvent());
@@ -22,8 +22,6 @@ class HomeBloc extends Bloc<HomeBlocEvent, HomeBlocState> {
     try {
       HomeResponse? model;
       if( event is HomeFetchDataEvent) {
-        isLoading = true;
-        emit(HomeLoadMoreState(true));
         model = await repository?.getHomeData(pageNo);
       } else {
         List<int> ids = await AppInjector.getIt<DBManager>().getAllIds();
@@ -32,21 +30,19 @@ class HomeBloc extends Bloc<HomeBlocEvent, HomeBlocState> {
       }
       if (model != null) {
         if( event is FetchCarouselDataEvent) {
-          carouselData = model;
+          totalPages = model.totalPages ?? 0;
+          homeCarouselData = (((model.results?.length ?? 0) > 9) ? model.results?.getRange(0, 9).toList() : model.results) ?? [];
           emit(HomeCarouselSuccessState());
         } else {
           homeListData.addAll( model.results ?? []);
           pageNo++;
           emit(HomeListSuccessState());
-          emit(HomeLoadMoreState(false));
         }
       } else {
         emit(HomeError(''));
       }
-      isLoading = false;
     } catch (error, _) {
       emit(HomeError(error.toString()));
-      isLoading = false;
     }
   }
 }

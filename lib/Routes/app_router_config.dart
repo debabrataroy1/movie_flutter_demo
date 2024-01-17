@@ -2,7 +2,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_flutter_demo/Constants/app_shared_pref.dart';
+import 'package:movie_flutter_demo/Models/home_model.dart';
 import 'package:movie_flutter_demo/Routes/app_router_constants.dart';
+import 'package:movie_flutter_demo/Screens/Details/details_page.dart';
 import 'package:movie_flutter_demo/Screens/account/account_page.dart';
 import 'package:movie_flutter_demo/Screens/bottom_bar/bottom_nav_bar.dart';
 import 'package:movie_flutter_demo/Screens/favourites/favourites_page.dart';
@@ -17,19 +19,19 @@ part 'app_router_config.g.dart';
 
 class AppRouter {
   GoRouter router = GoRouter(
-      initialLocation: '/',
-      routes: $appRoutes,
-      redirect: (BuildContext context, GoRouterState state) async {
-        var app = GetIt.instance<AppSharedPref>();
-        if (state.fullPath == '/') {
-          var isLogin = await app.getBool(key: AppSharedPrefKey.loginStatus);
-          if (isLogin) {
-            return const BottombarRoute().location;
-          } else {
-            return null;
-          }
+    initialLocation: '/',
+    routes: $appRoutes,
+    redirect: (BuildContext context, GoRouterState state) async {
+      var app = GetIt.instance<AppSharedPref>();
+      if (state.fullPath == '/') {
+        var isLogin = await app.getBool(key: AppSharedPrefKey.loginStatus);
+        if (isLogin) {
+          return const BottombarRoute().location;
+        } else {
+          return null;
         }
       }
+    }
   );
 }
 
@@ -41,9 +43,8 @@ class LoginRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) =>
-      const Login();
+      Login();
 }
-
 
 @TypedGoRoute<OnboardingRoute>(
   path: '/',
@@ -110,5 +111,19 @@ class SignupRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) =>
-       SignupPage();
+      SignupPage();
+}
+
+@TypedGoRoute<DetailRoute>(
+  path: '/${AppRouteName.detail}',
+)
+class DetailRoute extends GoRouteData {
+  DetailRoute(this.$extra);
+  final (MovieData,bool,Function(int,bool)?) $extra;
+  // final bool isWishlist;
+  // final Function(int,bool)? wishListAction;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      DetailPage($extra);
 }

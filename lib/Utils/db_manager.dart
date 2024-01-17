@@ -13,7 +13,9 @@ enum WishlistTableColumns {
   releaseDate,
   voteCount,
   voteAverage,
-  language
+  language,
+  poster,
+  popularity
 }
 
 class DBManager {
@@ -46,8 +48,10 @@ class DBManager {
             ${WishlistTableColumns.mediaType.name} TEXT NULL,
             ${WishlistTableColumns.releaseDate.name} TEXT NULL,
             ${WishlistTableColumns.language.name} TEXT NULL,
+            ${WishlistTableColumns.poster.name} TEXT NULL,
             ${WishlistTableColumns.adult.name} INTEGER NULL,
             ${WishlistTableColumns.voteAverage.name} REAL NULL,
+            ${WishlistTableColumns.popularity.name} REAL NULL,
             ${WishlistTableColumns.voteCount.name} INTEGER NULL
           )
           ''');

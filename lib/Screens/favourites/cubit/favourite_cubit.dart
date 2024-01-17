@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_flutter_demo/Screens/favourites/cubit/state/favourite_state.dart';
-import 'package:movie_flutter_demo/Utils/DBManager.dart';
+import 'package:movie_flutter_demo/Utils/db_manager.dart';
 import 'package:movie_flutter_demo/di/injector.dart';
 
 class FavouriteCubit extends Cubit<FavouriteState> {

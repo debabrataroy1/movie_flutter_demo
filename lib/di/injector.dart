@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:movie_flutter_demo/Constants/app_shared_pref.dart';
 import 'package:movie_flutter_demo/NetworkManager/api_services.dart';
-import 'package:movie_flutter_demo/Utils/DBManager.dart';
+import 'package:movie_flutter_demo/Utils/db_manager.dart';
 import 'package:movie_flutter_demo/Utils/file_manager.dart';
 
 class AppInjector {

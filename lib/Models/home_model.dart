@@ -28,10 +28,14 @@ class MovieData {
   int? voteCount;
   @JsonKey(name: "vote_average")
   double? voteAverage;
+  double? popularity;
   @JsonKey(name: "original_language")
   String? language;
+  @JsonKey(name: "poster_path")
+  String? poster;
 
-  MovieData({this.imageUrl,this.adult, this.id, this.title, this.overview, this.mediaType, this.releaseDate, this.voteAverage, this.voteCount, this.language});
+
+  MovieData({this.imageUrl,this.adult, this.id, this.title, this.overview, this.mediaType, this.releaseDate, this.voteAverage, this.voteCount, this.language, this.poster});
 
   factory MovieData.fromJson(Map<String, dynamic> json) => _$MovieDataFromJson(json);
 
@@ -44,8 +48,10 @@ class MovieData {
     mediaType = map['mediaType'] as String;
     releaseDate = map['releaseDate'] as String;
     voteAverage = (map['voteAverage'] as num?)?.toDouble();
+    popularity = (map['popularity'] as num?)?.toDouble();
     voteCount = map['voteCount'] as int;
     language = map['language'] as String;
+    poster = map['poster'] as String;
   }
 
 
@@ -59,6 +65,8 @@ class MovieData {
     'releaseDate': instance.releaseDate,
     'voteCount': instance.voteCount,
     'voteAverage': instance.voteAverage,
-    'language': instance.language
+    'language': instance.language,
+    'poster': instance.poster,
+    'popularity': instance.popularity
   };
 }

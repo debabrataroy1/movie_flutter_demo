@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget {
   final ScrollController _scrollController = ScrollController();
   List<int> _wishListItems = [];
   late HomeBloc homeBloc;
-
+  ValueNotifier<bool> isLoading = ValueNotifier<bool>(true);
   HomePage( {super.key}) {
     _scrollController.addListener(_scrollListener);
   }
@@ -23,8 +23,9 @@ class HomePage extends StatelessWidget {
 
   bool _scrollListener() {
     if (_scrollController.position.extentAfter == 0 &&
-        (homeBloc.pageNo < (homeBloc.carouselData?.totalPages ?? 0))
-        && !homeBloc.isLoading) {
+        (homeBloc.pageNo < (homeBloc?.totalPages ?? 0))
+        && !isLoading.value) {
+      isLoading.value = true;
       _loadMoreData();
     }
     return false;
@@ -40,19 +41,19 @@ class HomePage extends StatelessWidget {
             child:Column(
                 children: [
                   BlocListener<HomeBloc, HomeBlocState>(
-                      listenWhen: (context, state) {
-                        return state is HomeError || state is AllWishListState;
-                      },
-                      listener: (context, state) {
-                        if (state is HomeError) {
-                          SnackBar snackBar = SnackBar(
-                              content: Text(state.message ?? '')
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        } if (state is AllWishListState) {
-                          _wishListItems = state.wishListItems;
-                        }
-                      },
+                    listenWhen: (context, state) {
+                      return state is HomeError || state is AllWishListState;
+                    },
+                    listener: (context, state) {
+                      if (state is HomeError) {
+                        SnackBar snackBar = SnackBar(
+                            content: Text(state.message ?? '')
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      } if (state is AllWishListState) {
+                        _wishListItems = state.wishListItems;
+                      }
+                    },
                     child: const SizedBox.shrink(),
                   ),
                   BlocBuilder<HomeBloc, HomeBlocState>(
@@ -61,8 +62,8 @@ class HomePage extends StatelessWidget {
                       },
                       builder: (context, state) {
                         return  Visibility(
-                            visible: (homeBloc.carouselData?.results?.length ?? 0) > 0,
-                            child: CarouselView(homeBloc.carouselData?.results));
+                            visible: homeBloc.homeCarouselData.isNotEmpty,
+                            child: CarouselView(homeBloc.homeCarouselData ?? []));
                       }
                   ),
                   BlocBuilder<HomeBloc, HomeBlocState>(
@@ -70,6 +71,7 @@ class HomePage extends StatelessWidget {
                         return state is HomeListSuccessState;
                       },
                       builder: (context, state) {
+                        isLoading.value = false;
                         return  Visibility(
                             visible: homeBloc.homeListData.isNotEmpty,
                             child: HomeMovieList(context.l10n.recentMovies, homeBloc.homeListData, wishListAction:(id, isAdded){
@@ -81,15 +83,13 @@ class HomePage extends StatelessWidget {
                             }, wishListItems: _wishListItems));
                       }
                   ),
-                  BlocBuilder<HomeBloc, HomeBlocState>(
-                      buildWhen: (context, state) {
-                        return state is HomeLoadMoreState;
-                      },
-                      builder: (context, state) {
-                        return  Visibility(
-                            visible: (state as HomeLoadMoreState).isLoadMore ?? false,
-                            child: const BottomLoader());
-                      }
+                  ValueListenableBuilder(
+                    valueListenable: isLoading,
+                    builder: (context, value, _) {
+                      return Visibility(
+                          visible: isLoading.value,
+                          child: const BottomLoader());
+                    },
                   )
                 ])
         )
