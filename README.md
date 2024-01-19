@@ -33,6 +33,10 @@
   <img src="https://github.com/debabrataroy1/movie_flutter_demo/blob/main/screenshots/onboarding.jpg?raw=true" height="300" alt="onboarding"  />
   <img src="https://github.com/debabrataroy1/movie_flutter_demo/blob/main/screenshots/login.jpg?raw=true" height="300" alt="onboarding"  />
   <img src="https://github.com/debabrataroy1/movie_flutter_demo/blob/main/screenshots/home.jpg?raw=true" height="300" alt="onboarding"  />
+  <img src="https://github.com/debabrataroy1/movie_flutter_demo/blob/main/screenshots/signup.png?raw=true" height="300" alt="onboarding"  />
+  <img src="https://github.com/debabrataroy1/movie_flutter_demo/blob/main/screenshots/wishlist.png?raw=true" height="300" alt="onboarding"  />
+  <img src="https://github.com/debabrataroy1/movie_flutter_demo/blob/main/screenshots/detail.png?raw=true" height="300" alt="onboarding"  />
+  <img src="https://github.com/debabrataroy1/movie_flutter_demo/blob/main/screenshots/account.png?raw=true" height="300" alt="onboarding"  />
 
 </div>
 
