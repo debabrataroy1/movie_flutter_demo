@@ -4,20 +4,21 @@ import 'package:movie_flutter_demo/Constants/color_constants.dart';
 import 'package:movie_flutter_demo/Constants/icon_size_constants.dart';
 import 'package:movie_flutter_demo/Constants/icons_constants.dart';
 import 'package:movie_flutter_demo/Constants/padding_constants.dart';
+import 'package:movie_flutter_demo/Extensions/build_context_extension.dart';
 import 'package:movie_flutter_demo/Utils/image_picker.dart';
 import 'package:movie_flutter_demo/gen/assets.gen.dart';
 import 'dart:io';
 class ProfileImage extends StatefulWidget {
   final ValueChanged<File>? pickerImage;
-
-  const ProfileImage({this.pickerImage,super.key});
+  final String? gender;
+  File? pickedImage;
+   ProfileImage({this.pickerImage,this.pickedImage, this.gender, super.key});
 
   @override
   State<ProfileImage> createState() => _ProfileImageState();
 }
 
 class _ProfileImageState extends State<ProfileImage> {
-  File? _pickedImage;
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +37,12 @@ class _ProfileImageState extends State<ProfileImage> {
                     ),
                     borderRadius: BorderRadius.circular(AppBorderRadius.extraLarge),
                   ),
-                  child:  _pickedImage != null ?
+                  child:  widget.pickedImage != null ?
                   ClipRRect(borderRadius: BorderRadius.circular(AppBorderRadius.extraLarge),
-                      child: Image.file(_pickedImage!, fit: BoxFit.cover,
+                      child: Image.file(widget.pickedImage!, fit: BoxFit.cover,
                           height: AppIconSize.logo, width: AppIconSize.logo))
+                      : widget.gender == context.l10n.other ? Assets.images.other.image()
+                      : widget.gender == context.l10n.female ? Assets.images.woman.image()
                       : Assets.images.man.image())
           ),
           Positioned(
@@ -49,10 +52,10 @@ class _ProfileImageState extends State<ProfileImage> {
                   onTap:(){
                     AppImagePicker(context, pickerImage:(image) {
                       setState(() {
-                        _pickedImage = image;
+                        widget.pickedImage = image;
                       });
-                      if (widget.pickerImage != null && _pickedImage != null) {
-                        widget.pickerImage!(_pickedImage!);
+                      if (widget.pickerImage != null && widget.pickedImage != null) {
+                        widget.pickerImage!(widget.pickedImage!);
                       }
                     }).show();
                   },

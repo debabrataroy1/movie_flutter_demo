@@ -5,12 +5,15 @@ import 'package:movie_flutter_demo/Constants/border_radius_constants.dart';
 import 'package:movie_flutter_demo/Constants/color_constants.dart';
 import 'package:movie_flutter_demo/Constants/icon_size_constants.dart';
 import 'package:movie_flutter_demo/Constants/padding_constants.dart';
-import 'package:movie_flutter_demo/Helper/ImageView.dart';
+import 'package:movie_flutter_demo/Helper/image_view.dart';
 import 'package:movie_flutter_demo/Models/home_model.dart';
+import 'package:movie_flutter_demo/Routes/app_router_config.dart';
 
 class CarouselView extends StatefulWidget {
-  List<MovieData>? movieList;
-  CarouselView(this.movieList, {super.key});
+  List<MovieData> movieList;
+  final List<int>? wishListItems;
+  Function(int,bool)? wishListAction;
+  CarouselView(this.movieList, {super.key, this.wishListAction, this.wishListItems});
 
   @override
   State<CarouselView> createState() => _CarouselViewState();
@@ -112,7 +115,24 @@ class _CarouselViewState extends State<CarouselView> with SingleTickerProviderSt
               _animationController.forward();
             },
             itemBuilder: (BuildContext context, int index) {
-              return ImageView(url: ServerConstants.imageBaseUrl + (widget.movieList?[index].imageUrl ?? '')
+              return InkWell(
+                onTap: (){
+                  bool isWishlist = widget.wishListItems?.contains(widget.movieList[index].id) ?? false;
+                  DetailRoute((widget.movieList[index], isWishlist,(id, value){
+                    if (value != isWishlist) {
+                      if (value) {
+                        widget.wishListItems?.add(id);
+                      }else {
+                        widget.wishListItems?.remove(id);
+                      }
+                      if (widget.wishListAction != null) {
+                        widget.wishListAction!(id, value);
+                      }
+                    }
+                  })).push(context);
+                },
+                child: ImageView(url: ServerConstants.imageBaseUrl + (widget.movieList[index].imageUrl ?? '')
+                ),
               );
             }),
           _buildPageIndicator()

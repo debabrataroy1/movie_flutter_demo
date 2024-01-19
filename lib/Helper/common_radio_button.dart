@@ -5,19 +5,19 @@ import 'package:movie_flutter_demo/Extensions/build_context_extension.dart';
 class AppRadioButton extends StatefulWidget {
   final List<String> items;
   final String label;
+  String? selectedItem;
   final ValueChanged<String>? onChange;
-  const AppRadioButton({required this.label, required this.items, this.onChange, super.key});
+  AppRadioButton({required this.label, required this.items, this.selectedItem, this.onChange, super.key});
 
   @override
   State<AppRadioButton> createState() => _AppRadioButtonState();
 }
 
 class _AppRadioButtonState extends State<AppRadioButton> {
-  String _radioValue = "";
 
   void _handleRadioValueChange(String? value) {
     setState(() {
-      _radioValue = value ?? '';
+      widget.selectedItem = value ?? '';
     });
     if (widget.onChange != null && value != null) {
       widget.onChange!(value);
@@ -36,7 +36,7 @@ class _AppRadioButtonState extends State<AppRadioButton> {
                 return Row(children: [
                   Radio(
                     value: item,
-                    groupValue: _radioValue,
+                    groupValue: widget.selectedItem,
                     onChanged: _handleRadioValueChange,
                   ),
                   Text(item, style: const TextStyle(fontSize: AppFontSize.regular)
@@ -50,7 +50,7 @@ class _AppRadioButtonState extends State<AppRadioButton> {
             )
         ]);
     }, validator: (value) {
-      if (_radioValue == "") {
+      if (widget.selectedItem?.isEmpty ?? true) {
         return context.l10n.genderIsRequired;
       }
       return null;

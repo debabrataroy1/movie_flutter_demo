@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_flutter_demo/Constants/color_constants.dart';
 import 'package:movie_flutter_demo/Extensions/build_context_extension.dart';
@@ -6,7 +8,7 @@ import 'package:movie_flutter_demo/Constants/app_size_constants.dart';
 import 'package:movie_flutter_demo/Constants/border_radius_constants.dart';
 import 'package:movie_flutter_demo/Constants/font_size_constants.dart';
 import 'package:movie_flutter_demo/Constants/padding_constants.dart';
-import 'package:movie_flutter_demo/Helper/ImageView.dart';
+import 'package:movie_flutter_demo/Helper/image_view.dart';
 import 'package:movie_flutter_demo/Constants/api_constants.dart';
 import 'package:movie_flutter_demo/Models/home_model.dart';
 import 'package:movie_flutter_demo/Routes/app_router_config.dart';
@@ -17,7 +19,11 @@ class MovieItem extends StatelessWidget {
   final MovieData movie;
   late bool isWishlist;
   Function(int,bool)? wishListAction;
-  MovieItem(this.movie, {super.key, this.wishListAction, this.isWishlist = false});
+  ValueNotifier<bool> _wishlist = ValueNotifier<bool>(false);
+
+  MovieItem(this.movie, {super.key, this.wishListAction, this.isWishlist = false}) {
+    _wishlist.value = isWishlist;
+  }
   final double _itemWidth = (AppSize.width / 2);
 
   @override
@@ -25,10 +31,11 @@ class MovieItem extends StatelessWidget {
     return Padding(
         padding: const EdgeInsets.only(top: AppPaddings.extraSmall),
         child: InkWell(
-          onTap: () async{
-           await DetailRoute((movie, isWishlist,(id, value){
+          onTap: () {
+            DetailRoute((movie, isWishlist,(id, value){
              if (value != isWishlist) {
                isWishlist = value;
+               _wishlist.value = isWishlist;
                if (wishListAction != null) {
                wishListAction!(id, value);
                }
@@ -57,12 +64,18 @@ class MovieItem extends StatelessWidget {
                       Positioned(
                           right: 4,
                           top: 4,
-                          child: BlocProvider(create: (context) => WishListCubit(), child: WishListButtonWidget(movie: movie, isWishlist: isWishlist, wishListAction: (id, value){
-                              isWishlist = value;
-                              if (wishListAction != null) {
-                                wishListAction!(id, value);
-                              }
-                          }))
+                          child: BlocProvider(create: (context) => WishListCubit(),
+                              child:ValueListenableBuilder(
+                                  valueListenable: _wishlist,
+                                  builder: (context, value, _) {
+                                    return WishListButtonWidget(movie: movie, isWishlist: isWishlist, wishListAction: (id, value){
+                                      isWishlist = value;
+                                      if (wishListAction != null) {
+                                        wishListAction!(id, value);
+                                      }
+                                    });
+                                  }
+                              ) )
                       ),
                       Positioned(
                           bottom: 0,

@@ -11,6 +11,7 @@ class Apis {
 class LoginApiKeys {
    static const String email = "email";
    static const String password = "password";
+   static const String oldPassword = "oldPassword";
    static const String name = "name";
    static const String dob = "dob";
    static const String gender = "gender";

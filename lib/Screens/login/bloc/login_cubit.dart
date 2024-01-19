@@ -15,10 +15,10 @@ class LoginCubit extends Cubit<LoginState> {
     try {
       var sharedInstance = AppInjector.getIt<AppSharedPref>();
       if (request[LoginApiKeys.email] ==
-          await sharedInstance.getString(key: AppSharedPrefKey.email)
+          sharedInstance.getString(key: AppSharedPrefKey.email)
           && request[LoginApiKeys.password] == AppUtility.decrypt(
               AppData.encryptKey,
-              await sharedInstance.getString(key: AppSharedPrefKey.password))) {
+              sharedInstance.getString(key: AppSharedPrefKey.password))) {
         sharedInstance.setString(
             key: AppSharedPrefKey.email, value: request[LoginApiKeys.email]);
         sharedInstance.setString(

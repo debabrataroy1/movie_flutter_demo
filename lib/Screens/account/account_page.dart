@@ -25,7 +25,7 @@ class AccountPage extends StatefulWidget {
 class _AccountPageState extends State<AccountPage> {
   File? _pickedImage;
   String? name, email, dob, gender;
-  var sharedInstance = AppInjector.getIt<AppSharedPref>();
+  AppSharedPref sharedInstance = AppInjector.getIt<AppSharedPref>();
   @override
   void initState() {
     getData();
@@ -33,11 +33,11 @@ class _AccountPageState extends State<AccountPage> {
   }
   getData() async {
     FileManager fileManager = AppInjector.getIt<FileManager>();
-    _pickedImage = await fileManager.getFile(await sharedInstance.getString(key: AppSharedPrefKey.profileImage));
-    name = await sharedInstance.getString(key: AppSharedPrefKey.fullName);
-    email = await sharedInstance.getString(key: AppSharedPrefKey.email);
-    dob = await sharedInstance.getString(key: AppSharedPrefKey.dob);
-    gender = await sharedInstance.getString(key: AppSharedPrefKey.gender);
+    _pickedImage = await fileManager.getFile(sharedInstance.getString(key: AppSharedPrefKey.profileImage));
+    name = sharedInstance.getString(key: AppSharedPrefKey.fullName);
+    email = sharedInstance.getString(key: AppSharedPrefKey.email);
+    dob = sharedInstance.getString(key: AppSharedPrefKey.dob);
+    gender = sharedInstance.getString(key: AppSharedPrefKey.gender);
     setState(() { });
   }
 
@@ -55,7 +55,7 @@ class _AccountPageState extends State<AccountPage> {
                       const SizedBox(height: AppSpacing.small),
                       Center(child: Text(name ?? '', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: AppFontSize.large))),
                       const SizedBox(height: AppSpacing.regular),
-                      Text(context.l10n.personalInformation),
+                      Text(context.l10n.personalInformation, style: const TextStyle(fontSize: AppFontSize.regular)),
                       ProfileCardWidget(
                           child: Column(children: [
                             Info(context.l10n.emailAddress, email ?? ''),
@@ -66,10 +66,22 @@ class _AccountPageState extends State<AccountPage> {
                           ])
                       ),
                       const SizedBox(height: AppSpacing.small),
-                      Text(context.l10n.utilities),
+                      Text(context.l10n.utilities, style: const TextStyle(fontSize: AppFontSize.regular)),
                       ProfileCardWidget(
                           child:Column(
                               children: [
+                                ProfileActionWidget(context.l10n.editAccount, AppIcons.account, onTap: () {
+                                  const EditAccountRoute().push(context).then((value){
+                                    getData();
+                                  });
+                                }),
+                                const Divider(),
+                                ProfileActionWidget(context.l10n.changePassword, AppIcons.password, onTap: () {
+                                  const ChangePasswordRoute().push(context).then((value){
+                                    getData();
+                                  });
+                                },),
+                                const Divider(),
                                 ProfileActionWidget(context.l10n.logout, AppIcons.logout, onTap: _logout),
                                 const Divider(),
                                 ProfileActionWidget(context.l10n.clearAppData, AppIcons.clear, onTap: _clear)

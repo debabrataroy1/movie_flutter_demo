@@ -24,9 +24,9 @@ class HomeBloc extends Bloc<HomeBlocEvent, HomeBlocState> {
       if( event is HomeFetchDataEvent) {
         model = await repository?.getHomeData(pageNo);
       } else {
+        model = await repository?.getHomeData(1);
         List<int> ids = await AppInjector.getIt<DBManager>().getAllIds();
         emit(AllWishListState(ids));
-        model = await repository?.getHomeData(1);
       }
       if (model != null) {
         if( event is FetchCarouselDataEvent) {

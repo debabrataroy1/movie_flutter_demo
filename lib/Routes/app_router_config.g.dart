@@ -15,6 +15,8 @@ List<RouteBase> get $appRoutes => [
       $favouritesRoute,
       $signupRoute,
       $detailRoute,
+      $editAccountRoute,
+      $changePasswordRoute,
     ];
 
 RouteBase get $loginRoute => GoRouteData.$route(
@@ -198,4 +200,50 @@ extension $DetailRouteExtension on DetailRoute {
 
   void replace(BuildContext context) =>
       context.replace(location, extra: $extra);
+}
+
+RouteBase get $editAccountRoute => GoRouteData.$route(
+      path: '/edit',
+      factory: $EditAccountRouteExtension._fromState,
+    );
+
+extension $EditAccountRouteExtension on EditAccountRoute {
+  static EditAccountRoute _fromState(GoRouterState state) =>
+      const EditAccountRoute();
+
+  String get location => GoRouteData.$location(
+        '/edit',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $changePasswordRoute => GoRouteData.$route(
+      path: '/chnagepassword',
+      factory: $ChangePasswordRouteExtension._fromState,
+    );
+
+extension $ChangePasswordRouteExtension on ChangePasswordRoute {
+  static ChangePasswordRoute _fromState(GoRouterState state) =>
+      const ChangePasswordRoute();
+
+  String get location => GoRouteData.$location(
+        '/chnagepassword',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
 }

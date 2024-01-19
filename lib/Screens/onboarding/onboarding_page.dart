@@ -8,7 +8,7 @@ import 'package:movie_flutter_demo/Constants/icon_size_constants.dart';
 import 'package:movie_flutter_demo/Constants/padding_constants.dart';
 import 'package:movie_flutter_demo/Constants/spacing_constants.dart';
 import 'package:movie_flutter_demo/Extensions/build_context_extension.dart';
-import 'package:movie_flutter_demo/Helper/CommonButton.dart';
+import 'package:movie_flutter_demo/Helper/common_button.dart';
 
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({super.key});

@@ -1,4 +1,4 @@
-import 'package:movie_flutter_demo/Helper/AppLoader.dart';
+import 'package:movie_flutter_demo/Helper/app_loader.dart';
 import 'package:flutter/material.dart';
 class BottomLoader extends StatelessWidget {
   const BottomLoader({super.key});

@@ -63,7 +63,7 @@ class HomePage extends StatelessWidget {
                       builder: (context, state) {
                         return  Visibility(
                             visible: homeBloc.homeCarouselData.isNotEmpty,
-                            child: CarouselView(homeBloc.homeCarouselData ?? []));
+                            child: CarouselView(homeBloc.homeCarouselData, wishListAction:_wishListAction, wishListItems: _wishListItems));
                       }
                   ),
                   BlocBuilder<HomeBloc, HomeBlocState>(
@@ -74,13 +74,7 @@ class HomePage extends StatelessWidget {
                         isLoading.value = false;
                         return  Visibility(
                             visible: homeBloc.homeListData.isNotEmpty,
-                            child: HomeMovieList(context.l10n.recentMovies, homeBloc.homeListData, wishListAction:(id, isAdded){
-                              if (isAdded) {
-                                _wishListItems.add(id);
-                              } else {
-                                _wishListItems.remove(id);
-                              }
-                            }, wishListItems: _wishListItems));
+                            child: HomeMovieList(context.l10n.recentMovies, homeBloc.homeListData, wishListAction:_wishListAction, wishListItems: _wishListItems));
                       }
                   ),
                   ValueListenableBuilder(
@@ -94,5 +88,12 @@ class HomePage extends StatelessWidget {
                 ])
         )
     );
+  }
+  _wishListAction(int id, bool value) {
+    if (value) {
+      _wishListItems.add(id);
+    } else {
+      _wishListItems.remove(id);
+    }
   }
 }

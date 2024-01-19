@@ -19,18 +19,18 @@ class AppBottomBar extends StatefulWidget {
 class _AppBottomBarState extends State<AppBottomBar> {
   int _selectedIndex = 0;
 
-  final List<Widget> _widgetOptions = [
-    BlocProvider(
-        create: ( context)=> HomeBloc(repository: HomeRepository()),
-        child:  HomePage()),
-    BlocProvider(
-        create: ( context)=>FavouriteCubit(),
-        child:  FavouritesPage()),
-    const AccountPage(),
-  ];
+  late List<Widget> _widgetOptions;
   @override
   void initState() {
-
+    _widgetOptions = [
+      BlocProvider(
+          create: ( context)=> HomeBloc(repository: HomeRepository()),
+          child:  HomePage()),
+      BlocProvider(
+          create: ( context)=>FavouriteCubit(),
+          child:  FavouritesPage()),
+      const AccountPage(),
+    ];
     super.initState();
   }
 

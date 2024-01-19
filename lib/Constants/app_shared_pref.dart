@@ -11,34 +11,36 @@ enum AppSharedPrefKey {
 }
 
 class AppSharedPref {
-
-  setString({required AppSharedPrefKey key, required String value}) async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setString(key.name, value);
+  SharedPreferences? pref;
+  AppSharedPref() {
+    _setup();
   }
 
-  Future<String> getString({required AppSharedPrefKey key}) async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    return pref.getString(key.name) ?? "";
+  _setup() async{
+    pref  = await SharedPreferences.getInstance();
   }
 
-  setBool({required AppSharedPrefKey key, required bool value}) async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setBool(key.name, value);
+  setString({required AppSharedPrefKey key, required String value}) {
+    pref?.setString(key.name, value);
   }
 
-  Future<bool> getBool({required AppSharedPrefKey key}) async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    return pref.getBool(key.name) ?? false;
+  String getString({required AppSharedPrefKey key}) {
+    return pref?.getString(key.name) ?? "";
   }
 
-  void remove(AppSharedPrefKey key) async{
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.remove(key.name);
+  setBool({required AppSharedPrefKey key, required bool value}) {
+    pref?.setBool(key.name, value);
+  }
+
+  bool getBool({required AppSharedPrefKey key}) {
+    return pref?.getBool(key.name) ?? false;
+  }
+
+  void remove(AppSharedPrefKey key){
+    pref?.remove(key.name);
   }
 
   void clear() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.clear();
+    pref?.clear();
   }
 }

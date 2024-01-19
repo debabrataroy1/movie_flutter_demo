@@ -48,5 +48,13 @@
   "successfullyRemoved": "Movie successfully removed from WishList",
   "dbError": "Unable to update data",
   "myFavouriteList": "Favourite List",
-  "noFavouriteYet": "No Favourite Yet"
+  "noFavouriteYet": "No Favourite Yet",
+  "editAccount": "Edit Account",
+  "update": "Update",
+  "changePassword": "Change password",
+  "newPassword": "New password",
+  "oldPassword": "Old password",
+  "releaseData": "Release date: ",
+  "description": "Description"
+
 }

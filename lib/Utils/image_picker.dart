@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:movie_flutter_demo/Extensions/build_context_extension.dart';
 import 'dart:io';
-import 'package:movie_flutter_demo/Helper/CommonButton.dart';
+import 'package:movie_flutter_demo/Helper/common_button.dart';
 
 class AppImagePicker {
   final BuildContext context;

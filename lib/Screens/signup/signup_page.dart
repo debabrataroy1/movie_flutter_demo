@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,14 +7,14 @@ import 'package:movie_flutter_demo/Constants/api_constants.dart';
 import 'package:movie_flutter_demo/Constants/padding_constants.dart';
 import 'package:movie_flutter_demo/Constants/spacing_constants.dart';
 import 'package:movie_flutter_demo/Extensions/build_context_extension.dart';
-import 'package:movie_flutter_demo/Helper/CommonButton.dart';
+import 'package:movie_flutter_demo/Helper/common_button.dart';
 import 'package:movie_flutter_demo/Helper/common_radio_button.dart';
 import 'package:movie_flutter_demo/Routes/app_router_config.dart';
 import 'package:movie_flutter_demo/Screens/signup/bloc/signup_cubit.dart';
 import 'package:movie_flutter_demo/Screens/signup/bloc/state/signup_state.dart';
 import 'package:movie_flutter_demo/Screens/signup/profile_Image.dart';
 import 'package:movie_flutter_demo/Utils/date_picker.dart';
-import 'package:movie_flutter_demo/Helper/CommonTextField.dart';
+import 'package:movie_flutter_demo/Helper/common_textField.dart';
 import 'package:movie_flutter_demo/Utils/validator.dart';
 import 'dart:io';
 
@@ -25,7 +27,8 @@ class SignupPage extends StatelessWidget {
   final TextEditingController _confirmPasswordEditingController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
   final SignupCubit _signupCubit = SignupCubit();
-  String genter = "";
+  final ValueNotifier<String> _gender = ValueNotifier<String>("");
+  // String gender = "";
   File? _pickedImage;
 
   void _validateForm() async {
@@ -35,7 +38,7 @@ class SignupPage extends StatelessWidget {
         LoginApiKeys.password: _passwordEditingController.text,
         LoginApiKeys.name: _nameEditingController.text,
         LoginApiKeys.dob: _dobEditingController.text,
-        LoginApiKeys.gender: genter
+        LoginApiKeys.gender: _gender.value
       };
       if (_pickedImage != null) {
         params[LoginApiKeys.image] = _pickedImage;
@@ -60,14 +63,19 @@ class SignupPage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisSize:MainAxisSize.min,
                                 children: <Widget>[
-                                   ProfileImage(pickerImage: (image){
-                                    _pickedImage = image;
-                                  }),
+                                  ValueListenableBuilder(
+                                    valueListenable: _gender,
+                                    builder: (context, value, _) {
+                                      return ProfileImage(pickerImage: (image) {
+                                        _pickedImage = image;
+                                      }, gender: _gender.value);
+                                    }
+                                  ),
                                   const SizedBox(height: AppSpacing.regular),
                                   AppRadioButton(label: context.l10n.gender,
                                       items: [context.l10n.male, context.l10n.female, context.l10n.other],
                                   onChange: (value) {
-                                    genter = value;
+                                    _gender.value = value;
                                     }),
                                   const SizedBox(height: AppSpacing.regular),
                                   AppTextField(

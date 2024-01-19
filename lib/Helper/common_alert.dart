@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_flutter_demo/Extensions/build_context_extension.dart';
-import 'package:movie_flutter_demo/Helper/CommonButton.dart';
+import 'package:movie_flutter_demo/Helper/common_button.dart';
 
 class AppAlert {
   final String? title;

@@ -9,7 +9,7 @@ class HomeMovieList extends StatelessWidget {
   final List<MovieData> movieList;
   final List<int>? wishListItems;
   Function(int,bool)? wishListAction;
-  HomeMovieList(this.title, this.movieList, {super.key, this.wishListAction = null, this.wishListItems});
+  HomeMovieList(this.title, this.movieList, {super.key, this.wishListAction, this.wishListItems});
 
   @override
   Widget build(BuildContext context) {

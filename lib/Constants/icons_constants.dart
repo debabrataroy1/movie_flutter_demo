@@ -10,4 +10,5 @@ class AppIcons {
   static const arrow = Icons.chevron_right_rounded;
   static const share = Icons.share;
   static const back = Icons.arrow_back_ios;
+  static const password = Icons.password_outlined;
 }

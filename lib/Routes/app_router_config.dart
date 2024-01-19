@@ -7,6 +7,8 @@ import 'package:movie_flutter_demo/Routes/app_router_constants.dart';
 import 'package:movie_flutter_demo/Screens/Details/details_page.dart';
 import 'package:movie_flutter_demo/Screens/account/account_page.dart';
 import 'package:movie_flutter_demo/Screens/bottom_bar/bottom_nav_bar.dart';
+import 'package:movie_flutter_demo/Screens/change_password/change_password_page.dart';
+import 'package:movie_flutter_demo/Screens/edit_account/edit_account_page.dart';
 import 'package:movie_flutter_demo/Screens/favourites/favourites_page.dart';
 import 'package:movie_flutter_demo/Screens/home/bloc/home_bloc.dart';
 import 'package:movie_flutter_demo/Screens/home/repository/home_repository.dart';
@@ -21,10 +23,10 @@ class AppRouter {
   GoRouter router = GoRouter(
     initialLocation: '/',
     routes: $appRoutes,
-    redirect: (BuildContext context, GoRouterState state) async {
+    redirect: (BuildContext context, GoRouterState state) {
       var app = GetIt.instance<AppSharedPref>();
       if (state.fullPath == '/') {
-        var isLogin = await app.getBool(key: AppSharedPrefKey.loginStatus);
+        var isLogin = app.getBool(key: AppSharedPrefKey.loginStatus);
         if (isLogin) {
           return const BottombarRoute().location;
         } else {
@@ -120,10 +122,30 @@ class SignupRoute extends GoRouteData {
 class DetailRoute extends GoRouteData {
   DetailRoute(this.$extra);
   final (MovieData,bool,Function(int,bool)?) $extra;
-  // final bool isWishlist;
-  // final Function(int,bool)? wishListAction;
 
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       DetailPage($extra);
+}
+
+@TypedGoRoute<EditAccountRoute>(
+  path: '/${AppRouteName.editAccount}',
+)
+class EditAccountRoute extends GoRouteData {
+  const EditAccountRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      EditAccount();
+}
+
+@TypedGoRoute<ChangePasswordRoute>(
+  path: '/${AppRouteName.chnagePassword}',
+)
+class ChangePasswordRoute extends GoRouteData {
+  const ChangePasswordRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      ChangePassword();
 }

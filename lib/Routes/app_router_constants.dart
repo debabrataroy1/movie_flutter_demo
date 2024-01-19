@@ -8,4 +8,6 @@ class AppRouteName {
   static const String favourites = "favourites";
   static const String signup = "signup";
   static const String detail = "details";
+  static const String editAccount = "edit";
+  static const String chnagePassword = "chnagepassword";
 }
