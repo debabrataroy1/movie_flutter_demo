@@ -95,6 +95,7 @@ class _AccountPageState extends State<AccountPage> {
   void _logout() {
     AppAlert(title: context.l10n.logout, message: context.l10n.logoutMessage, confirmBtnText: context.l10n.logout,confirmTap: () {
       sharedInstance.remove(AppSharedPrefKey.loginStatus);
+      sharedInstance.remove(AppSharedPrefKey.lastActive);
       const OnboardingRoute().go(context);
     }).showDialogBox(context);
   }

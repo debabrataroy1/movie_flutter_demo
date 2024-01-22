@@ -2,7 +2,6 @@
 abstract class ChangePasswordState {
   const ChangePasswordState();
 
-  @override
   List<Object> get props => [];
 }
 

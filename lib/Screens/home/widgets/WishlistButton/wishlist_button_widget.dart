@@ -12,7 +12,7 @@ import 'package:movie_flutter_demo/Screens/home/widgets/WishlistButton/wishlist_
 class WishListButtonWidget extends StatefulWidget {
   final MovieData movie;
   bool isWishlist;
-  Function(int, bool)? wishListAction;
+  final Function(int, bool)? wishListAction;
   WishListButtonWidget({super.key, required this.movie, required this.isWishlist, this.wishListAction});
 
   @override

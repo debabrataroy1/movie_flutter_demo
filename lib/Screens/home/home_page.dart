@@ -5,8 +5,8 @@ import 'package:movie_flutter_demo/Helper/bottom_loader.dart';
 import 'package:movie_flutter_demo/Screens/home/bloc/event/home_bloc_event.dart';
 import 'package:movie_flutter_demo/Screens/home/widgets/carousel_view.dart';
 import 'package:movie_flutter_demo/Screens/home/widgets/home_movie_list.dart';
-import 'bloc/home_bloc.dart';
-import 'bloc/state/home_bloc_state.dart';
+import 'package:movie_flutter_demo/Screens/home/bloc/home_bloc.dart';
+import 'package:movie_flutter_demo/Screens/home/bloc/state/home_bloc_state.dart';
 
 class HomePage extends StatelessWidget {
   final ScrollController _scrollController = ScrollController();
@@ -23,7 +23,7 @@ class HomePage extends StatelessWidget {
 
   bool _scrollListener() {
     if (_scrollController.position.extentAfter == 0 &&
-        (homeBloc.pageNo < (homeBloc?.totalPages ?? 0))
+        (homeBloc.pageNo < (homeBloc.totalPages ?? 0))
         && !isLoading.value) {
       isLoading.value = true;
       _loadMoreData();
@@ -54,7 +54,7 @@ class HomePage extends StatelessWidget {
                         _wishListItems = state.wishListItems;
                       }
                     },
-                    child: const SizedBox.shrink(),
+                    child: const SizedBox.shrink()
                   ),
                   BlocBuilder<HomeBloc, HomeBlocState>(
                       buildWhen: (context, state) {
@@ -83,7 +83,7 @@ class HomePage extends StatelessWidget {
                       return Visibility(
                           visible: isLoading.value,
                           child: const BottomLoader());
-                    },
+                    }
                   )
                 ])
         )

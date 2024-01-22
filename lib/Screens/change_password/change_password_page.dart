@@ -9,7 +9,7 @@ import 'package:movie_flutter_demo/Extensions/build_context_extension.dart';
 import 'package:movie_flutter_demo/Helper/common_button.dart';
 import 'package:movie_flutter_demo/Screens/change_password/cubit/change_password_cubit.dart';
 import 'package:movie_flutter_demo/Screens/change_password/cubit/state/change_password_state.dart';
-import 'package:movie_flutter_demo/Helper/common_textField.dart';
+import 'package:movie_flutter_demo/Helper/common_textfield.dart';
 import 'package:movie_flutter_demo/Utils/validator.dart';
 
 
@@ -55,12 +55,7 @@ class ChangePassword extends StatelessWidget {
                                       controller: _oldPasswordEditingController,
                                       isPassword: true,
                                       validator: (value) {
-                                        if (value != null) {
-                                          if (Validator.isValidPassword(context, password: value) != null) {
-                                            return Validator.isValidPassword(context, password: value);
-                                          }
-                                        }
-                                        return null;
+                                        return Validator.isValidPassword(context, password: value);
                                       },
                                       inputType: TextInputType.visiblePassword),
                                   const SizedBox(height: AppSpacing.regular),
@@ -69,12 +64,7 @@ class ChangePassword extends StatelessWidget {
                                       controller: _passwordEditingController,
                                       isPassword: true,
                                       validator: (value) {
-                                        if (value != null) {
-                                          if (Validator.isValidPassword(context, password: value) != null) {
-                                            return Validator.isValidPassword(context, password: value);
-                                          }
-                                        }
-                                        return null;
+                                        return Validator.isValidPassword(context, password: value);
                                       },
                                       inputType: TextInputType.visiblePassword),
                                   const SizedBox(height: AppSpacing.regular),
@@ -83,14 +73,7 @@ class ChangePassword extends StatelessWidget {
                                       controller: _confirmPasswordEditingController,
                                       isPassword: true,
                                       validator: (value) {
-                                        if (value != null) {
-                                          if (Validator.isValidPassword(context, password: value) != null) {
-                                            return Validator.isValidPassword(context, password: value);
-                                          } else if (_passwordEditingController.text != value) {
-                                            return context.l10n.passwordMismatch;
-                                          }
-                                        }
-                                        return null;
+                                        return Validator.isValidConfirmPassword(context, password: value, matchPassword: _passwordEditingController.text);
                                       },
                                       inputType: TextInputType.visiblePassword),
                                   const SizedBox(height: AppSpacing.regular),

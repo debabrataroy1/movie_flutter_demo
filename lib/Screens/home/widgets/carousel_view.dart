@@ -10,10 +10,10 @@ import 'package:movie_flutter_demo/Models/home_model.dart';
 import 'package:movie_flutter_demo/Routes/app_router_config.dart';
 
 class CarouselView extends StatefulWidget {
-  List<MovieData> movieList;
+  final List<MovieData> movieList;
   final List<int>? wishListItems;
-  Function(int,bool)? wishListAction;
-  CarouselView(this.movieList, {super.key, this.wishListAction, this.wishListItems});
+  final Function(int,bool)? wishListAction;
+  const CarouselView(this.movieList, {super.key, this.wishListAction, this.wishListItems});
 
   @override
   State<CarouselView> createState() => _CarouselViewState();
@@ -29,7 +29,7 @@ class _CarouselViewState extends State<CarouselView> with SingleTickerProviderSt
   @override
   void initState() {
     super.initState();
-    _totalPage = widget.movieList?.length ?? 0;
+    _totalPage = widget.movieList.length;
     _pageController = PageController(initialPage: 0);
     _animationController = AnimationController(vsync: this, duration: const Duration(seconds: 5));
     _animationController.addListener(() {
@@ -90,9 +90,9 @@ class _CarouselViewState extends State<CarouselView> with SingleTickerProviderSt
                 )),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: widget.movieList?.map((element) {
-                  return _indicator(element == widget.movieList?[_currentPage]);
-                }).toList() ?? [])
+                children: widget.movieList.map((element) {
+                  return _indicator(element == widget.movieList[_currentPage]);
+                }).toList())
           )
         )
     );

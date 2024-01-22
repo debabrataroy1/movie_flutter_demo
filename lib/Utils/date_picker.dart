@@ -6,7 +6,7 @@ class DatePicker {
   final String dateFormat;
   final ValueChanged<String>? date;
 
-  DatePicker(this.context,{this.dateFormat = 'yyyy-MM-dd', this.date});
+  DatePicker(this.context, {this.dateFormat = 'yyyy-MM-dd', this.date});
 
   void show() async {
     var pickedDate = await showDatePicker(

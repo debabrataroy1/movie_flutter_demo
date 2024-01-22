@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class AppTextButton extends StatelessWidget {
-  String title;
-  VoidCallback? onPressed;
-  Color? textColor;
-  double? fontSize;
-  FontWeight? fontWeight;
+  final String title;
+  final VoidCallback? onPressed;
+  final Color? textColor;
+  final double? fontSize;
+  final FontWeight? fontWeight;
 
-  AppTextButton({super.key, required this.title, this.onPressed, this.textColor, this.fontSize, this.fontWeight});
+ const AppTextButton({super.key, required this.title, this.onPressed, this.textColor, this.fontSize, this.fontWeight});
 
   @override
   Widget build(BuildContext context) {
@@ -26,19 +26,17 @@ class AppTextButton extends StatelessWidget {
 }
 
 class AppElevatedButton extends StatelessWidget {
-   String title;
-   VoidCallback? onPressed;
+   final String title;
+   final VoidCallback? onPressed;
 
-  AppElevatedButton({super.key, required this.title, this.onPressed});
+  const AppElevatedButton({super.key, required this.title, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
         width: double.infinity,
         child: ElevatedButton(onPressed: onPressed,
-            child: Text(
-                title
-            )
+            child: Text(title)
         )
     );
   }

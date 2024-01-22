@@ -7,7 +7,8 @@ enum AppSharedPrefKey {
   fullName,
   dob,
   gender,
-  profileImage
+  profileImage,
+  lastActive
 }
 
 class AppSharedPref {

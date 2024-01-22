@@ -54,7 +54,6 @@ class _AppRadioButtonState extends State<AppRadioButton> {
         return context.l10n.genderIsRequired;
       }
       return null;
-    }
-    );
+    });
   }
 }

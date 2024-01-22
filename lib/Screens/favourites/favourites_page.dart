@@ -15,6 +15,7 @@ import 'package:movie_flutter_demo/Screens/home/widgets/home_movie_list.dart';
 
 class FavouritesPage extends StatelessWidget {
   List<MovieData>? movieList;
+  FavouritesPage({super.key});
 
   @override
   Widget build(BuildContext context) {

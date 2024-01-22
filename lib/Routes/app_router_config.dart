@@ -15,8 +15,8 @@ import 'package:movie_flutter_demo/Screens/home/repository/home_repository.dart'
 import 'package:movie_flutter_demo/Screens/login/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_flutter_demo/Screens/signup/signup_page.dart';
-import '../Screens/home/home_page.dart';
-import '../Screens/onboarding/onboarding_page.dart';
+import 'package:movie_flutter_demo/Screens/home/home_page.dart';
+import 'package:movie_flutter_demo/Screens/onboarding/onboarding_page.dart';
 part 'app_router_config.g.dart';
 
 class AppRouter {
@@ -29,10 +29,9 @@ class AppRouter {
         var isLogin = app.getBool(key: AppSharedPrefKey.loginStatus);
         if (isLogin) {
           return const BottombarRoute().location;
-        } else {
-          return null;
         }
       }
+      return null;
     }
   );
 }

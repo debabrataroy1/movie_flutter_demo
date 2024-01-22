@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_flutter_demo/Constants/color_constants.dart';
 import 'package:movie_flutter_demo/Extensions/build_context_extension.dart';
@@ -19,7 +17,7 @@ class MovieItem extends StatelessWidget {
   final MovieData movie;
   late bool isWishlist;
   Function(int,bool)? wishListAction;
-  ValueNotifier<bool> _wishlist = ValueNotifier<bool>(false);
+  final ValueNotifier<bool> _wishlist = ValueNotifier<bool>(false);
 
   MovieItem(this.movie, {super.key, this.wishListAction, this.isWishlist = false}) {
     _wishlist.value = isWishlist;

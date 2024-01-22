@@ -2,7 +2,6 @@
 abstract class EditAccountState {
   const EditAccountState();
 
-  @override
   List<Object> get props => [];
 }
 

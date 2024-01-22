@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,12 +12,12 @@ import 'package:movie_flutter_demo/Screens/signup/bloc/signup_cubit.dart';
 import 'package:movie_flutter_demo/Screens/signup/bloc/state/signup_state.dart';
 import 'package:movie_flutter_demo/Screens/signup/profile_Image.dart';
 import 'package:movie_flutter_demo/Utils/date_picker.dart';
-import 'package:movie_flutter_demo/Helper/common_textField.dart';
+import 'package:movie_flutter_demo/Helper/common_textfield.dart';
 import 'package:movie_flutter_demo/Utils/validator.dart';
 import 'dart:io';
 
 class SignupPage extends StatelessWidget {
-
+  SignupPage({super.key});
   final TextEditingController _emailEditingController = TextEditingController();
   final TextEditingController _passwordEditingController = TextEditingController();
   final TextEditingController _dobEditingController = TextEditingController();
@@ -28,7 +26,6 @@ class SignupPage extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey();
   final SignupCubit _signupCubit = SignupCubit();
   final ValueNotifier<String> _gender = ValueNotifier<String>("");
-  // String gender = "";
   File? _pickedImage;
 
   void _validateForm() async {
@@ -64,30 +61,25 @@ class SignupPage extends StatelessWidget {
                                 mainAxisSize:MainAxisSize.min,
                                 children: <Widget>[
                                   ValueListenableBuilder(
-                                    valueListenable: _gender,
-                                    builder: (context, value, _) {
-                                      return ProfileImage(pickerImage: (image) {
-                                        _pickedImage = image;
-                                      }, gender: _gender.value);
-                                    }
+                                      valueListenable: _gender,
+                                      builder: (context, value, _) {
+                                        return ProfileImage(pickerImage: (image) {
+                                          _pickedImage = image;
+                                        }, gender: _gender.value);
+                                      }
                                   ),
                                   const SizedBox(height: AppSpacing.regular),
                                   AppRadioButton(label: context.l10n.gender,
                                       items: [context.l10n.male, context.l10n.female, context.l10n.other],
-                                  onChange: (value) {
-                                    _gender.value = value;
-                                    }),
+                                      onChange: (value) {
+                                        _gender.value = value;
+                                      }),
                                   const SizedBox(height: AppSpacing.regular),
                                   AppTextField(
                                       label: context.l10n.name,
                                       controller: _nameEditingController,
                                       validator: (value) {
-                                        if (value != null) {
-                                          if (Validator.isValidName(context, name: value) != null) {
-                                            return Validator.isValidName(context, name: value);
-                                          }
-                                        }
-                                        return null;
+                                        return Validator.isValidName(context, name: value);
                                       },
                                       inputType: TextInputType.name),
                                   const SizedBox(height: AppSpacing.regular),
@@ -101,12 +93,7 @@ class SignupPage extends StatelessWidget {
                                       },
                                       controller: _dobEditingController,
                                       validator: (value) {
-                                        if (value != null) {
-                                          if (Validator.isEmpty(value)) {
-                                            return context.l10n.dobIsRequired;
-                                          }
-                                        }
-                                        return null;
+                                        return Validator.emptyValidate(context, value: value, message: context.l10n.dobIsRequired);
                                       },
                                       inputType: TextInputType.emailAddress),
                                   const SizedBox(height: AppSpacing.regular),
@@ -114,12 +101,7 @@ class SignupPage extends StatelessWidget {
                                       label: context.l10n.emailAddress,
                                       controller: _emailEditingController,
                                       validator: (value) {
-                                        if (value != null) {
-                                          if (Validator.isEmailValid(context, email: value) != null) {
-                                            return Validator.isEmailValid(context, email: value);
-                                          }
-                                        }
-                                        return null;
+                                        return Validator.isEmailValid(context, email: value);
                                       },
                                       inputType: TextInputType.emailAddress),
                                   const SizedBox(height: AppSpacing.regular),
@@ -128,12 +110,7 @@ class SignupPage extends StatelessWidget {
                                       controller: _passwordEditingController,
                                       isPassword: true,
                                       validator: (value) {
-                                        if (value != null) {
-                                          if (Validator.isValidPassword(context, password: value) != null) {
-                                            return Validator.isValidPassword(context, password: value);
-                                          }
-                                        }
-                                        return null;
+                                        return Validator.isValidPassword(context, password: value);
                                       },
                                       inputType: TextInputType.visiblePassword),
                                   const SizedBox(height: AppSpacing.regular),
@@ -142,14 +119,7 @@ class SignupPage extends StatelessWidget {
                                       controller: _confirmPasswordEditingController,
                                       isPassword: true,
                                       validator: (value) {
-                                        if (value != null) {
-                                          if (Validator.isValidPassword(context, password: value) != null) {
-                                            return Validator.isValidPassword(context, password: value);
-                                          } else if (_passwordEditingController.text != value) {
-                                            return context.l10n.passwordMismatch;
-                                          }
-                                        }
-                                        return null;
+                                        return Validator.isValidConfirmPassword(context, password: value, matchPassword: _passwordEditingController.text);
                                       },
                                       inputType: TextInputType.visiblePassword),
                                   const SizedBox(height: AppSpacing.regular),

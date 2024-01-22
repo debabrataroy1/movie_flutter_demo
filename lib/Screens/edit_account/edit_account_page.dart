@@ -13,15 +13,13 @@ import 'package:movie_flutter_demo/Screens/edit_account/cubit/edit_account_cubit
 import 'package:movie_flutter_demo/Screens/edit_account/cubit/state/edit_account_state.dart';
 import 'package:movie_flutter_demo/Screens/signup/profile_Image.dart';
 import 'package:movie_flutter_demo/Utils/date_picker.dart';
-import 'package:movie_flutter_demo/Helper/common_textField.dart';
+import 'package:movie_flutter_demo/Helper/common_textfield.dart';
 import 'package:movie_flutter_demo/Utils/file_manager.dart';
 import 'package:movie_flutter_demo/Utils/validator.dart';
 import 'dart:io';
-
 import 'package:movie_flutter_demo/di/injector.dart';
 
 class EditAccount extends StatelessWidget {
-
 
   final TextEditingController _dobEditingController = TextEditingController();
   final TextEditingController _nameEditingController = TextEditingController();
@@ -32,11 +30,11 @@ class EditAccount extends StatelessWidget {
   EditAccount({super.key}) {
     AppSharedPref sharedInstance = AppInjector.getIt<AppSharedPref>();
     FileManager fileManager = AppInjector.getIt<FileManager>();
-     fileManager.getFile(sharedInstance.getString(key: AppSharedPrefKey.profileImage)).then((value){
-       _pickedImage = value;
-       _gender.value = "";
-       _gender.value = sharedInstance.getString(key: AppSharedPrefKey.gender);
-     });
+    fileManager.getFile(sharedInstance.getString(key: AppSharedPrefKey.profileImage)).then((value){
+      _pickedImage = value;
+      _gender.value = "";
+      _gender.value = sharedInstance.getString(key: AppSharedPrefKey.gender);
+    });
     _dobEditingController.text = sharedInstance.getString(key: AppSharedPrefKey.dob);
     _nameEditingController.text = sharedInstance.getString(key: AppSharedPrefKey.fullName);
     _gender.value = sharedInstance.getString(key: AppSharedPrefKey.gender);
@@ -73,14 +71,14 @@ class EditAccount extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisSize:MainAxisSize.min,
                                 children: <Widget>[
-                                ValueListenableBuilder(
-                                valueListenable: _gender,
-                                builder: (context, value, _) {
-                                  return ProfileImage(pickerImage: (image) {
-                                    _pickedImage = image;
-                                  }, gender: _gender.value, pickedImage: _pickedImage,);
-                                }
-                            ),
+                                  ValueListenableBuilder(
+                                      valueListenable: _gender,
+                                      builder: (context, value, _) {
+                                        return ProfileImage(pickerImage: (image) {
+                                          _pickedImage = image;
+                                        }, gender: _gender.value, pickedImage: _pickedImage);
+                                      }
+                                  ),
                                   const SizedBox(height: AppSpacing.regular),
                                   AppRadioButton(label: context.l10n.gender,
                                       items: [context.l10n.male, context.l10n.female, context.l10n.other],
@@ -93,12 +91,7 @@ class EditAccount extends StatelessWidget {
                                       label: context.l10n.name,
                                       controller: _nameEditingController,
                                       validator: (value) {
-                                        if (value != null) {
-                                          if (Validator.isValidName(context, name: value) != null) {
-                                            return Validator.isValidName(context, name: value);
-                                          }
-                                        }
-                                        return null;
+                                        return Validator.isValidName(context, name: value);
                                       },
                                       inputType: TextInputType.name),
                                   const SizedBox(height: AppSpacing.regular),
@@ -112,18 +105,13 @@ class EditAccount extends StatelessWidget {
                                       },
                                       controller: _dobEditingController,
                                       validator: (value) {
-                                        if (value != null) {
-                                          if (Validator.isEmpty(value)) {
-                                            return context.l10n.dobIsRequired;
-                                          }
-                                        }
-                                        return null;
+                                        return Validator.emptyValidate(context, value: value, message: context.l10n.dobIsRequired);
                                       },
                                       inputType: TextInputType.emailAddress),
                                   const SizedBox(height: AppSpacing.regular),
                                   BlocConsumer<EditAccountCubit, EditAccountState>(
                                       listener: (context, state) {
-                                         if (state is SuccessState) {
+                                        if (state is SuccessState) {
                                           context.pop();
                                         }
                                       },

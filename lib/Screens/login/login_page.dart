@@ -13,7 +13,7 @@ import 'package:movie_flutter_demo/Extensions/build_context_extension.dart';
 import 'package:movie_flutter_demo/Helper/common_button.dart';
 import 'package:movie_flutter_demo/Routes/app_router_config.dart';
 import 'package:movie_flutter_demo/gen/assets.gen.dart';
-import 'package:movie_flutter_demo/Helper/common_textField.dart';
+import 'package:movie_flutter_demo/Helper/common_textfield.dart';
 import 'package:movie_flutter_demo/Utils/validator.dart';
 import 'bloc/login_cubit.dart';
 import 'bloc/state/login_state.dart';
@@ -77,12 +77,7 @@ class Login extends StatelessWidget {
                                     label: context.l10n.emailAddress,
                                     controller: _emailEditingController,
                                     validator: (value) {
-                                      if (value != null) {
-                                        if (Validator.isEmailValid(context, email: value) != null) {
-                                          return Validator.isEmailValid(context, email: value);
-                                        }
-                                      }
-                                      return null;
+                                      return Validator.isEmailValid(context, email: value);
                                     },
                                     inputType: TextInputType.emailAddress,
                                   ),
@@ -92,12 +87,7 @@ class Login extends StatelessWidget {
                                       controller: _passwordEditingController,
                                       isPassword: true,
                                       validator: (value) {
-                                        if (value != null) {
-                                          if (Validator.isValidPassword(context, password: value) != null) {
-                                            return Validator.isValidPassword(context, password: value);
-                                          }
-                                        }
-                                        return null;
+                                        return Validator.isValidPassword(context, password: value);
                                       },
                                       inputType: TextInputType.visiblePassword
                                   ),
@@ -125,13 +115,13 @@ class Login extends StatelessWidget {
                                         Text(context.l10n.dontHaveAccount,
                                             style: const TextStyle(fontSize: AppFontSize.regular, fontWeight: FontWeight.w400)),
                                         InkWell(
-                                          onTap: (){
-                                            const SignupRoute().push(context);
-                                          },
-                                          child: Text(context.l10n.signUp,
-                                              style: const TextStyle(fontSize: AppFontSize.regular,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: AppColors.primaryColor)),
+                                            onTap: (){
+                                              const SignupRoute().push(context);
+                                            },
+                                            child: Text(context.l10n.signUp,
+                                                style: const TextStyle(fontSize: AppFontSize.regular,
+                                                    fontWeight: FontWeight.w700,
+                                                    color: AppColors.primaryColor))
                                         )
                                       ])
                                 ])

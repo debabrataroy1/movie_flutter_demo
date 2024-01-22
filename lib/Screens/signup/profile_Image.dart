@@ -12,7 +12,7 @@ class ProfileImage extends StatefulWidget {
   final ValueChanged<File>? pickerImage;
   final String? gender;
   File? pickedImage;
-   ProfileImage({this.pickerImage,this.pickedImage, this.gender, super.key});
+  ProfileImage({this.pickerImage,this.pickedImage, this.gender, super.key});
 
   @override
   State<ProfileImage> createState() => _ProfileImageState();

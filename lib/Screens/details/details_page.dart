@@ -8,7 +8,7 @@ import 'package:movie_flutter_demo/Screens/details/widgets/movie_banner_widget.d
 import 'package:movie_flutter_demo/Screens/details/widgets/movie_review_widget.dart';
 
 class DetailPage extends StatelessWidget {
-  final (MovieData,bool,Function(int,bool)?) movie;
+  final (MovieData, bool, Function(int,bool)?) movie;
   const DetailPage(this.movie, {super.key});
 
   @override
@@ -29,16 +29,16 @@ class DetailPage extends StatelessWidget {
                         Row(children: [
                           Expanded(
                               child: Column(children: [
-                                Text(movie.$1.popularity.toString() ?? '', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: AppFontSize.regular)),
+                                Text(movie.$1.popularity.toString(), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: AppFontSize.regular)),
                                 const Text('IMDB'),
                                 const Text('themoviedb.org')
-                              ],)),
+                              ])),
                           Expanded(
                               child: Column(children: [
                                 const Icon(Icons.star, color: AppColors.ratingColor),
                                 Text(movie.$1.voteAverage?.roundToDouble().toString() ?? '', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: AppFontSize.regular)),
-                                Text(movie.$1.voteCount.toString() ?? ''),
-                              ])),
+                                Text(movie.$1.voteCount.toString())
+                              ]))
                         ]),
                         const Divider(),
                          Text(context.l10n.description, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: AppFontSize.regular)),

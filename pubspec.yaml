@@ -45,6 +45,8 @@ dependencies:
   path_provider:
   path:
   sqflite:
+  intl:
+  retrofit:
   flutter_localizations:
     sdk: flutter
 
@@ -62,7 +64,6 @@ dev_dependencies:
   build_runner:
   json_serializable:
   flutter_gen_runner:
-  retrofit:
   json_annotation:
   go_router_builder:
 

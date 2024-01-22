@@ -74,7 +74,7 @@ class DioCustomError implements DioException {
   String toString() => message;
 
   @override
-  var error;
+  Object? error;
 
   @override
   late RequestOptions requestOptions;

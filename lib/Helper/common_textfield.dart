@@ -64,7 +64,7 @@ class _AppTextFieldState extends State<AppTextField> {
         )
             : null,
       ),
-      validator: widget.validator,
+      validator: widget.validator
     );
   }
 }

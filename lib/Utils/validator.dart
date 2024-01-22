@@ -25,9 +25,20 @@ class Validator {
     return null;
   }
 
-  static String? isValidMessage(BuildContext context, {String? message}){
-    if(isEmpty(message ?? '')){
-      return context.l10n.messageIsRequired;
+  static String? isValidConfirmPassword(BuildContext context, {String? password, String? matchPassword}) {
+    if (isEmpty(password)) {
+      return  context.l10n.passwordIsRequired;
+    } else if ((password?.trim().length ?? 0) < 8) {
+      return  context.l10n.shortPasswordMsg;
+    } else if (password != matchPassword) {
+      return context.l10n.passwordMismatch;
+    }
+    return null;
+  }
+
+  static String? emptyValidate(BuildContext context, {String? value, String? message}){
+    if(isEmpty(value ?? '')){
+      return message;
     }
     return null;
   }
