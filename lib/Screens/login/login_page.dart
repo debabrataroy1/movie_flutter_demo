@@ -9,9 +9,9 @@ import 'package:movie_flutter_demo/Constants/icon_size_constants.dart';
 import 'package:movie_flutter_demo/Constants/icons_constants.dart';
 import 'package:movie_flutter_demo/Constants/padding_constants.dart';
 import 'package:movie_flutter_demo/Constants/spacing_constants.dart';
-import 'package:movie_flutter_demo/Extensions/build_context_extension.dart';
 import 'package:movie_flutter_demo/Helper/common_button.dart';
 import 'package:movie_flutter_demo/Routes/app_router_config.dart';
+import 'package:movie_flutter_demo/Utils/app_localization.dart';
 import 'package:movie_flutter_demo/gen/assets.gen.dart';
 import 'package:movie_flutter_demo/Helper/common_textfield.dart';
 import 'package:movie_flutter_demo/Utils/validator.dart';
@@ -19,25 +19,11 @@ import 'bloc/login_cubit.dart';
 import 'bloc/state/login_state.dart';
 
 class Login extends StatelessWidget {
-  late TextEditingController _emailEditingController, _passwordEditingController;
-  late GlobalKey<FormState> _formKey;
+
   late LoginCubit _loginCubit;
 
   Login({super.key}) {
-    _formKey = GlobalKey();
-    _emailEditingController = TextEditingController();
-    _passwordEditingController = TextEditingController();
     _loginCubit = LoginCubit();
-  }
-
-  void _validateForm() async {
-    if (_formKey.currentState?.validate() == true) {
-      SystemChannels.textInput.invokeMethod("TextInput.hide");
-      var params = {LoginApiKeys.email: _emailEditingController.text,
-        LoginApiKeys.password: _passwordEditingController.text
-      };
-      _loginCubit.loginIn(params);
-    }
   }
 
   @override
@@ -60,34 +46,34 @@ class Login extends StatelessWidget {
                     child: Padding(
                         padding: const EdgeInsets.only(left: AppPaddings.regular, right: AppPaddings.regular),
                         child:Form(
-                            key: _formKey,
+                            key: _loginCubit.formKey,
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisSize:MainAxisSize.min,
                                 children: <Widget>[
                                   Assets.images.logo.image(height: AppIconSize.logo, width: AppIconSize.logo),
                                   const SizedBox(height: AppSpacing.regular),
-                                  Text(context.l10n.login,
+                                  Text(AppLocalization.instance.keys.login,
                                       style: const TextStyle(fontSize: AppFontSize.extraLarge, fontWeight: FontWeight.w600)),
                                   const SizedBox(height: AppSpacing.regular),
-                                  Text(context.l10n.signMessage,
+                                  Text(AppLocalization.instance.keys.signMessage,
                                       style: const TextStyle(fontSize: AppFontSize.regular, fontWeight: FontWeight.w400)),
                                   const SizedBox(height: AppSpacing.large),
                                   AppTextField(
-                                    label: context.l10n.emailAddress,
-                                    controller: _emailEditingController,
+                                    label: AppLocalization.instance.keys.emailAddress,
+                                    controller: _loginCubit.emailEditingController,
                                     validator: (value) {
-                                      return Validator.isEmailValid(context, email: value);
+                                      return Validator.isEmailValid(email: value);
                                     },
                                     inputType: TextInputType.emailAddress,
                                   ),
                                   const SizedBox(height: AppSpacing.regular),
                                   AppTextField(
-                                      label: context.l10n.password,
-                                      controller: _passwordEditingController,
+                                      label: AppLocalization.instance.keys.password,
+                                      controller: _loginCubit.passwordEditingController,
                                       isPassword: true,
                                       validator: (value) {
-                                        return Validator.isValidPassword(context, password: value);
+                                        return Validator.isValidPassword(password: value);
                                       },
                                       inputType: TextInputType.visiblePassword
                                   ),
@@ -104,21 +90,22 @@ class Login extends StatelessWidget {
                                         }
                                       },
                                       builder: (context, state) {
-                                        return AppElevatedButton(title: context.l10n.login, onPressed: () {
-                                          _validateForm();
+                                        return AppElevatedButton(title: AppLocalization.instance.keys.login, onPressed: () {
+                                          SystemChannels.textInput.invokeMethod("TextInput.hide");
+                                          _loginCubit.validateForm();
                                         });
                                       }),
                                   const SizedBox(height: AppSpacing.regular),
                                   Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        Text(context.l10n.dontHaveAccount,
+                                        Text(AppLocalization.instance.keys.dontHaveAccount,
                                             style: const TextStyle(fontSize: AppFontSize.regular, fontWeight: FontWeight.w400)),
                                         InkWell(
                                             onTap: (){
                                               const SignupRoute().push(context);
                                             },
-                                            child: Text(context.l10n.signUp,
+                                            child: Text(AppLocalization.instance.keys.signUp,
                                                 style: const TextStyle(fontSize: AppFontSize.regular,
                                                     fontWeight: FontWeight.w700,
                                                     color: AppColors.primaryColor))

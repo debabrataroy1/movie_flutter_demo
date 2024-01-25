@@ -4,7 +4,7 @@ import 'package:movie_flutter_demo/Constants/color_constants.dart';
 import 'package:movie_flutter_demo/Constants/icon_size_constants.dart';
 import 'package:movie_flutter_demo/Constants/icons_constants.dart';
 import 'package:movie_flutter_demo/Constants/padding_constants.dart';
-import 'package:movie_flutter_demo/Extensions/build_context_extension.dart';
+import 'package:movie_flutter_demo/Utils/app_localization.dart';
 import 'package:movie_flutter_demo/Utils/image_picker.dart';
 import 'package:movie_flutter_demo/gen/assets.gen.dart';
 import 'dart:io';
@@ -41,8 +41,8 @@ class _ProfileImageState extends State<ProfileImage> {
                   ClipRRect(borderRadius: BorderRadius.circular(AppBorderRadius.extraLarge),
                       child: Image.file(widget.pickedImage!, fit: BoxFit.cover,
                           height: AppIconSize.logo, width: AppIconSize.logo))
-                      : widget.gender == context.l10n.other ? Assets.images.other.image()
-                      : widget.gender == context.l10n.female ? Assets.images.woman.image()
+                      : widget.gender == AppLocalization.instance.keys.other ? Assets.images.other.image()
+                      : widget.gender == AppLocalization.instance.keys.female ? Assets.images.woman.image()
                       : Assets.images.man.image())
           ),
           Positioned(

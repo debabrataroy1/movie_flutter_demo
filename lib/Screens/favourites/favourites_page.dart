@@ -7,11 +7,11 @@ import 'package:movie_flutter_demo/Constants/icon_size_constants.dart';
 import 'package:movie_flutter_demo/Constants/icons_constants.dart';
 import 'package:movie_flutter_demo/Constants/padding_constants.dart';
 import 'package:movie_flutter_demo/Constants/spacing_constants.dart';
-import 'package:movie_flutter_demo/Extensions/build_context_extension.dart';
 import 'package:movie_flutter_demo/Models/home_model.dart';
 import 'package:movie_flutter_demo/Screens/favourites/cubit/favourite_cubit.dart';
 import 'package:movie_flutter_demo/Screens/favourites/cubit/state/favourite_state.dart';
 import 'package:movie_flutter_demo/Screens/home/widgets/home_movie_list.dart';
+import 'package:movie_flutter_demo/Utils/app_localization.dart';
 
 class FavouritesPage extends StatelessWidget {
   List<MovieData>? movieList;
@@ -20,13 +20,13 @@ class FavouritesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text(context.l10n.favourites)),
+        appBar: AppBar(title: Text(AppLocalization.instance.keys.favourites)),
         body:BlocBuilder<FavouriteCubit, FavouriteState>(
             builder: (context, state) {
               if (state is AllWishListState && state.wishListItems.isNotEmpty) {
                 return SingleChildScrollView(
                     child: HomeMovieList(
-                        context.l10n.myFavouriteList, state.wishListItems,
+                        AppLocalization.instance.keys.myFavouriteList, state.wishListItems,
                         wishListItems: state.wishListItems.map((e) => (e.id ?? 0)).toList())
                 );
               } else {
@@ -50,7 +50,7 @@ class FavouritesPage extends StatelessWidget {
                                       color: Theme.of(context).scaffoldBackgroundColor))
                           ),
                           const SizedBox(height: AppSpacing.regular),
-                          Text(context.l10n.noFavouriteYet, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: AppFontSize.large))
+                          Text(AppLocalization.instance.keys.noFavouriteYet, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: AppFontSize.large))
                         ])
                 );
               }

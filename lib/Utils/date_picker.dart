@@ -13,7 +13,7 @@ class DatePicker {
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(DateTime.now().year - 100),
-      lastDate: DateTime.now(),
+      lastDate: DateTime.now()
     );
     if (pickedDate != null) {
       String formattedDate =

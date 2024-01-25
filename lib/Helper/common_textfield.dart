@@ -39,6 +39,7 @@ class _AppTextFieldState extends State<AppTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       key: Key('${widget.label}${DateTime.now().microsecondsSinceEpoch}'),
       onTap: widget.onTap,
       maxLines: widget.maxLines,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_flutter_demo/Constants/font_size_constants.dart';
-import 'package:movie_flutter_demo/Extensions/build_context_extension.dart';
+import 'package:movie_flutter_demo/Utils/app_localization.dart';
 
 class AppRadioButton extends StatefulWidget {
   final List<String> items;
@@ -51,7 +51,7 @@ class _AppRadioButtonState extends State<AppRadioButton> {
         ]);
     }, validator: (value) {
       if (widget.selectedItem?.isEmpty ?? true) {
-        return context.l10n.genderIsRequired;
+        return AppLocalization.instance.keys.genderIsRequired;
       }
       return null;
     });

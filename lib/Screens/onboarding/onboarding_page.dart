@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:movie_flutter_demo/Constants/app_size_constants.dart';
 import 'package:movie_flutter_demo/Routes/app_router_config.dart';
+import 'package:movie_flutter_demo/Utils/app_localization.dart';
 import 'package:movie_flutter_demo/gen/assets.gen.dart';
 import 'package:movie_flutter_demo/Constants/color_constants.dart';
 import 'package:movie_flutter_demo/Constants/font_size_constants.dart';
 import 'package:movie_flutter_demo/Constants/icon_size_constants.dart';
 import 'package:movie_flutter_demo/Constants/padding_constants.dart';
 import 'package:movie_flutter_demo/Constants/spacing_constants.dart';
-import 'package:movie_flutter_demo/Extensions/build_context_extension.dart';
 import 'package:movie_flutter_demo/Helper/common_button.dart';
 
 class OnboardingPage extends StatelessWidget {
@@ -30,15 +30,15 @@ class OnboardingPage extends StatelessWidget {
             child:  Column(
                 children: [
                   _spacing(),
-                  Text(context.l10n.entertainment, textAlign: TextAlign.center,
+                  Text(AppLocalization.instance.keys.entertainment, textAlign: TextAlign.center,
                       style: const TextStyle(fontSize: AppFontSize.extraLarge,
                           fontWeight: FontWeight.w900, color: AppColors.whiteTextColor)),
                   _spacing(),
-                  Text(context.l10n.onboarding,
+                  Text(AppLocalization.instance.keys.onboarding,
                       style: const TextStyle(fontSize: AppFontSize.large,
                           fontWeight: FontWeight.w600, color: AppColors.whiteTextColor)),
                   _spacing(),
-                  AppElevatedButton(title: context.l10n.getStarted,onPressed:  () {
+                  AppElevatedButton(title: AppLocalization.instance.keys.getStarted,onPressed:  () {
                     const LoginRoute().push(context);
                   })
                 ])

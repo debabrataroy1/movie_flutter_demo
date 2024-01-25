@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:movie_flutter_demo/Constants/color_constants.dart';
 import 'package:movie_flutter_demo/Constants/font_size_constants.dart';
 import 'package:movie_flutter_demo/Constants/spacing_constants.dart';
-import 'package:movie_flutter_demo/Extensions/build_context_extension.dart';
 import 'package:movie_flutter_demo/Models/home_model.dart';
 import 'package:movie_flutter_demo/Screens/details/widgets/movie_banner_widget.dart';
 import 'package:movie_flutter_demo/Screens/details/widgets/movie_review_widget.dart';
+import 'package:movie_flutter_demo/Utils/app_localization.dart';
 
 class DetailPage extends StatelessWidget {
   final (MovieData, bool, Function(int,bool)?) movie;
@@ -41,7 +41,7 @@ class DetailPage extends StatelessWidget {
                               ]))
                         ]),
                         const Divider(),
-                         Text(context.l10n.description, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: AppFontSize.regular)),
+                         Text(AppLocalization.instance.keys.description, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: AppFontSize.regular)),
                         const SizedBox(height: AppSpacing.extraSmall),
                         Text(movie.$1.overview ??'')
                       ])

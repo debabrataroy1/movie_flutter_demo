@@ -2,7 +2,13 @@ import 'dart:io';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
-class FileManager {
+abstract class FileManager {
+  Future<File> saveFile(File file);
+  Future<File?> getFile(String fileName);
+}
+
+class PathFileManager implements FileManager {
+  @override
   Future<File> saveFile(File file) async {
     String path = await _getPath();
     final String fileName = basename(file.path);
@@ -10,6 +16,7 @@ class FileManager {
     return localImage;
   }
 
+  @override
   Future<File?> getFile(String fileName) async {
     if (fileName.isEmpty) {
       return null;

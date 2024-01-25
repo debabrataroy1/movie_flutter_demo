@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movie_flutter_demo/Extensions/build_context_extension.dart';
 import 'package:movie_flutter_demo/Helper/common_button.dart';
+import 'package:movie_flutter_demo/Utils/app_localization.dart';
 
 class AppAlert {
   final String? title;
@@ -21,7 +21,7 @@ class AppAlert {
               content:  Text(message ?? ''),
               actions:[
                 AppTextButton(
-                    title: context.l10n.cancel,
+                    title: AppLocalization.instance.keys.cancel,
                     onPressed: () {
                       Navigator.of(context).pop();
                       if (cancelTap != null){

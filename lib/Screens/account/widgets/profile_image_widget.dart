@@ -3,7 +3,7 @@ import 'package:movie_flutter_demo/Constants/border_radius_constants.dart';
 import 'package:movie_flutter_demo/Constants/color_constants.dart';
 import 'dart:io';
 import 'package:movie_flutter_demo/Constants/icon_size_constants.dart';
-import 'package:movie_flutter_demo/Extensions/build_context_extension.dart';
+import 'package:movie_flutter_demo/Utils/app_localization.dart';
 import 'package:movie_flutter_demo/gen/assets.gen.dart';
 
 class ProfileImageWidget extends StatelessWidget {
@@ -35,8 +35,8 @@ class ProfileImageWidget extends StatelessWidget {
           ClipRRect(borderRadius: BorderRadius.circular(AppBorderRadius.extraLarge),
               child: Image.file(pickedImage!, fit: BoxFit.cover,
                   height: AppIconSize.logo, width: AppIconSize.logo))
-              : gender == context.l10n.other ? Assets.images.other.image()
-              : gender == context.l10n.female ? Assets.images.woman.image()
+              : gender == AppLocalization.instance.keys.other ? Assets.images.other.image()
+              : gender == AppLocalization.instance.keys.female ? Assets.images.woman.image()
               : Assets.images.man.image()
       ),
     );

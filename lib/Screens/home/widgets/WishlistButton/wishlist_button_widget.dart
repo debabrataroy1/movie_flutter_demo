@@ -22,7 +22,12 @@ class WishListButtonWidget extends StatefulWidget {
 class _WishListButtonWidgetState extends State<WishListButtonWidget> with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
       duration: const Duration(milliseconds: 200), vsync:this, value: 1.0);
-
+@override
+  void dispose() {
+    // TODO: implement dispose
+  _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +53,7 @@ class _WishListButtonWidgetState extends State<WishListButtonWidget> with Single
           return InkWell(
               onTap: () {
                 final cubit = context.read<WishListCubit>();
-                cubit.addRemoveWishlist(context, widget.movie, isNeedToAdd: !widget.isWishlist);
+                cubit.addRemoveWishlist(widget.movie, isNeedToAdd: !widget.isWishlist);
               },
               child: Container(
                   width: ContanierSize.regular,

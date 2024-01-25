@@ -1,7 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:movie_flutter_demo/Constants/app_shared_pref.dart';
+import 'package:movie_flutter_demo/Constants/app_shared_pref_key.dart';
+import 'package:movie_flutter_demo/Utils/app_shared_pref.dart';
 import 'package:movie_flutter_demo/Models/home_model.dart';
 import 'package:movie_flutter_demo/Routes/app_router_constants.dart';
 import 'package:movie_flutter_demo/Screens/Details/details_page.dart';
@@ -17,22 +18,23 @@ import 'package:flutter/material.dart';
 import 'package:movie_flutter_demo/Screens/signup/signup_page.dart';
 import 'package:movie_flutter_demo/Screens/home/home_page.dart';
 import 'package:movie_flutter_demo/Screens/onboarding/onboarding_page.dart';
+import 'package:movie_flutter_demo/di/injector.dart';
 part 'app_router_config.g.dart';
 
 class AppRouter {
   GoRouter router = GoRouter(
-    initialLocation: '/',
-    routes: $appRoutes,
-    redirect: (BuildContext context, GoRouterState state) {
-      var app = GetIt.instance<AppSharedPref>();
-      if (state.fullPath == '/') {
-        var isLogin = app.getBool(key: AppSharedPrefKey.loginStatus);
-        if (isLogin) {
-          return const BottombarRoute().location;
+      initialLocation: '/',
+      routes: $appRoutes,
+      redirect: (BuildContext context, GoRouterState state) {
+        var app = AppInjector.getIt<SharedPref>();
+        if (state.fullPath == '/') {
+          var isLogin = app.getBool(key: AppSharedPrefKey.loginStatus);
+          if (isLogin) {
+            return const BottombarRoute().location;
+          }
         }
+        return null;
       }
-      return null;
-    }
   );
 }
 
@@ -90,7 +92,7 @@ class AccountRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) =>
-      const AccountPage();
+      AccountPage();
 }
 
 @TypedGoRoute<FavouritesRoute>(

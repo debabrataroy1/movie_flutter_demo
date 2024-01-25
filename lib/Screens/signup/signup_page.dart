@@ -1,125 +1,100 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_flutter_demo/Constants/api_constants.dart';
 import 'package:movie_flutter_demo/Constants/padding_constants.dart';
 import 'package:movie_flutter_demo/Constants/spacing_constants.dart';
-import 'package:movie_flutter_demo/Extensions/build_context_extension.dart';
 import 'package:movie_flutter_demo/Helper/common_button.dart';
 import 'package:movie_flutter_demo/Helper/common_radio_button.dart';
 import 'package:movie_flutter_demo/Routes/app_router_config.dart';
 import 'package:movie_flutter_demo/Screens/signup/bloc/signup_cubit.dart';
 import 'package:movie_flutter_demo/Screens/signup/bloc/state/signup_state.dart';
 import 'package:movie_flutter_demo/Screens/signup/profile_Image.dart';
+import 'package:movie_flutter_demo/Utils/app_localization.dart';
 import 'package:movie_flutter_demo/Utils/date_picker.dart';
 import 'package:movie_flutter_demo/Helper/common_textfield.dart';
 import 'package:movie_flutter_demo/Utils/validator.dart';
-import 'dart:io';
 
 class SignupPage extends StatelessWidget {
   SignupPage({super.key});
-  final TextEditingController _emailEditingController = TextEditingController();
-  final TextEditingController _passwordEditingController = TextEditingController();
-  final TextEditingController _dobEditingController = TextEditingController();
-  final TextEditingController _nameEditingController = TextEditingController();
-  final TextEditingController _confirmPasswordEditingController = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey();
   final SignupCubit _signupCubit = SignupCubit();
-  final ValueNotifier<String> _gender = ValueNotifier<String>("");
-  File? _pickedImage;
-
-  void _validateForm() async {
-    if (_formKey.currentState?.validate() == true) {
-      SystemChannels.textInput.invokeMethod("TextInput.hide");
-      Map<String, dynamic> params = {LoginApiKeys.email: _emailEditingController.text,
-        LoginApiKeys.password: _passwordEditingController.text,
-        LoginApiKeys.name: _nameEditingController.text,
-        LoginApiKeys.dob: _dobEditingController.text,
-        LoginApiKeys.gender: _gender.value
-      };
-      if (_pickedImage != null) {
-        params[LoginApiKeys.image] = _pickedImage;
-      }
-      _signupCubit.signup(params);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<SignupCubit>(
         create: (context)=> _signupCubit,
         child:Scaffold(
-            appBar: AppBar(title: Text(context.l10n.signUp)),
+            appBar: AppBar(title: Text(AppLocalization.instance.keys.signUp)),
             body: SafeArea(
                 child: SingleChildScrollView(
                     child: Padding(
                         padding: const EdgeInsets.only(left: AppPaddings.regular, right: AppPaddings.regular),
                         child:Form(
-                            key: _formKey,
+                            key: _signupCubit.formKey,
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisSize:MainAxisSize.min,
                                 children: <Widget>[
-                                  ValueListenableBuilder(
-                                      valueListenable: _gender,
-                                      builder: (context, value, _) {
+                                  BlocBuilder<SignupCubit, SignupState>(
+                                    buildWhen: (_,current) {
+                                      return current is GenderState;
+                                    },
+                                      builder: (context, state) {
                                         return ProfileImage(pickerImage: (image) {
-                                          _pickedImage = image;
-                                        }, gender: _gender.value);
-                                      }
-                                  ),
+                                          _signupCubit.pickedImage = image;
+                                        }, gender: _signupCubit.gender);
+                                      }),
                                   const SizedBox(height: AppSpacing.regular),
-                                  AppRadioButton(label: context.l10n.gender,
-                                      items: [context.l10n.male, context.l10n.female, context.l10n.other],
+                                  AppRadioButton(label: AppLocalization.instance.keys.gender,
+                                      items: [AppLocalization.instance.keys.male, AppLocalization.instance.keys.female, AppLocalization.instance.keys.other],
                                       onChange: (value) {
-                                        _gender.value = value;
+                                        _signupCubit.updateGender(value);
                                       }),
                                   const SizedBox(height: AppSpacing.regular),
                                   AppTextField(
-                                      label: context.l10n.name,
-                                      controller: _nameEditingController,
+                                      label: AppLocalization.instance.keys.name,
+                                      controller: _signupCubit.nameEditingController,
                                       validator: (value) {
-                                        return Validator.isValidName(context, name: value);
+                                        return Validator.isValidName(name: value);
                                       },
                                       inputType: TextInputType.name),
                                   const SizedBox(height: AppSpacing.regular),
                                   AppTextField(
-                                      label: context.l10n.dob,
+                                      label: AppLocalization.instance.keys.dob,
                                       readOnly: true,
                                       onTap: () {
                                         DatePicker(context,date: (date){
-                                          _dobEditingController.text = date;
+                                          _signupCubit.dobEditingController.text = date;
                                         }).show();
                                       },
-                                      controller: _dobEditingController,
+                                      controller: _signupCubit.dobEditingController,
                                       validator: (value) {
-                                        return Validator.emptyValidate(context, value: value, message: context.l10n.dobIsRequired);
+                                        return Validator.emptyValidate(value: value, message: AppLocalization.instance.keys.dobIsRequired);
                                       },
                                       inputType: TextInputType.emailAddress),
                                   const SizedBox(height: AppSpacing.regular),
                                   AppTextField(
-                                      label: context.l10n.emailAddress,
-                                      controller: _emailEditingController,
+                                      label: AppLocalization.instance.keys.emailAddress,
+                                      controller: _signupCubit.emailEditingController,
                                       validator: (value) {
-                                        return Validator.isEmailValid(context, email: value);
+                                        return Validator.isEmailValid(email: value);
                                       },
                                       inputType: TextInputType.emailAddress),
                                   const SizedBox(height: AppSpacing.regular),
                                   AppTextField(
-                                      label: context.l10n.password,
-                                      controller: _passwordEditingController,
+                                      label: AppLocalization.instance.keys.password,
+                                      controller: _signupCubit.passwordEditingController,
                                       isPassword: true,
                                       validator: (value) {
-                                        return Validator.isValidPassword(context, password: value);
+                                        return Validator.isValidPassword(password: value);
                                       },
                                       inputType: TextInputType.visiblePassword),
                                   const SizedBox(height: AppSpacing.regular),
                                   AppTextField(
-                                      label: context.l10n.confirmPassword,
-                                      controller: _confirmPasswordEditingController,
+                                      label: AppLocalization.instance.keys.confirmPassword,
+                                      controller: _signupCubit.confirmPasswordEditingController,
                                       isPassword: true,
                                       validator: (value) {
-                                        return Validator.isValidConfirmPassword(context, password: value, matchPassword: _passwordEditingController.text);
+                                        return Validator.isValidConfirmPassword(password: value, matchPassword: _signupCubit.passwordEditingController.text);
                                       },
                                       inputType: TextInputType.visiblePassword),
                                   const SizedBox(height: AppSpacing.regular),
@@ -135,8 +110,9 @@ class SignupPage extends StatelessWidget {
                                         }
                                       },
                                       builder: (context, state) {
-                                        return AppElevatedButton(title: context.l10n.signUp, onPressed: () {
-                                          _validateForm();
+                                        return AppElevatedButton(title: AppLocalization.instance.keys.signUp, onPressed: () {
+                                          SystemChannels.textInput.invokeMethod("TextInput.hide");
+                                          _signupCubit.validateForm();
                                         });
                                       })
                                 ])

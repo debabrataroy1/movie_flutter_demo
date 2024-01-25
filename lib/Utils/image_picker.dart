@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:movie_flutter_demo/Extensions/build_context_extension.dart';
 import 'dart:io';
 import 'package:movie_flutter_demo/Helper/common_button.dart';
+import 'package:movie_flutter_demo/Utils/app_localization.dart';
 
 class AppImagePicker {
   final BuildContext context;
@@ -18,14 +18,14 @@ class AppImagePicker {
     showDialog<ImageSource>(
       context: context,
       builder: (context) => AlertDialog(
-        content: Text(context.l10n.chooseImage),
+        content: Text(AppLocalization.instance.keys.chooseImage),
         actions: [
       AppElevatedButton(
-            title: context.l10n.camera,
+            title: AppLocalization.instance.keys.camera,
             onPressed: () => Navigator.pop(context, ImageSource.camera),
           ),
           AppElevatedButton(
-            title:context.l10n.gallery,
+            title:AppLocalization.instance.keys.gallery,
             onPressed: () => Navigator.pop(context, ImageSource.gallery),
           )
         ])

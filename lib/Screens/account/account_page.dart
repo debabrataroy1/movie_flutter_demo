@@ -1,108 +1,102 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:movie_flutter_demo/Constants/app_shared_pref.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_flutter_demo/Constants/app_shared_pref_key.dart';
+import 'package:movie_flutter_demo/Screens/account/cubit/account_cubit.dart';
+import 'package:movie_flutter_demo/Screens/account/cubit/state/account_state.dart';
+import 'package:movie_flutter_demo/Utils/app_localization.dart';
+import 'package:movie_flutter_demo/Utils/app_shared_pref.dart';
 import 'package:movie_flutter_demo/Constants/font_size_constants.dart';
 import 'package:movie_flutter_demo/Constants/icons_constants.dart';
 import 'package:movie_flutter_demo/Constants/padding_constants.dart';
 import 'package:movie_flutter_demo/Constants/spacing_constants.dart';
-import 'package:movie_flutter_demo/Extensions/build_context_extension.dart';
 import 'package:movie_flutter_demo/Helper/common_alert.dart';
 import 'package:movie_flutter_demo/Routes/app_router_config.dart';
 import 'package:movie_flutter_demo/Screens/account/widgets/profile_action_widget.dart';
 import 'package:movie_flutter_demo/Screens/account/widgets/profile_card_widget.dart';
 import 'package:movie_flutter_demo/Screens/account/widgets/profile_image_widget.dart';
 import 'package:movie_flutter_demo/Screens/account/widgets/profile_info_widget.dart';
-import 'package:movie_flutter_demo/Utils/file_manager.dart';
 import 'package:movie_flutter_demo/di/injector.dart';
 
-class AccountPage extends StatefulWidget {
-  const AccountPage({super.key});
+class AccountPage extends StatelessWidget {
+  final AccountCubit _accountCubit = AccountCubit();
 
-  @override
-  State<AccountPage> createState() => _AccountPageState();
-}
-
-class _AccountPageState extends State<AccountPage> {
-  File? _pickedImage;
-  String? name, email, dob, gender;
-  AppSharedPref sharedInstance = AppInjector.getIt<AppSharedPref>();
-  @override
-  void initState() {
-    getData();
-    super.initState();
-  }
-  getData() async {
-    FileManager fileManager = AppInjector.getIt<FileManager>();
-    _pickedImage = await fileManager.getFile(sharedInstance.getString(key: AppSharedPrefKey.profileImage));
-    name = sharedInstance.getString(key: AppSharedPrefKey.fullName);
-    email = sharedInstance.getString(key: AppSharedPrefKey.email);
-    dob = sharedInstance.getString(key: AppSharedPrefKey.dob);
-    gender = sharedInstance.getString(key: AppSharedPrefKey.gender);
-    setState(() { });
-  }
+  AccountPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text(context.l10n.account)),
-        body: SingleChildScrollView(
-            child: Padding(
-                padding: const EdgeInsets.only(left: AppPaddings.regular, right: AppPaddings.regular, top: AppPaddings.regular),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ProfileImageWidget(gender ?? '', pickedImage: _pickedImage),
-                      const SizedBox(height: AppSpacing.small),
-                      Center(child: Text(name ?? '', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: AppFontSize.large))),
-                      const SizedBox(height: AppSpacing.regular),
-                      Text(context.l10n.personalInformation, style: const TextStyle(fontSize: AppFontSize.regular)),
-                      ProfileCardWidget(
-                          child: Column(children: [
-                            Info(context.l10n.emailAddress, email ?? ''),
-                            const Divider(),
-                            Info(context.l10n.dob, dob ?? ''),
-                            const Divider(),
-                            Info(context.l10n.gender, gender ?? ''),
-                          ])
-                      ),
-                      const SizedBox(height: AppSpacing.small),
-                      Text(context.l10n.utilities, style: const TextStyle(fontSize: AppFontSize.regular)),
-                      ProfileCardWidget(
-                          child:Column(
+        appBar: AppBar(title: Text(AppLocalization.instance.keys.account)),
+        body: BlocProvider(
+            create: (context) => _accountCubit,
+            child: SingleChildScrollView(
+                child: Padding(
+                    padding: const EdgeInsets.only(left: AppPaddings.regular, right: AppPaddings.regular, top: AppPaddings.regular),
+                    child: BlocBuilder<AccountCubit, AccountState>(
+                        buildWhen: (_, current) => current is InfoAccountState,
+                        builder: (context, state){
+                          var info = (state as InfoAccountState).info;
+                          return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                ProfileActionWidget(context.l10n.editAccount, AppIcons.account, onTap: () {
-                                  const EditAccountRoute().push(context).then((value){
-                                    getData();
-                                  });
-                                }),
-                                const Divider(),
-                                ProfileActionWidget(context.l10n.changePassword, AppIcons.password, onTap: () {
-                                  const ChangePasswordRoute().push(context).then((value){
-                                    getData();
-                                  });
-                                },),
-                                const Divider(),
-                                ProfileActionWidget(context.l10n.logout, AppIcons.logout, onTap: _logout),
-                                const Divider(),
-                                ProfileActionWidget(context.l10n.clearAppData, AppIcons.clear, onTap: _clear)
-                              ])
-                      )
-                    ])
+                                ProfileImageWidget(info.gender ?? '', pickedImage: info.profileImage),
+                                const SizedBox(height: AppSpacing.small),
+                                Center(child: Text(info.name ?? '', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: AppFontSize.large))),
+                                const SizedBox(height: AppSpacing.regular),
+                                Text(AppLocalization.instance.keys.personalInformation, style: const TextStyle(fontSize: AppFontSize.regular)),
+                                ProfileCardWidget(
+                                    child: Column(children: [
+                                      Info(AppLocalization.instance.keys.emailAddress, info.email ?? ''),
+                                      const Divider(),
+                                      Info(AppLocalization.instance.keys.dob, info.dob ?? ''),
+                                      const Divider(),
+                                      Info(AppLocalization.instance.keys.gender, info.gender ?? ''),
+                                    ])
+                                ),
+                                const SizedBox(height: AppSpacing.small),
+                                Text(AppLocalization.instance.keys.utilities, style: const TextStyle(fontSize: AppFontSize.regular)),
+                                ProfileCardWidget(
+                                    child:Column(
+                                        children: [
+                                          ProfileActionWidget(AppLocalization.instance.keys.editAccount, AppIcons.account, onTap: () {
+                                            const EditAccountRoute().push(context).then((value){
+                                              _accountCubit.getAccountData();
+                                            });
+                                          }),
+                                          const Divider(),
+                                          ProfileActionWidget(AppLocalization.instance.keys.changePassword, AppIcons.password, onTap: () {
+                                            const ChangePasswordRoute().push(context);
+                                          }),
+                                          const Divider(),
+                                          ProfileActionWidget(AppLocalization.instance.keys.logout, AppIcons.logout, onTap: (){
+                                            _logout(context);
+                                          }),
+                                          const Divider(),
+                                          ProfileActionWidget(AppLocalization.instance.keys.clearAppData, AppIcons.clear, onTap: (){
+                                            _clear(context);
+                                          })
+                                        ])
+                                )
+                              ]);
+                        })
+                )
             )
         )
     );
   }
-  void _logout() {
-    AppAlert(title: context.l10n.logout, message: context.l10n.logoutMessage, confirmBtnText: context.l10n.logout,confirmTap: () {
-      sharedInstance.remove(AppSharedPrefKey.loginStatus);
-      sharedInstance.remove(AppSharedPrefKey.lastActive);
+  void _logout(BuildContext context) {
+    AppAlert(title: AppLocalization.instance.keys.logout, message: AppLocalization.instance.keys.logoutMessage, confirmBtnText: AppLocalization.instance.keys.logout,confirmTap: () {
+      var appSharedPref = AppInjector.getIt<SharedPref>();
+      appSharedPref.remove(AppSharedPrefKey.loginStatus);
+      appSharedPref.remove(AppSharedPrefKey.lastActive);
       const OnboardingRoute().go(context);
     }).showDialogBox(context);
   }
 
-  void _clear() {
-    AppAlert(title: context.l10n.delete, message: context.l10n.dataDeleteMessage,confirmBtnText:context.l10n.clear, confirmTap: () {
-      sharedInstance.clear();
+  void _clear(BuildContext context) {
+    AppAlert(title: AppLocalization.instance.keys.delete, message: AppLocalization.instance.keys.dataDeleteMessage,confirmBtnText:AppLocalization.instance.keys.clear, confirmTap: () {
+      var appSharedPref = AppInjector.getIt<SharedPref>();
+      appSharedPref.clear();
       const OnboardingRoute().go(context);
     }).showDialogBox(context);
   }

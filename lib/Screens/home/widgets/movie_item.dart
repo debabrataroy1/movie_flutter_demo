@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_flutter_demo/Constants/color_constants.dart';
-import 'package:movie_flutter_demo/Extensions/build_context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_flutter_demo/Constants/app_size_constants.dart';
 import 'package:movie_flutter_demo/Constants/border_radius_constants.dart';
@@ -12,6 +11,7 @@ import 'package:movie_flutter_demo/Models/home_model.dart';
 import 'package:movie_flutter_demo/Routes/app_router_config.dart';
 import 'package:movie_flutter_demo/Screens/home/widgets/WishlistButton/wishList_button_cubit.dart';
 import 'package:movie_flutter_demo/Screens/home/widgets/WishlistButton/wishlist_button_widget.dart';
+import 'package:movie_flutter_demo/Utils/app_localization.dart';
 
 class MovieItem extends StatelessWidget {
   final MovieData movie;
@@ -89,7 +89,7 @@ class MovieItem extends StatelessWidget {
                                   )),
                               child: Row(
                                   children: [
-                                    Text((movie.adult ?? false) ? context.l10n.adult : context.l10n.ua, style: const TextStyle(color: AppColors.whiteTextColor)),
+                                    Text((movie.adult ?? false) ? AppLocalization.instance.keys.adult : AppLocalization.instance.keys.ua, style: const TextStyle(color: AppColors.whiteTextColor)),
                                     const Spacer(),
                                     Text(movie.language ?? '', style: const TextStyle(color: AppColors.whiteTextColor))
                                   ])

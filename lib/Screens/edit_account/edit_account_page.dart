@@ -3,10 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_flutter_demo/Constants/api_constants.dart';
-import 'package:movie_flutter_demo/Constants/app_shared_pref.dart';
+import 'package:movie_flutter_demo/Constants/app_shared_pref_key.dart';
+import 'package:movie_flutter_demo/Utils/app_localization.dart';
+import 'package:movie_flutter_demo/Utils/app_shared_pref.dart';
 import 'package:movie_flutter_demo/Constants/padding_constants.dart';
 import 'package:movie_flutter_demo/Constants/spacing_constants.dart';
-import 'package:movie_flutter_demo/Extensions/build_context_extension.dart';
 import 'package:movie_flutter_demo/Helper/common_button.dart';
 import 'package:movie_flutter_demo/Helper/common_radio_button.dart';
 import 'package:movie_flutter_demo/Screens/edit_account/cubit/edit_account_cubit.dart';
@@ -28,7 +29,7 @@ class EditAccount extends StatelessWidget {
   final ValueNotifier<String> _gender = ValueNotifier<String>("");
   File? _pickedImage;
   EditAccount({super.key}) {
-    AppSharedPref sharedInstance = AppInjector.getIt<AppSharedPref>();
+    SharedPref sharedInstance = AppInjector.getIt<SharedPref>();
     FileManager fileManager = AppInjector.getIt<FileManager>();
     fileManager.getFile(sharedInstance.getString(key: AppSharedPrefKey.profileImage)).then((value){
       _pickedImage = value;
@@ -60,7 +61,7 @@ class EditAccount extends StatelessWidget {
     return BlocProvider<EditAccountCubit>(
         create: (context)=> _accountCubit,
         child:Scaffold(
-            appBar: AppBar(title: Text(context.l10n.editAccount)),
+            appBar: AppBar(title: Text(AppLocalization.instance.keys.editAccount)),
             body: SafeArea(
                 child: SingleChildScrollView(
                     child: Padding(
@@ -80,23 +81,23 @@ class EditAccount extends StatelessWidget {
                                       }
                                   ),
                                   const SizedBox(height: AppSpacing.regular),
-                                  AppRadioButton(label: context.l10n.gender,
-                                      items: [context.l10n.male, context.l10n.female, context.l10n.other],
+                                  AppRadioButton(label: AppLocalization.instance.keys.gender,
+                                      items: [AppLocalization.instance.keys.male, AppLocalization.instance.keys.female, AppLocalization.instance.keys.other],
                                       selectedItem: _gender.value,
                                       onChange: (value) {
                                         _gender.value = value;
                                       }),
                                   const SizedBox(height: AppSpacing.regular),
                                   AppTextField(
-                                      label: context.l10n.name,
+                                      label: AppLocalization.instance.keys.name,
                                       controller: _nameEditingController,
                                       validator: (value) {
-                                        return Validator.isValidName(context, name: value);
+                                        return Validator.isValidName(name: value);
                                       },
                                       inputType: TextInputType.name),
                                   const SizedBox(height: AppSpacing.regular),
                                   AppTextField(
-                                      label: context.l10n.dob,
+                                      label: AppLocalization.instance.keys.dob,
                                       readOnly: true,
                                       onTap: () {
                                         DatePicker(context,date: (date){
@@ -105,7 +106,7 @@ class EditAccount extends StatelessWidget {
                                       },
                                       controller: _dobEditingController,
                                       validator: (value) {
-                                        return Validator.emptyValidate(context, value: value, message: context.l10n.dobIsRequired);
+                                        return Validator.emptyValidate(value: value, message: AppLocalization.instance.keys.dobIsRequired);
                                       },
                                       inputType: TextInputType.emailAddress),
                                   const SizedBox(height: AppSpacing.regular),
@@ -116,7 +117,7 @@ class EditAccount extends StatelessWidget {
                                         }
                                       },
                                       builder: (context, state) {
-                                        return AppElevatedButton(title: context.l10n.update, onPressed: () {
+                                        return AppElevatedButton(title: AppLocalization.instance.keys.update, onPressed: () {
                                           _validateForm();
                                         });
                                       })

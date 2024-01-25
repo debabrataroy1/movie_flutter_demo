@@ -1,53 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:movie_flutter_demo/Extensions/build_context_extension.dart';
+import 'package:movie_flutter_demo/Utils/app_localization.dart';
 
 class Validator {
   static bool isEmpty(String? value) {
     return value?.isEmpty ?? true;
   }
 
-  static String? isEmailValid(BuildContext context, {String? email}) {
+  static String? isEmailValid({String? email}) {
     var emailRegExp = RegExp("[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}\\@" "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" "(" "\\." "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" ")+");
     if (isEmpty(email)) {
-      return context.l10n.emailIsRequired;
+      return AppLocalization.instance.keys.emailIsRequired;
     } else if (!emailRegExp.hasMatch(email ?? '')) {
-      return  context.l10n.enterValidEmail;
+      return  AppLocalization.instance.keys.enterValidEmail;
     }
     return null;
   }
 
-  static String? isValidPassword(BuildContext context, {String? password}) {
+  static String? isValidPassword({String? password}) {
     if (isEmpty(password)) {
-      return  context.l10n.passwordIsRequired;
+      return  AppLocalization.instance.keys.passwordIsRequired;
     } else if ((password?.trim().length ?? 0) < 8) {
-      return  context.l10n.shortPasswordMsg;
+      return  AppLocalization.instance.keys.shortPasswordMsg;
     }
     return null;
   }
 
-  static String? isValidConfirmPassword(BuildContext context, {String? password, String? matchPassword}) {
+  static String? isValidConfirmPassword({String? password, String? matchPassword}) {
     if (isEmpty(password)) {
-      return  context.l10n.passwordIsRequired;
+      return  AppLocalization.instance.keys.passwordIsRequired;
     } else if ((password?.trim().length ?? 0) < 8) {
-      return  context.l10n.shortPasswordMsg;
+      return  AppLocalization.instance.keys.shortPasswordMsg;
     } else if (password != matchPassword) {
-      return context.l10n.passwordMismatch;
+      return AppLocalization.instance.keys.passwordMismatch;
     }
     return null;
   }
 
-  static String? emptyValidate(BuildContext context, {String? value, String? message}){
+  static String? emptyValidate({String? value, String? message}){
     if(isEmpty(value ?? '')){
       return message;
     }
     return null;
   }
-  static String? isValidName(BuildContext context, {String? name}) {
+  static String? isValidName({String? name}) {
     var nameRegexp = RegExp(r"^[a-zA-Z ]+$");
     if (isEmpty(name)) {
-      return  context.l10n.nameIsRequired;
+      return  AppLocalization.instance.keys.nameIsRequired;
     } else if (!nameRegexp.hasMatch(name ?? '')) {
-      return context.l10n.enterValidName;
+      return AppLocalization.instance.keys.enterValidName;
     }
     return null;
   }

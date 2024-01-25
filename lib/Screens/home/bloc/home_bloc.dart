@@ -12,8 +12,8 @@ class HomeBloc extends Bloc<HomeBlocEvent, HomeBlocState> {
   List<MovieData> homeListData = [];
   List<MovieData> homeCarouselData = [];
   int pageNo = 2;
-
-  HomeBloc({this.repository}) : super(HomeInitialState()) {
+  final DBManager _dbManager;
+  HomeBloc({this.repository, DBManager? dbManager}) : _dbManager = dbManager ?? AppInjector.getIt<DBManager>(), super(HomeInitialState()) {
     mapEventToState(FetchCarouselDataEvent());
     mapEventToState(HomeFetchDataEvent());
   }
@@ -25,7 +25,7 @@ class HomeBloc extends Bloc<HomeBlocEvent, HomeBlocState> {
         model = await repository?.getHomeData(pageNo);
       } else {
         model = await repository?.getHomeData(1);
-        List<int> ids = await AppInjector.getIt<DBManager>().getAllIds();
+        List<int> ids = await _dbManager.getAllIds();
         emit(AllWishListState(ids));
       }
       if (model != null) {

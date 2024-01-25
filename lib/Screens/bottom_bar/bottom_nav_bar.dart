@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_flutter_demo/Constants/app_data.dart';
-import 'package:movie_flutter_demo/Constants/app_shared_pref.dart';
+import 'package:movie_flutter_demo/Constants/app_shared_pref_key.dart';
+import 'package:movie_flutter_demo/Utils/app_localization.dart';
+import 'package:movie_flutter_demo/Utils/app_shared_pref.dart';
 import 'package:movie_flutter_demo/Constants/icons_constants.dart';
-import 'package:movie_flutter_demo/Extensions/build_context_extension.dart';
 import 'package:movie_flutter_demo/Routes/app_router_config.dart';
 import 'package:movie_flutter_demo/Screens/account/account_page.dart';
 import 'package:movie_flutter_demo/Screens/favourites/favourites_page.dart';
@@ -24,7 +25,7 @@ class AppBottomBar extends StatefulWidget {
 class _AppBottomBarState extends State<AppBottomBar> with WidgetsBindingObserver{
   int _selectedIndex = 0;
   final DateFormat _dateFormat = DateFormat(AppData.dateFormat);
-  final AppSharedPref sharedInstance = AppInjector.getIt<AppSharedPref>();
+  final SharedPref sharedInstance = AppInjector.getIt<SharedPref>();
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
@@ -68,7 +69,7 @@ class _AppBottomBarState extends State<AppBottomBar> with WidgetsBindingObserver
       BlocProvider(
           create: ( context)=>FavouriteCubit(),
           child:  FavouritesPage()),
-      const AccountPage(),
+      AccountPage(),
     ];
     super.initState();
   }
@@ -87,15 +88,15 @@ class _AppBottomBarState extends State<AppBottomBar> with WidgetsBindingObserver
             items:[
               BottomNavigationBarItem(
                   icon:const Icon(AppIcons.home),
-                  label: context.l10n.home
+                  label: AppLocalization.instance.keys.home
               ),
               BottomNavigationBarItem(
                   icon:const Icon(AppIcons.favourites),
-                  label: context.l10n.favourites
+                  label: AppLocalization.instance.keys.favourites
               ),
               BottomNavigationBarItem(
                   icon:const Icon(AppIcons.account),
-                  label: context.l10n.account
+                  label: AppLocalization.instance.keys.account
               )],
             currentIndex: _selectedIndex,
             onTap: _onItemTapped

@@ -5,11 +5,11 @@ import 'package:go_router/go_router.dart';
 import 'package:movie_flutter_demo/Constants/api_constants.dart';
 import 'package:movie_flutter_demo/Constants/padding_constants.dart';
 import 'package:movie_flutter_demo/Constants/spacing_constants.dart';
-import 'package:movie_flutter_demo/Extensions/build_context_extension.dart';
 import 'package:movie_flutter_demo/Helper/common_button.dart';
 import 'package:movie_flutter_demo/Screens/change_password/cubit/change_password_cubit.dart';
 import 'package:movie_flutter_demo/Screens/change_password/cubit/state/change_password_state.dart';
 import 'package:movie_flutter_demo/Helper/common_textfield.dart';
+import 'package:movie_flutter_demo/Utils/app_localization.dart';
 import 'package:movie_flutter_demo/Utils/validator.dart';
 
 
@@ -29,7 +29,7 @@ class ChangePassword extends StatelessWidget {
         LoginApiKeys.password: _passwordEditingController.text,
         LoginApiKeys.oldPassword: _oldPasswordEditingController.text,
       };
-      _changePasswordCubit.update(context, params);
+      _changePasswordCubit.update(params);
     }
   }
 
@@ -38,7 +38,7 @@ class ChangePassword extends StatelessWidget {
     return BlocProvider<ChangePasswordCubit>(
         create: (context)=> _changePasswordCubit,
         child:Scaffold(
-            appBar: AppBar(title: Text(context.l10n.confirmPassword)),
+            appBar: AppBar(title: Text(AppLocalization.instance.keys.confirmPassword)),
             body: SafeArea(
                 child: SingleChildScrollView(
                     child: Padding(
@@ -51,29 +51,29 @@ class ChangePassword extends StatelessWidget {
                                 children: <Widget>[
                                   const SizedBox(height: AppSpacing.regular),
                                   AppTextField(
-                                      label: context.l10n.oldPassword,
+                                      label: AppLocalization.instance.keys.oldPassword,
                                       controller: _oldPasswordEditingController,
                                       isPassword: true,
                                       validator: (value) {
-                                        return Validator.isValidPassword(context, password: value);
+                                        return Validator.isValidPassword(password: value);
                                       },
                                       inputType: TextInputType.visiblePassword),
                                   const SizedBox(height: AppSpacing.regular),
                                   AppTextField(
-                                      label: context.l10n.newPassword,
+                                      label: AppLocalization.instance.keys.newPassword,
                                       controller: _passwordEditingController,
                                       isPassword: true,
                                       validator: (value) {
-                                        return Validator.isValidPassword(context, password: value);
+                                        return Validator.isValidPassword(password: value);
                                       },
                                       inputType: TextInputType.visiblePassword),
                                   const SizedBox(height: AppSpacing.regular),
                                   AppTextField(
-                                      label: context.l10n.confirmPassword,
+                                      label: AppLocalization.instance.keys.confirmPassword,
                                       controller: _confirmPasswordEditingController,
                                       isPassword: true,
                                       validator: (value) {
-                                        return Validator.isValidConfirmPassword(context, password: value, matchPassword: _passwordEditingController.text);
+                                        return Validator.isValidConfirmPassword(password: value, matchPassword: _passwordEditingController.text);
                                       },
                                       inputType: TextInputType.visiblePassword),
                                   const SizedBox(height: AppSpacing.regular),
@@ -89,7 +89,7 @@ class ChangePassword extends StatelessWidget {
                                         }
                                       },
                                       builder: (context, state) {
-                                        return AppElevatedButton(title: context.l10n.update, onPressed: () {
+                                        return AppElevatedButton(title: AppLocalization.instance.keys.update, onPressed: () {
                                           _validateForm(context);
                                         });
                                       })

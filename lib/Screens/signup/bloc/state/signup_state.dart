@@ -18,3 +18,4 @@ class SignupError extends SignupState {
   @override
   List<Object> get props => [];
 }
+class GenderState extends SignupState { }
