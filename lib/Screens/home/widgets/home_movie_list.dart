@@ -7,9 +7,7 @@ import 'package:movie_flutter_demo/Screens/home/widgets/movie_item.dart';
 class HomeMovieList extends StatelessWidget {
   final String title;
   final List<MovieData> movieList;
-  final List<int>? wishListItems;
-  Function(int,bool)? wishListAction;
-  HomeMovieList(this.title, this.movieList, {super.key, this.wishListAction, this.wishListItems});
+  const HomeMovieList(this.title, this.movieList, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +30,7 @@ class HomeMovieList extends StatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (BuildContext context, int index) {
                     var movie = movieList[index];
-                    return MovieItem(movie, wishListAction: wishListAction, isWishlist: wishListItems?.contains(movie.id) ?? false,);
+                    return MovieItem(movie);
                   },
                   itemCount: (movieList.length)
               )

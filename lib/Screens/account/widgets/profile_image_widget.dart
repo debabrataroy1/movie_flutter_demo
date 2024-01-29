@@ -23,8 +23,7 @@ class ProfileImageWidget extends StatelessWidget {
                 color: AppColors.primaryColor.withAlpha(100), // Change color of the shadow
                 blurRadius: AppBorderRadius.extraLarge,
                 spreadRadius: 4.0,
-              )
-            ],
+              )],
             border: Border.all(
                 color: AppColors.primaryColor,
                 width: 2.0
@@ -38,7 +37,7 @@ class ProfileImageWidget extends StatelessWidget {
               : gender == AppLocalization.instance.keys.other ? Assets.images.other.image()
               : gender == AppLocalization.instance.keys.female ? Assets.images.woman.image()
               : Assets.images.man.image()
-      ),
+      )
     );
   }
 }

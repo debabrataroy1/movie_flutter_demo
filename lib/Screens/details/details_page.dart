@@ -8,13 +8,13 @@ import 'package:movie_flutter_demo/Screens/details/widgets/movie_review_widget.d
 import 'package:movie_flutter_demo/Utils/app_localization.dart';
 
 class DetailPage extends StatelessWidget {
-  final (MovieData, bool, Function(int,bool)?) movie;
+  final MovieData movie;
   const DetailPage(this.movie, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text(movie.$1.title ?? ''), centerTitle: false),
+        appBar: AppBar(title: Text(movie.title ?? ''), centerTitle: false),
         body: SingleChildScrollView(
             child: Column(children: [
               MovieBanner(movie),
@@ -23,27 +23,27 @@ class DetailPage extends StatelessWidget {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        MovieReviewWidget(movie.$1),
+                        MovieReviewWidget(movie),
                         const SizedBox(height: AppSpacing.mini),
                         const Divider(),
                         Row(children: [
                           Expanded(
                               child: Column(children: [
-                                Text(movie.$1.popularity.toString(), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: AppFontSize.regular)),
+                                Text(movie.popularity.toString(), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: AppFontSize.regular)),
                                 const Text('IMDB'),
                                 const Text('themoviedb.org')
                               ])),
                           Expanded(
                               child: Column(children: [
                                 const Icon(Icons.star, color: AppColors.ratingColor),
-                                Text(movie.$1.voteAverage?.roundToDouble().toString() ?? '', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: AppFontSize.regular)),
-                                Text(movie.$1.voteCount.toString())
+                                Text(movie.voteAverage?.roundToDouble().toString() ?? '', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: AppFontSize.regular)),
+                                Text(movie.voteCount.toString())
                               ]))
                         ]),
                         const Divider(),
                          Text(AppLocalization.instance.keys.description, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: AppFontSize.regular)),
                         const SizedBox(height: AppSpacing.extraSmall),
-                        Text(movie.$1.overview ??'')
+                        Text(movie.overview ??'')
                       ])
               )
             ])

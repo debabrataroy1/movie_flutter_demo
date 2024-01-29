@@ -122,7 +122,7 @@ class SignupRoute extends GoRouteData {
 )
 class DetailRoute extends GoRouteData {
   DetailRoute(this.$extra);
-  final (MovieData,bool,Function(int,bool)?) $extra;
+  final MovieData $extra;
 
   @override
   Widget build(BuildContext context, GoRouterState state) =>

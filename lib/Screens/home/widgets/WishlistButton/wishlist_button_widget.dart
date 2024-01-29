@@ -11,9 +11,7 @@ import 'package:movie_flutter_demo/Screens/home/widgets/WishlistButton/wishlist_
 
 class WishListButtonWidget extends StatefulWidget {
   final MovieData movie;
-  bool isWishlist;
-  final Function(int, bool)? wishListAction;
-  WishListButtonWidget({super.key, required this.movie, required this.isWishlist, this.wishListAction});
+  const WishListButtonWidget({super.key, required this.movie});
 
   @override
   State<WishListButtonWidget> createState() => _WishListButtonWidgetState();
@@ -22,10 +20,11 @@ class WishListButtonWidget extends StatefulWidget {
 class _WishListButtonWidgetState extends State<WishListButtonWidget> with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
       duration: const Duration(milliseconds: 200), vsync:this, value: 1.0);
-@override
+
+  @override
   void dispose() {
     // TODO: implement dispose
-  _controller.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -40,20 +39,17 @@ class _WishListButtonWidgetState extends State<WishListButtonWidget> with Single
             );
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           } else if (state is WishListSuccess) {
-            widget.isWishlist = !widget.isWishlist;
+            widget.movie.isFavourite = !widget.movie.isFavourite;
             _controller
                 .reverse()
                 .then((value) => _controller.forward());
-            if (widget.wishListAction != null) {
-              widget.wishListAction!(widget.movie.id ?? 0, widget.isWishlist);
-            }
           }
         },
         builder: (context, state) {
           return InkWell(
               onTap: () {
                 final cubit = context.read<WishListCubit>();
-                cubit.addRemoveWishlist(widget.movie, isNeedToAdd: !widget.isWishlist);
+                cubit.addRemoveWishlist(widget.movie, isNeedToAdd: !widget.movie.isFavourite);
               },
               child: Container(
                   width: ContanierSize.regular,
@@ -65,15 +61,15 @@ class _WishListButtonWidgetState extends State<WishListButtonWidget> with Single
                           Radius.circular(AppBorderRadius.large))
                   ),
                   child: ScaleTransition(
-                  scale: Tween(begin: 0.7, end: 1.0).animate(
-                  CurvedAnimation(parent: _controller, curve: Curves.easeOut)),
-              child: Center(
-                      child: Icon(
-                          AppIcons.favouriteFill,
-                          size: AppIconSize.large,
-                          color: (widget.isWishlist ? AppColors.primaryColor : Colors.grey))
-                  )
-              ))
+                      scale: Tween(begin: 0.7, end: 1.0).animate(
+                          CurvedAnimation(parent: _controller, curve: Curves.easeOut)),
+                      child: Center(
+                          child: Icon(
+                              AppIcons.favouriteFill,
+                              size: AppIconSize.large,
+                              color: (widget.movie.isFavourite ? AppColors.primaryColor : Colors.grey))
+                      )
+                  ))
           );
         }
     );

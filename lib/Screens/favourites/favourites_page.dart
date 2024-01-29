@@ -26,8 +26,7 @@ class FavouritesPage extends StatelessWidget {
               if (state is AllWishListState && state.wishListItems.isNotEmpty) {
                 return SingleChildScrollView(
                     child: HomeMovieList(
-                        AppLocalization.instance.keys.myFavouriteList, state.wishListItems,
-                        wishListItems: state.wishListItems.map((e) => (e.id ?? 0)).toList())
+                        AppLocalization.instance.keys.myFavouriteList, state.wishListItems)
                 );
               } else {
                 return Center(

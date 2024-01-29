@@ -183,7 +183,7 @@ RouteBase get $detailRoute => GoRouteData.$route(
 
 extension $DetailRouteExtension on DetailRoute {
   static DetailRoute _fromState(GoRouterState state) => DetailRoute(
-        state.extra as (MovieData, bool, dynamic Function(int, bool)?),
+        state.extra as MovieData,
       );
 
   String get location => GoRouteData.$location(

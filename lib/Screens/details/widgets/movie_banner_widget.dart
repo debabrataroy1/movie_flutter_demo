@@ -12,7 +12,7 @@ import 'package:movie_flutter_demo/Constants/icons_constants.dart';
 import 'package:movie_flutter_demo/Constants/icon_size_constants.dart';
 
 class MovieBanner extends StatelessWidget {
-  final (MovieData,bool,Function(int,bool)?) movie;
+  final MovieData movie;
  const MovieBanner(this.movie, {super.key});
 
   @override
@@ -20,8 +20,8 @@ class MovieBanner extends StatelessWidget {
     return Stack(
         children: [
           Hero(
-              tag: movie.$1.id.toString(),
-              child: ImageView(url: ServerConstants.imageBaseUrl + (movie.$1.imageUrl ?? ''))),
+              tag: movie.id.toString(),
+              child: ImageView(url: ServerConstants.imageBaseUrl + (movie.imageUrl ?? ''))),
           Positioned(
               right: 4,
               top: 44,
@@ -49,7 +49,7 @@ class MovieBanner extends StatelessWidget {
               top: 4,
               child: BlocProvider(
                   create: (context) => WishListCubit(),
-                  child: WishListButtonWidget(movie: movie.$1, isWishlist: movie.$2, wishListAction:movie.$3)
+                  child: WishListButtonWidget(movie: movie)
               )
           )
         ]);

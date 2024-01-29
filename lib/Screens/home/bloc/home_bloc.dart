@@ -11,6 +11,7 @@ class HomeBloc extends Bloc<HomeBlocEvent, HomeBlocState> {
   int totalPages = 0;
   List<MovieData> homeListData = [];
   List<MovieData> homeCarouselData = [];
+  List<int> wishListIds = [];
   int pageNo = 2;
   final DBManager _dbManager;
   HomeBloc({this.repository, DBManager? dbManager}) : _dbManager = dbManager ?? AppInjector.getIt<DBManager>(), super(HomeInitialState()) {
@@ -24,9 +25,8 @@ class HomeBloc extends Bloc<HomeBlocEvent, HomeBlocState> {
       if( event is HomeFetchDataEvent) {
         model = await repository?.getHomeData(pageNo);
       } else {
+        wishListIds = await _dbManager.getAllIds();
         model = await repository?.getHomeData(1);
-        List<int> ids = await _dbManager.getAllIds();
-        emit(AllWishListState(ids));
       }
       if (model != null) {
         if( event is FetchCarouselDataEvent) {
@@ -34,14 +34,19 @@ class HomeBloc extends Bloc<HomeBlocEvent, HomeBlocState> {
           homeCarouselData = (((model.results?.length ?? 0) > 9) ? model.results?.getRange(0, 9).toList() : model.results) ?? [];
           emit(HomeCarouselSuccessState());
         } else {
-          homeListData.addAll( model.results ?? []);
+          model.results?.forEach((element) {
+            if (wishListIds.contains(element.id)) {
+              element.isFavourite = true;
+            }
+          });
+          homeListData.addAll(model.results ?? []);
           pageNo++;
           emit(HomeListSuccessState());
         }
       } else {
         emit(HomeError(''));
       }
-    } catch (error, _) {
+    } catch (error) {
       emit(HomeError(error.toString()));
     }
   }

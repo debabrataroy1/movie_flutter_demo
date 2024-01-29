@@ -11,9 +11,8 @@ import 'package:movie_flutter_demo/Routes/app_router_config.dart';
 
 class CarouselView extends StatefulWidget {
   final List<MovieData> movieList;
-  final List<int>? wishListItems;
   final Function(int,bool)? wishListAction;
-  const CarouselView(this.movieList, {super.key, this.wishListAction, this.wishListItems});
+  const CarouselView(this.movieList, {super.key, this.wishListAction});
 
   @override
   State<CarouselView> createState() => _CarouselViewState();
@@ -117,19 +116,7 @@ class _CarouselViewState extends State<CarouselView> with SingleTickerProviderSt
                   itemBuilder: (BuildContext context, int index) {
                     return InkWell(
                       onTap: (){
-                        bool isWishlist = widget.wishListItems?.contains(widget.movieList[index].id) ?? false;
-                        DetailRoute((widget.movieList[index], isWishlist,(id, value){
-                          if (value != isWishlist) {
-                            if (value) {
-                              widget.wishListItems?.add(id);
-                            }else {
-                              widget.wishListItems?.remove(id);
-                            }
-                            if (widget.wishListAction != null) {
-                              widget.wishListAction!(id, value);
-                            }
-                          }
-                        })).push(context);
+                        DetailRoute(widget.movieList[index]).push(context);
                       },
                       child:Hero(
                           tag: widget.movieList[index].id.toString(),

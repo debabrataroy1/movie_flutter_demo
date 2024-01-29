@@ -15,12 +15,10 @@ import 'package:movie_flutter_demo/Utils/app_localization.dart';
 
 class MovieItem extends StatelessWidget {
   final MovieData movie;
-  late bool isWishlist;
-  Function(int,bool)? wishListAction;
-  final ValueNotifier<bool> _wishlist = ValueNotifier<bool>(false);
+  ValueNotifier<bool>? _wishlist;
 
-  MovieItem(this.movie, {super.key, this.wishListAction, this.isWishlist = false}) {
-    _wishlist.value = isWishlist;
+  MovieItem(this.movie, {super.key}) {
+    _wishlist = ValueNotifier<bool>(movie.isFavourite);
   }
   final double _itemWidth = (AppSize.width / 2);
 
@@ -30,15 +28,10 @@ class MovieItem extends StatelessWidget {
         padding: const EdgeInsets.only(top: AppPaddings.extraSmall),
         child: InkWell(
           onTap: () {
-            DetailRoute((movie, isWishlist,(id, value){
-             if (value != isWishlist) {
-               isWishlist = value;
-               _wishlist.value = isWishlist;
-               if (wishListAction != null) {
-               wishListAction!(id, value);
-               }
-             }
-           })).push(context);
+            DetailRoute(movie).push(context).then((value){
+              _wishlist?.value = movie.isFavourite;
+              _wishlist?.notifyListeners();
+            });
           },
           child: Container(
               decoration: BoxDecoration(
@@ -64,14 +57,9 @@ class MovieItem extends StatelessWidget {
                           top: 4,
                           child: BlocProvider(create: (context) => WishListCubit(),
                               child:ValueListenableBuilder(
-                                  valueListenable: _wishlist,
+                                  valueListenable: _wishlist!,
                                   builder: (context, value, _) {
-                                    return WishListButtonWidget(movie: movie, isWishlist: isWishlist, wishListAction: (id, value){
-                                      isWishlist = value;
-                                      if (wishListAction != null) {
-                                        wishListAction!(id, value);
-                                      }
-                                    });
+                                    return WishListButtonWidget(movie: movie);
                                   }
                               ) )
                       ),

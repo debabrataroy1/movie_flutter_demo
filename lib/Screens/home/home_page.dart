@@ -10,7 +10,6 @@ import 'package:movie_flutter_demo/Utils/app_localization.dart';
 
 class HomePage extends StatelessWidget {
   final ScrollController _scrollController = ScrollController();
-  List<int> _wishListItems = [];
   late HomeBloc homeBloc;
   ValueNotifier<bool> isLoading = ValueNotifier<bool>(true);
   HomePage( {super.key}) {
@@ -41,20 +40,18 @@ class HomePage extends StatelessWidget {
             child:Column(
                 children: [
                   BlocListener<HomeBloc, HomeBlocState>(
-                    listenWhen: (context, state) {
-                      return state is HomeError || state is AllWishListState;
-                    },
-                    listener: (context, state) {
-                      if (state is HomeError) {
-                        SnackBar snackBar = SnackBar(
-                            content: Text(state.message ?? '')
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                      } if (state is AllWishListState) {
-                        _wishListItems = state.wishListItems;
-                      }
-                    },
-                    child: const SizedBox.shrink()
+                      listenWhen: (context, state) {
+                        return state is HomeError;
+                      },
+                      listener: (context, state) {
+                        if (state is HomeError) {
+                          SnackBar snackBar = SnackBar(
+                              content: Text(state.message ?? '')
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        }
+                      },
+                      child: const SizedBox.shrink()
                   ),
                   BlocBuilder<HomeBloc, HomeBlocState>(
                       buildWhen: (context, state) {
@@ -62,8 +59,8 @@ class HomePage extends StatelessWidget {
                       },
                       builder: (context, state) {
                         return  homeBloc.homeCarouselData.isNotEmpty ?
-                        CarouselView(homeBloc.homeCarouselData, wishListAction:_wishListAction, wishListItems: _wishListItems)
-                        : const SizedBox.shrink();
+                        CarouselView(homeBloc.homeCarouselData)
+                            : const SizedBox.shrink();
                       }
                   ),
                   BlocBuilder<HomeBloc, HomeBlocState>(
@@ -71,27 +68,22 @@ class HomePage extends StatelessWidget {
                         return state is HomeListSuccessState;
                       },
                       builder: (context, state) {
-                        isLoading.value = false;
+                        WidgetsBinding.instance.addPostFrameCallback((_){
+                          isLoading.value = false;
+                        });
                         return  homeBloc.homeListData.isNotEmpty ?
-                        HomeMovieList(AppLocalization.instance.keys.recentMovies, homeBloc.homeListData, wishListAction:_wishListAction, wishListItems: _wishListItems)
-                        : const SizedBox.shrink();
+                        HomeMovieList(AppLocalization.instance.keys.recentMovies, homeBloc.homeListData)
+                            : const SizedBox.shrink();
                       }
                   ),
                   ValueListenableBuilder(
-                    valueListenable: isLoading,
-                    builder: (context, value, _) {
-                      return isLoading.value ? const BottomLoader() : const SizedBox.shrink();
-                    }
+                      valueListenable: isLoading,
+                      builder: (context, value, _) {
+                        return isLoading.value ? const BottomLoader() : const SizedBox.shrink();
+                      }
                   )
                 ])
         )
     );
-  }
-  _wishListAction(int id, bool value) {
-    if (value) {
-      _wishListItems.add(id);
-    } else {
-      _wishListItems.remove(id);
-    }
   }
 }

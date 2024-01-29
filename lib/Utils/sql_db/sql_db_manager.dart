@@ -10,16 +10,17 @@ class SQLDBManager implements DBManager {
   final String _databaseName = "ttnOTT.db";
   final int _databaseVersion = 1;
   final String _table = 'wishlist';
-  late Database _db;
+  Database? _database;
 
-  SQLDBManager() {
-    init();
+  Future<Database> get _db async {
+    _database ??= await createDatabase();
+    return _database!;
   }
 
-  Future<void> init() async {
+  Future<Database> createDatabase() async {
     final documentsDirectory = await getApplicationDocumentsDirectory();
     final path = join(documentsDirectory.path, _databaseName);
-    _db = await openDatabase(
+    return await openDatabase(
         path,
         version: _databaseVersion,
         onCreate: _onCreate
@@ -48,14 +49,16 @@ class SQLDBManager implements DBManager {
   @override
   Future<int> insert(MovieData movie) async {
     if(await getMovie(movie.id ?? 0) == null) {
-      return await _db.insert(_table, movie.toMap(movie));
+      var db = await _db;
+      return await db.insert(_table, movie.toMap(movie));
     }
     return 0;
   }
 
   @override
   Future<List<MovieData>> queryAllMovies() async {
-    List<Map> maps = await _db.query(_table);
+    var db = await _db;
+    List<Map> maps = await db.query(_table);
     if (maps.isNotEmpty) {
       return maps.map((e) => MovieData.fromMap(e as Map<String, Object?>)).toList();
     }
@@ -64,17 +67,19 @@ class SQLDBManager implements DBManager {
 
   @override
   Future<List<int>> getAllIds() async {
-    List<Map> movieList = await _db.query(_table,
-        columns: [SQLTableColumns.id.name]);
+    var db = await _db;
+    List<Map> movieList = await db.query(_table,
+    columns: [SQLTableColumns.id.name]);
     if (movieList.isNotEmpty) {
-      return movieList.map((e) => e['id'] as int).toList();
+    return movieList.map((e) => e['id'] as int).toList();
     }
     return [];
   }
 
   @override
   Future<MovieData?> getMovie(int id) async {
-    List<Map> maps = await _db.query(_table,
+    var db = await _db;
+    List<Map> maps = await db.query(_table,
         where: '${SQLTableColumns.id.name} = ?',
         whereArgs: [id]);
     if (maps.isNotEmpty) {
@@ -85,7 +90,8 @@ class SQLDBManager implements DBManager {
 
   @override
   Future<int> delete(int id) async {
-    return await _db.delete(
+    var db = await _db;
+    return await db.delete(
         _table,
         where: '${SQLTableColumns.id.name} = ?',
         whereArgs: [id]
