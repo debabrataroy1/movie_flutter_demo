@@ -1,8 +1,6 @@
 
 abstract class HomeBlocState {
   const HomeBlocState();
-  @override
-  List<Object> get props => [];
 }
 
 class HomeInitialState extends HomeBlocState { }

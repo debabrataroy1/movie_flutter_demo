@@ -2,6 +2,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_flutter_demo/Constants/app_shared_pref_key.dart';
+import 'package:movie_flutter_demo/Screens/account/cubit/account_cubit.dart';
+import 'package:movie_flutter_demo/Screens/favourites/cubit/favourite_cubit.dart';
 import 'package:movie_flutter_demo/Utils/app_shared_pref.dart';
 import 'package:movie_flutter_demo/Models/home_model.dart';
 import 'package:movie_flutter_demo/Routes/app_router_constants.dart';
@@ -11,7 +13,7 @@ import 'package:movie_flutter_demo/Screens/bottom_bar/bottom_nav_bar.dart';
 import 'package:movie_flutter_demo/Screens/change_password/change_password_page.dart';
 import 'package:movie_flutter_demo/Screens/edit_account/edit_account_page.dart';
 import 'package:movie_flutter_demo/Screens/favourites/favourites_page.dart';
-import 'package:movie_flutter_demo/Screens/home/bloc/home_bloc.dart';
+import 'package:movie_flutter_demo/Screens/home/bloc/home_cubit.dart';
 import 'package:movie_flutter_demo/Screens/home/repository/home_repository.dart';
 import 'package:movie_flutter_demo/Screens/login/login_page.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +71,7 @@ class HomeRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       BlocProvider(
-          create: ( context)=> HomeBloc(repository: HomeRepository()),
+          create: ( context)=> HomeCubit(repository: HomeRepository()),
           child:  HomePage());
 }
 
@@ -92,7 +94,10 @@ class AccountRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) =>
-      AccountPage();
+      BlocProvider(
+        create: ( context)=> AccountCubit(),
+        child: AccountPage()
+      );
 }
 
 @TypedGoRoute<FavouritesRoute>(
@@ -103,7 +108,9 @@ class FavouritesRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) =>
-      FavouritesPage();
+      BlocProvider(
+          create: (context)=> FavouriteCubit(),
+          child: FavouritesPage());
 }
 
 @TypedGoRoute<SignupRoute>(
@@ -141,7 +148,7 @@ class EditAccountRoute extends GoRouteData {
 }
 
 @TypedGoRoute<ChangePasswordRoute>(
-  path: '/${AppRouteName.chnagePassword}',
+  path: '/${AppRouteName.changePassword}',
 )
 class ChangePasswordRoute extends GoRouteData {
   const ChangePasswordRoute();

@@ -9,5 +9,5 @@ class AppRouteName {
   static const String signup = "signup";
   static const String detail = "details";
   static const String editAccount = "edit";
-  static const String chnagePassword = "chnagepassword";
+  static const String changePassword = "changePassword";
 }

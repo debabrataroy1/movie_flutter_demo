@@ -30,8 +30,8 @@ class DetailPage extends StatelessWidget {
                           Expanded(
                               child: Column(children: [
                                 Text(movie.popularity.toString(), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: AppFontSize.regular)),
-                                const Text('IMDB'),
-                                const Text('themoviedb.org')
+                                 Text(AppLocalization.instance.keys.imdb),
+                                 Text(AppLocalization.instance.keys.themoviedb)
                               ])),
                           Expanded(
                               child: Column(children: [

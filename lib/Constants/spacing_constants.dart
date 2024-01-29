@@ -6,4 +6,5 @@ class AppSpacing {
   static const double medium = 16;
   static const double regular = 20;
   static const double large = 24;
+  static const double extraLarge = 44;
 }

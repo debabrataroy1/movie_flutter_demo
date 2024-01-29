@@ -7,5 +7,6 @@ class AppSize {
 
 class ContanierSize {
   static const double regular = 30.0;
+  static const double medium = 40.0;
   static const double extraLarge = 120.0;
 }

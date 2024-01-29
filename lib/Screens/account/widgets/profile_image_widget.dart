@@ -22,7 +22,7 @@ class ProfileImageWidget extends StatelessWidget {
               BoxShadow(
                 color: AppColors.primaryColor.withAlpha(100), // Change color of the shadow
                 blurRadius: AppBorderRadius.extraLarge,
-                spreadRadius: 4.0,
+                spreadRadius: AppBorderRadius.small,
               )],
             border: Border.all(
                 color: AppColors.primaryColor,

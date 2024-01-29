@@ -1,11 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_flutter_demo/Constants/api_constants.dart';
 import 'package:movie_flutter_demo/Constants/app_data.dart';
 import 'package:movie_flutter_demo/Constants/app_shared_pref_key.dart';
+import 'package:movie_flutter_demo/Utils/app_localization.dart';
 import 'package:movie_flutter_demo/Utils/app_shared_pref.dart';
-import 'package:movie_flutter_demo/Constants/app_string_constant.dart';
 import 'package:movie_flutter_demo/Utils/app_encryption.dart';
 import 'package:movie_flutter_demo/di/injector.dart';
 import 'state/login_state.dart';
@@ -36,7 +35,7 @@ class LoginCubit extends Cubit<LoginState> {
         _appSharedPref.setBool(key: AppSharedPrefKey.loginStatus, value: true);
         emit(LoginSuccessState());
       } else {
-        emit(LoginError(AppStrings.incorrectPassword));
+        emit(LoginError(AppLocalization.instance.keys.incorrectPassword));
       }
     } catch (error) {
       emit(LoginError(error.toString()));

@@ -11,10 +11,6 @@ class AppImagePicker {
   AppImagePicker(this.context,{this.pickerImage});
 
   void show() {
-    _imagePicker();
-  }
-
-  void _imagePicker() {
     showDialog<ImageSource>(
       context: context,
       builder: (context) => AlertDialog(

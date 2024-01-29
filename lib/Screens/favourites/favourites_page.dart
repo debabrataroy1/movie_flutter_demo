@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_flutter_demo/Constants/app_size_constants.dart';
+import 'package:movie_flutter_demo/Constants/border_radius_constants.dart';
 import 'package:movie_flutter_demo/Constants/color_constants.dart';
 import 'package:movie_flutter_demo/Constants/font_size_constants.dart';
 import 'package:movie_flutter_demo/Constants/icon_size_constants.dart';
@@ -40,7 +41,7 @@ class FavouritesPage extends StatelessWidget {
                               decoration: BoxDecoration(
                                   color: AppColors.primaryColor.withAlpha(100),
                                   borderRadius: const BorderRadius.all(
-                                      Radius.circular(60))
+                                      Radius.circular(AppBorderRadius.maxLarge))
                               ),
                               child: Center(
                                   child: Icon(

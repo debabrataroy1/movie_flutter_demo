@@ -55,6 +55,10 @@
   "newPassword": "New password",
   "oldPassword": "Old password",
   "releaseData": "Release date: ",
-  "description": "Description"
+  "description": "Description",
+  "incorrectPassword": "Email id or password incorrect",
+  "imdb": "IMDB",
+  "themoviedb": "themoviedb.org"
+
 
 }

@@ -23,7 +23,7 @@ class User {
         _fileManager = fileManager ?? AppInjector.getIt<FileManager>() {
     _init();
   }
-  _init() async {
+  void _init() async {
     name = _appSharedPref.getString(key: AppSharedPrefKey.fullName);
     email = _appSharedPref.getString(key: AppSharedPrefKey.email);
     dob = _appSharedPref.getString(key: AppSharedPrefKey.dob);
@@ -32,7 +32,7 @@ class User {
     profileImage = await _fileManager.getFile(_appSharedPref.getString(key: AppSharedPrefKey.profileImage));
   }
 
-  update() async {
+  void update() async {
     _appSharedPref.setString(key:AppSharedPrefKey.fullName, value: name ?? '');
     _appSharedPref.setString(key:AppSharedPrefKey.gender, value: gender ?? '');
     _appSharedPref.setString(key:AppSharedPrefKey.dob, value: dob ?? '');
@@ -45,7 +45,7 @@ class User {
     _appSharedPref.setBool(key:AppSharedPrefKey.loginStatus,value: true);
   }
 
-  clean() {
+  void clean() {
     name = null;
     email = null;
     dob = null;

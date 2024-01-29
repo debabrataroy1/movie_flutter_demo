@@ -18,7 +18,6 @@ class LoginApiKeys {
    static const String image = "image";
 }
 
-
 class HomeApiKeys {
   static const String apiKey = "api_key";
   static const String page = "page";

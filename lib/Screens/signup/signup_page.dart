@@ -44,7 +44,7 @@ class SignupPage extends StatelessWidget {
                                         }, gender: _signupCubit.gender);
                                       }),
                                   const SizedBox(height: AppSpacing.regular),
-                                  AppRadioButton(label: AppLocalization.instance.keys.gender,
+                                  AppRadioButton(title: AppLocalization.instance.keys.gender,
                                       items: [AppLocalization.instance.keys.male, AppLocalization.instance.keys.female, AppLocalization.instance.keys.other],
                                       onChange: (value) {
                                         _signupCubit.updateGender(value);
@@ -60,7 +60,7 @@ class SignupPage extends StatelessWidget {
                                   const SizedBox(height: AppSpacing.regular),
                                   AppTextField(
                                       label: AppLocalization.instance.keys.dob,
-                                      readOnly: true,
+                                      isReadOnly: true,
                                       onTap: () {
                                         DatePicker(context,date: (date){
                                           _signupCubit.dobEditingController.text = date;

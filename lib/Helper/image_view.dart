@@ -6,7 +6,7 @@ class ImageView extends StatelessWidget {
   final double height;
   final double width;
   final BoxFit fit;
- const ImageView({Key? key, this.url, this.width = 0.0, this.height = 0.0,this.fit= BoxFit.cover}) : super(key: key);
+ const ImageView({Key? key, this.url, this.width = 0.0, this.height = 0.0,this.fit = BoxFit.cover}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

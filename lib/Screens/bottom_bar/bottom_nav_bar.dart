@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_flutter_demo/Constants/app_data.dart';
 import 'package:movie_flutter_demo/Constants/app_shared_pref_key.dart';
+import 'package:movie_flutter_demo/Screens/account/cubit/account_cubit.dart';
 import 'package:movie_flutter_demo/Utils/app_localization.dart';
 import 'package:movie_flutter_demo/Utils/app_shared_pref.dart';
 import 'package:movie_flutter_demo/Constants/icons_constants.dart';
 import 'package:movie_flutter_demo/Routes/app_router_config.dart';
 import 'package:movie_flutter_demo/Screens/account/account_page.dart';
 import 'package:movie_flutter_demo/Screens/favourites/favourites_page.dart';
-import 'package:movie_flutter_demo/Screens/home/bloc/home_bloc.dart';
+import 'package:movie_flutter_demo/Screens/home/bloc/home_cubit.dart';
 import 'package:movie_flutter_demo/Screens/home/home_page.dart';
 import 'package:movie_flutter_demo/Screens/home/repository/home_repository.dart';
 import 'package:movie_flutter_demo/Screens/favourites/cubit/favourite_cubit.dart';
@@ -26,6 +27,7 @@ class _AppBottomBarState extends State<AppBottomBar> with WidgetsBindingObserver
   int _selectedIndex = 0;
   final DateFormat _dateFormat = DateFormat(AppData.dateFormat);
   final SharedPref sharedInstance = AppInjector.getIt<SharedPref>();
+  late List<Widget> _widgetOptions;
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
@@ -36,14 +38,12 @@ class _AppBottomBarState extends State<AppBottomBar> with WidgetsBindingObserver
       _checkSession();
     }
   }
+
   _checkSession() {
     String lastActiveTime = sharedInstance.getString(key: AppSharedPrefKey.lastActive);
     if (lastActiveTime.isNotEmpty) {
       DateTime dateTime = _dateFormat.parse(lastActiveTime);
-      if (DateTime
-          .now()
-          .difference(dateTime)
-          .inMinutes > 15) {
+      if (DateTime.now().difference(dateTime).inMinutes > 15) {
         sharedInstance.remove(AppSharedPrefKey.loginStatus);
         sharedInstance.remove(AppSharedPrefKey.lastActive);
         const OnboardingRoute().go(context);
@@ -57,19 +57,20 @@ class _AppBottomBarState extends State<AppBottomBar> with WidgetsBindingObserver
     super.dispose();
   }
 
-  late List<Widget> _widgetOptions;
   @override
   void initState() {
     _checkSession();
     WidgetsBinding.instance.addObserver(this);
     _widgetOptions = [
       BlocProvider(
-          create: ( context)=> HomeBloc(repository: HomeRepository()),
-          child:  HomePage()),
+          create: (context)=> HomeCubit(repository: HomeRepository()),
+          child: HomePage()),
       BlocProvider(
-          create: ( context)=>FavouriteCubit(),
-          child:  FavouritesPage()),
-      AccountPage(),
+          create: (context)=> FavouriteCubit(),
+          child: FavouritesPage()),
+      BlocProvider(
+          create: (context)=> AccountCubit(),
+          child: AccountPage()),
     ];
     super.initState();
   }

@@ -17,49 +17,49 @@ class MovieReviewWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: [
-        ClipRRect(
-            borderRadius: BorderRadius.circular(AppBorderRadius.regular),
-            child: ImageView(url: ServerConstants.imageBaseUrl + (movie.poster ?? ''), height: AppIconSize.logo,width: AppIconSize.logo - 20,
-              fit: BoxFit.fill,
-            )),
-        const SizedBox(width: AppSpacing.medium),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-                width: AppSize.width - 130,
-                child: Text(movie.title ?? '', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: AppFontSize.large))),
-            const SizedBox(height: AppSpacing.extraSmall),
-            Row(
-                children: [
-                  Container(
-                      padding: const EdgeInsets.symmetric(horizontal: AppPaddings.small),
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              width: 1,
-                              color: AppColors.primaryColor
+        children: [
+          ClipRRect(
+              borderRadius: BorderRadius.circular(AppBorderRadius.regular),
+              child: ImageView(url: ServerConstants.imageBaseUrl + (movie.poster ?? ''), height: AppIconSize.logo,width: AppIconSize.logo - 20,
+                fit: BoxFit.fill,
+              )),
+          const SizedBox(width: AppSpacing.medium),
+          Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                    width: AppSize.width - 130,
+                    child: Text(movie.title ?? '', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: AppFontSize.large))),
+                const SizedBox(height: AppSpacing.extraSmall),
+                Row(
+                    children: [
+                      Container(
+                          padding: const EdgeInsets.symmetric(horizontal: AppPaddings.small),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  width: 1,
+                                  color: AppColors.primaryColor
+                              ),
+                              borderRadius: const BorderRadius.all(Radius.circular(AppBorderRadius.large))
                           ),
-                          borderRadius: const BorderRadius.all(Radius.circular(AppBorderRadius.large))
+                          child: Text(movie.language ?? '')
                       ),
-                      child: Text(movie.language ?? '')
-                  ),
-                  const SizedBox(width: AppSpacing.extraSmall),
-                  Container(
-                      padding: const EdgeInsets.symmetric(horizontal: AppPaddings.small),
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              width: 1,
-                              color: AppColors.primaryColor
+                      const SizedBox(width: AppSpacing.extraSmall),
+                      Container(
+                          padding: const EdgeInsets.symmetric(horizontal: AppPaddings.small),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  width: 1,
+                                  color: AppColors.primaryColor
+                              ),
+                              borderRadius: const BorderRadius.all(Radius.circular(AppBorderRadius.large))
                           ),
-                          borderRadius: const BorderRadius.all(Radius.circular(AppBorderRadius.large))
+                          child: Text((movie.adult ?? false) ? AppLocalization.instance.keys.adult : AppLocalization.instance.keys.ua)
                       ),
-                      child: Text((movie.adult ?? false) ? AppLocalization.instance.keys.adult : AppLocalization.instance.keys.ua)
-                  ),
-                ]),
-            const SizedBox(height: AppSpacing.mini),
-            Text("${AppLocalization.instance.keys.releaseData}${movie.releaseDate ?? ''}")
-          ])
-      ]);
+                    ]),
+                const SizedBox(height: AppSpacing.mini),
+                Text("${AppLocalization.instance.keys.releaseData}${movie.releaseDate ?? ''}")
+              ])
+        ]);
   }
 }

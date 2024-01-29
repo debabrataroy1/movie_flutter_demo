@@ -8,8 +8,8 @@ class AppTextField extends StatefulWidget {
     this.validator,
     this.isPassword = false,
     this.inputType = TextInputType.none,
-    this.required = true,
-    this.readOnly = false,
+    this.isRequired = true,
+    this.isReadOnly = false,
     this.maxLines = 1,
     this.onTap,
     Key? key,
@@ -17,7 +17,7 @@ class AppTextField extends StatefulWidget {
 
   final String label;
   final TextEditingController? controller;
-  final bool isPassword, readOnly, required;
+  final bool isPassword, isReadOnly, isRequired;
   final FormFieldValidator? validator;
   final TextInputType inputType;
   final int? maxLines;
@@ -43,14 +43,14 @@ class _AppTextFieldState extends State<AppTextField> {
       key: Key('${widget.label}${DateTime.now().microsecondsSinceEpoch}'),
       onTap: widget.onTap,
       maxLines: widget.maxLines,
-      readOnly: widget.readOnly,
+      readOnly: widget.isReadOnly,
       autofocus: false,
       keyboardType: widget.inputType,
       obscureText: _obscureText,
       controller: widget.controller,
       decoration: InputDecoration(
         isDense: true,
-        label: Text("${widget.label} ${widget.required ? "*" : ""}"),
+        label: Text("${widget.label} ${widget.isRequired ? "*" : ""}"),
         border: const OutlineInputBorder(),
         suffixIcon: widget.isPassword
             ? IconButton(

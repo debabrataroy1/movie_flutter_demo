@@ -1,3 +1,4 @@
+import 'package:movie_flutter_demo/Constants/app_size_constants.dart';
 import 'package:movie_flutter_demo/Helper/app_loader.dart';
 import 'package:flutter/material.dart';
 class BottomLoader extends StatelessWidget {
@@ -6,7 +7,7 @@ class BottomLoader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const SizedBox(
-      height: 40,
+      height: ContanierSize.medium,
         child: AppLoader()
     );
   }

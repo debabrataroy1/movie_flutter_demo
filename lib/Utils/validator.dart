@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:movie_flutter_demo/Utils/app_localization.dart';
 
 class Validator {
@@ -37,10 +38,7 @@ class Validator {
   }
 
   static String? emptyValidate({String? value, String? message}){
-    if(isEmpty(value ?? '')){
-      return message;
-    }
-    return null;
+    return isEmpty(value ?? '') ? message : null;
   }
   static String? isValidName({String? name}) {
     var nameRegexp = RegExp(r"^[a-zA-Z ]+$");

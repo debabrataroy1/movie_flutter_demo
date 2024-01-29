@@ -17,14 +17,14 @@ class AppAlert {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-              title: title != '' ? Text(title ?? '') : null,
+              title: (title?.isNotEmpty ?? false) ? Text(title ?? '') : null,
               content:  Text(message ?? ''),
               actions:[
                 AppTextButton(
                     title: AppLocalization.instance.keys.cancel,
                     onPressed: () {
                       Navigator.of(context).pop();
-                      if (cancelTap != null){
+                      if (cancelTap != null) {
                         cancelTap!();
                       }
                     }

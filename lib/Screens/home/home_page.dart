@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_flutter_demo/Helper/bottom_loader.dart';
-import 'package:movie_flutter_demo/Screens/home/bloc/event/home_bloc_event.dart';
 import 'package:movie_flutter_demo/Screens/home/widgets/carousel_view.dart';
 import 'package:movie_flutter_demo/Screens/home/widgets/home_movie_list.dart';
-import 'package:movie_flutter_demo/Screens/home/bloc/home_bloc.dart';
+import 'package:movie_flutter_demo/Screens/home/bloc/home_cubit.dart';
 import 'package:movie_flutter_demo/Screens/home/bloc/state/home_bloc_state.dart';
 import 'package:movie_flutter_demo/Utils/app_localization.dart';
 
 class HomePage extends StatelessWidget {
   final ScrollController _scrollController = ScrollController();
-  late HomeBloc homeBloc;
+  late HomeCubit homeBloc;
   ValueNotifier<bool> isLoading = ValueNotifier<bool>(true);
   HomePage( {super.key}) {
     _scrollController.addListener(_scrollListener);
   }
 
   _loadMoreData() {
-    homeBloc.mapEventToState(HomeFetchDataEvent());
+    homeBloc.getHomeData();
   }
 
   bool _scrollListener() {
@@ -32,14 +31,14 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    homeBloc = context.read<HomeBloc>();
+    homeBloc = context.read<HomeCubit>();
     return Scaffold(
         appBar: AppBar(title: Text(AppLocalization.instance.keys.home)),
         body:SingleChildScrollView(
             controller: _scrollController,
             child:Column(
                 children: [
-                  BlocListener<HomeBloc, HomeBlocState>(
+                  BlocListener<HomeCubit, HomeBlocState>(
                       listenWhen: (context, state) {
                         return state is HomeError;
                       },
@@ -53,7 +52,7 @@ class HomePage extends StatelessWidget {
                       },
                       child: const SizedBox.shrink()
                   ),
-                  BlocBuilder<HomeBloc, HomeBlocState>(
+                  BlocBuilder<HomeCubit, HomeBlocState>(
                       buildWhen: (context, state) {
                         return state is HomeCarouselSuccessState;
                       },
@@ -63,7 +62,7 @@ class HomePage extends StatelessWidget {
                             : const SizedBox.shrink();
                       }
                   ),
-                  BlocBuilder<HomeBloc, HomeBlocState>(
+                  BlocBuilder<HomeCubit, HomeBlocState>(
                       buildWhen: (context, state) {
                         return state is HomeListSuccessState;
                       },

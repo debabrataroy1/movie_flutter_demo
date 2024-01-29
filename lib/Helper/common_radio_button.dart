@@ -4,10 +4,10 @@ import 'package:movie_flutter_demo/Utils/app_localization.dart';
 
 class AppRadioButton extends StatefulWidget {
   final List<String> items;
-  final String label;
+  final String title;
   String? selectedItem;
   final ValueChanged<String>? onChange;
-  AppRadioButton({required this.label, required this.items, this.selectedItem, this.onChange, super.key});
+  AppRadioButton({required this.title, required this.items, this.selectedItem, this.onChange, super.key});
 
   @override
   State<AppRadioButton> createState() => _AppRadioButtonState();
@@ -30,7 +30,7 @@ class _AppRadioButtonState extends State<AppRadioButton> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(widget.label),
+          Text(widget.title),
           Row(
               children: widget.items.map((item) {
                 return Row(children: [
@@ -50,10 +50,7 @@ class _AppRadioButtonState extends State<AppRadioButton> {
             )
         ]);
     }, validator: (value) {
-      if (widget.selectedItem?.isEmpty ?? true) {
-        return AppLocalization.instance.keys.genderIsRequired;
-      }
-      return null;
+        return (widget.selectedItem?.isEmpty ?? true) ? AppLocalization.instance.keys.genderIsRequired : null;
     });
   }
 }

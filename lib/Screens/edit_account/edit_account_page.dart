@@ -81,7 +81,7 @@ class EditAccount extends StatelessWidget {
                                       }
                                   ),
                                   const SizedBox(height: AppSpacing.regular),
-                                  AppRadioButton(label: AppLocalization.instance.keys.gender,
+                                  AppRadioButton(title: AppLocalization.instance.keys.gender,
                                       items: [AppLocalization.instance.keys.male, AppLocalization.instance.keys.female, AppLocalization.instance.keys.other],
                                       selectedItem: _gender.value,
                                       onChange: (value) {
@@ -98,7 +98,7 @@ class EditAccount extends StatelessWidget {
                                   const SizedBox(height: AppSpacing.regular),
                                   AppTextField(
                                       label: AppLocalization.instance.keys.dob,
-                                      readOnly: true,
+                                      isReadOnly: true,
                                       onTap: () {
                                         DatePicker(context,date: (date){
                                           _dobEditingController.text = date;
