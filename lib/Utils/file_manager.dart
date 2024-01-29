@@ -23,11 +23,7 @@ class PathFileManager implements FileManager {
     }
     String path = await _getPath();
     File file = File('$path/$fileName');
-    if (file.existsSync()) {
-    return file;
-    } else {
-      return null;
-    }
+    file.existsSync() ? file : null;
   }
 
   Future<String> _getPath() async {

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:movie_flutter_demo/Constants/app_data.dart';
 
 class DatePicker {
   final BuildContext context;
   final String dateFormat;
   final ValueChanged<String>? date;
 
-  DatePicker(this.context, {this.dateFormat = 'yyyy-MM-dd', this.date});
+  DatePicker(this.context, {this.dateFormat = AppData.dateFormat, this.date});
 
   void show() async {
     var pickedDate = await showDatePicker(

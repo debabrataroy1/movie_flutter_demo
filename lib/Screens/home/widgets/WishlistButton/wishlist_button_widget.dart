@@ -49,7 +49,7 @@ class _WishListButtonWidgetState extends State<WishListButtonWidget> with Single
           return InkWell(
               onTap: () {
                 final cubit = context.read<WishListCubit>();
-                cubit.addRemoveWishlist(widget.movie, isNeedToAdd: !widget.movie.isFavourite);
+                cubit.addRemoveWishlist(widget.movie);
               },
               child: Container(
                   width: ContanierSize.regular,

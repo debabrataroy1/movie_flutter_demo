@@ -6,8 +6,8 @@ import 'package:movie_flutter_demo/NetworkManager/api_services.dart';
 class HomeRepository {
   late APIServices _apiServices;
 
-  HomeRepository() {
-    _apiServices = AppInjector.getIt<APIServices>();
+  HomeRepository({APIServices? apiServices}) {
+    _apiServices = apiServices ?? AppInjector.getIt<APIServices>();
   }
 
   @override

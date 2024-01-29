@@ -10,21 +10,17 @@ class WishListCubit extends Cubit<WishListState> {
         super(WishListInitState());
   final DBManager _dbManager;
 
-  void addRemoveWishlist(MovieData movie, {bool isNeedToAdd = true}) async {
-    if (isNeedToAdd) {
+  void addRemoveWishlist(MovieData movie, ) async {
+    if (!movie.isFavourite) {
       var result = await _dbManager.insert(movie);
-      if (result > 0) {
-        emit(WishListSuccess(AppLocalization.instance.keys.successfullyAdd));
-      } else {
-        emit(WishListError(AppLocalization.instance.keys.dbError));
-      }
+      (result > 0) ?
+      emit(WishListSuccess(AppLocalization.instance.keys.successfullyAdd))
+          : emit(WishListError(AppLocalization.instance.keys.dbError));
     } else {
       var result = await _dbManager.delete(movie.id ?? 0);
-      if (result > 0) {
-        emit(WishListSuccess(AppLocalization.instance.keys.successfullyRemoved));
-      } else {
-        emit(WishListError(AppLocalization.instance.keys.dbError));
-      }
+      (result > 0) ?
+      emit(WishListSuccess(AppLocalization.instance.keys.successfullyRemoved))
+          : emit(WishListError(AppLocalization.instance.keys.dbError));
     }
   }
 }

@@ -8,8 +8,6 @@ import 'package:movie_flutter_demo/Screens/home/bloc/state/home_bloc_state.dart'
 class HomeCubit extends Cubit<HomeBlocState> {
   HomeRepository? repository;
   int totalPages = 0;
-  List<MovieData> homeListData = [];
-  List<MovieData> homeCarouselData = [];
   List<int> wishListIds = [];
   int pageNo = 2;
   final DBManager _dbManager;
@@ -28,8 +26,7 @@ class HomeCubit extends Cubit<HomeBlocState> {
       HomeResponse? model = await repository?.getHomeData(1);
       if (model != null) {
         totalPages = model.totalPages ?? 0;
-        homeCarouselData = (((model.results?.length ?? 0) > 9) ? model.results?.getRange(0, 9).toList() : model.results) ?? [];
-        emit(HomeCarouselSuccessState());
+        emit(HomeCarouselSuccessState((((model.results?.length ?? 0) > 9) ? model.results?.getRange(0, 9).toList() : model.results) ?? []));
       } else {
         emit(HomeError(''));
       }
@@ -47,9 +44,10 @@ class HomeCubit extends Cubit<HomeBlocState> {
             element.isFavourite = true;
           }
         });
-        homeListData.addAll(model.results ?? []);
+        List<MovieData> previousList = (state is HomeListSuccessState) ? (state as HomeListSuccessState).listData : [];
+        previousList.addAll(model.results ?? []);
         pageNo++;
-        emit(HomeListSuccessState());
+        emit(HomeListSuccessState(previousList));
       } else {
         emit(HomeError(''));
       }

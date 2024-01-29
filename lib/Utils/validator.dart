@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:movie_flutter_demo/Utils/app_localization.dart';
 
 class Validator {

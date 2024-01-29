@@ -19,14 +19,13 @@ class HomePage extends StatelessWidget {
     homeBloc.getHomeData();
   }
 
-  bool _scrollListener() {
+  void _scrollListener() {
     if (_scrollController.position.extentAfter == 0 &&
-        (homeBloc.pageNo < (homeBloc.totalPages ?? 0))
+        (homeBloc.pageNo < (homeBloc.totalPages))
         && !isLoading.value) {
       isLoading.value = true;
       _loadMoreData();
     }
-    return false;
   }
 
   @override
@@ -57,21 +56,22 @@ class HomePage extends StatelessWidget {
                         return state is HomeCarouselSuccessState;
                       },
                       builder: (context, state) {
-                        return  homeBloc.homeCarouselData.isNotEmpty ?
-                        CarouselView(homeBloc.homeCarouselData)
+                        return (state is HomeCarouselSuccessState && state.carouselData.isNotEmpty) ?
+                        CarouselView(state.carouselData)
                             : const SizedBox.shrink();
                       }
                   ),
                   BlocBuilder<HomeCubit, HomeBlocState>(
                       buildWhen: (context, state) {
+
                         return state is HomeListSuccessState;
                       },
                       builder: (context, state) {
                         WidgetsBinding.instance.addPostFrameCallback((_){
                           isLoading.value = false;
                         });
-                        return  homeBloc.homeListData.isNotEmpty ?
-                        HomeMovieList(AppLocalization.instance.keys.recentMovies, homeBloc.homeListData)
+                        return (state is HomeListSuccessState && state.listData.isNotEmpty) ?
+                        HomeMovieList(AppLocalization.instance.keys.recentMovies, state.listData)
                             : const SizedBox.shrink();
                       }
                   ),

@@ -59,10 +59,7 @@ class SQLDBManager implements DBManager {
   Future<List<MovieData>> queryAllMovies() async {
     var db = await _db;
     List<Map> maps = await db.query(_table);
-    if (maps.isNotEmpty) {
-      return maps.map((e) => MovieData.fromMap(e as Map<String, Object?>)).toList();
-    }
-    return [];
+    return (maps.isNotEmpty) ? maps.map((e) => MovieData.fromMap(e as Map<String, Object?>)).toList() : [];
   }
 
   @override
@@ -70,10 +67,7 @@ class SQLDBManager implements DBManager {
     var db = await _db;
     List<Map> movieList = await db.query(_table,
     columns: [SQLTableColumns.id.name]);
-    if (movieList.isNotEmpty) {
-    return movieList.map((e) => e['id'] as int).toList();
-    }
-    return [];
+    return (movieList.isNotEmpty) ? movieList.map((e) => e['id'] as int).toList() : [];
   }
 
   @override
@@ -82,10 +76,7 @@ class SQLDBManager implements DBManager {
     List<Map> maps = await db.query(_table,
         where: '${SQLTableColumns.id.name} = ?',
         whereArgs: [id]);
-    if (maps.isNotEmpty) {
-      return MovieData.fromMap(maps.first as Map<String, Object?>);
-    }
-    return null;
+    return (maps.isNotEmpty) ? MovieData.fromMap(maps.first as Map<String, Object?>) : null;
   }
 
   @override

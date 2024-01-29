@@ -25,7 +25,7 @@ class AppBottomBar extends StatefulWidget {
 
 class _AppBottomBarState extends State<AppBottomBar> with WidgetsBindingObserver{
   int _selectedIndex = 0;
-  final DateFormat _dateFormat = DateFormat(AppData.dateFormat);
+  final DateFormat _dateFormat = DateFormat(AppData.dateTimeFormat);
   final SharedPref sharedInstance = AppInjector.getIt<SharedPref>();
   late List<Widget> _widgetOptions;
 
