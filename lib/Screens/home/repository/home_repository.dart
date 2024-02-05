@@ -10,7 +10,6 @@ class HomeRepository {
     _apiServices = apiServices ?? AppInjector.getIt<APIServices>();
   }
 
-  @override
   Future<HomeResponse?> getHomeData(int pageNo) async {
     HomeResponse? model = await _apiServices.getHomeData(AppData.apiKey, pageNo);
     return model;

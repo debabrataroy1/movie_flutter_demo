@@ -6,7 +6,7 @@ import 'package:movie_flutter_demo/Constants/color_constants.dart';
 import 'package:movie_flutter_demo/Constants/icon_size_constants.dart';
 import 'package:movie_flutter_demo/Constants/icons_constants.dart';
 import 'package:movie_flutter_demo/Models/home_model.dart';
-import 'package:movie_flutter_demo/Screens/home/widgets/WishlistButton/wishList_button_cubit.dart';
+import 'package:movie_flutter_demo/Screens/home/widgets/WishlistButton/wishlist_button_cubit.dart';
 import 'package:movie_flutter_demo/Screens/home/widgets/WishlistButton/wishlist_cubit_state.dart';
 
 class WishListButtonWidget extends StatefulWidget {
@@ -35,7 +35,7 @@ class _WishListButtonWidgetState extends State<WishListButtonWidget> with Single
         listener: (context, state) {
           if (state is WishListError) {
             SnackBar snackBar = SnackBar(
-                content: Text(state.message ?? '')
+                content: Text(state.message)
             );
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           } else if (state is WishListSuccess) {

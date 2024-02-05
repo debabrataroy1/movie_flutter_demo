@@ -81,7 +81,7 @@ class ChangePassword extends StatelessWidget {
                                       listener: (context, state) {
                                         if (state is ErrorState) {
                                           SnackBar snackBar = SnackBar(
-                                              content: Text(state.message ?? '')
+                                              content: Text(state.message)
                                           );
                                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                         } else if (state is SuccessState) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_flutter_demo/Constants/font_size_constants.dart';
 import 'package:movie_flutter_demo/Utils/app_localization.dart';
-
+//ignore: must_be_immutable
 class AppRadioButton extends StatefulWidget {
   final List<String> items;
   final String title;

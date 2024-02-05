@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_flutter_demo/Constants/color_constants.dart';
 import 'package:flutter/material.dart';
@@ -9,13 +11,13 @@ import 'package:movie_flutter_demo/Helper/image_view.dart';
 import 'package:movie_flutter_demo/Constants/api_constants.dart';
 import 'package:movie_flutter_demo/Models/home_model.dart';
 import 'package:movie_flutter_demo/Routes/app_router_config.dart';
-import 'package:movie_flutter_demo/Screens/home/widgets/WishlistButton/wishList_button_cubit.dart';
+import 'package:movie_flutter_demo/Screens/home/widgets/WishlistButton/wishlist_button_cubit.dart';
 import 'package:movie_flutter_demo/Screens/home/widgets/WishlistButton/wishlist_button_widget.dart';
 import 'package:movie_flutter_demo/Utils/app_localization.dart';
 
-class MovieItem extends StatelessWidget {
+class MovieItem extends StatelessWidget with ChangeNotifier {
   final MovieData movie;
-  ValueNotifier<bool>? _wishlist;
+  late ValueNotifier<bool>? _wishlist;
 
   MovieItem(this.movie, {super.key}) {
     _wishlist = ValueNotifier<bool>(movie.isFavourite);

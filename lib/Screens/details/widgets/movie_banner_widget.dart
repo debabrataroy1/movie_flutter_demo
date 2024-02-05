@@ -8,7 +8,7 @@ import 'package:movie_flutter_demo/Constants/padding_constants.dart';
 import 'package:movie_flutter_demo/Constants/spacing_constants.dart';
 import 'package:movie_flutter_demo/Helper/image_view.dart';
 import 'package:movie_flutter_demo/Models/home_model.dart';
-import 'package:movie_flutter_demo/Screens/home/widgets/WishlistButton/wishList_button_cubit.dart';
+import 'package:movie_flutter_demo/Screens/home/widgets/WishlistButton/wishlist_button_cubit.dart';
 import 'package:movie_flutter_demo/Screens/home/widgets/WishlistButton/wishlist_button_widget.dart';
 import 'package:movie_flutter_demo/Constants/icons_constants.dart';
 import 'package:movie_flutter_demo/Constants/icon_size_constants.dart';

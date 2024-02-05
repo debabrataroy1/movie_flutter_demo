@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_flutter_demo/Constants/app_shared_pref_key.dart';
 import 'package:movie_flutter_demo/Screens/account/cubit/account_cubit.dart';
 import 'package:movie_flutter_demo/Screens/account/cubit/state/account_state.dart';
 import 'package:movie_flutter_demo/Utils/app_localization.dart';
-import 'package:movie_flutter_demo/Utils/app_shared_pref.dart';
 import 'package:movie_flutter_demo/Constants/font_size_constants.dart';
 import 'package:movie_flutter_demo/Constants/icons_constants.dart';
 import 'package:movie_flutter_demo/Constants/padding_constants.dart';
@@ -15,16 +13,13 @@ import 'package:movie_flutter_demo/Screens/account/widgets/profile_action_widget
 import 'package:movie_flutter_demo/Screens/account/widgets/profile_card_widget.dart';
 import 'package:movie_flutter_demo/Screens/account/widgets/profile_image_widget.dart';
 import 'package:movie_flutter_demo/Screens/account/widgets/profile_info_widget.dart';
-import 'package:movie_flutter_demo/di/injector.dart';
 
 class AccountPage extends StatelessWidget {
-  late AccountCubit? _accountCubit ;
 
-  AccountPage({super.key});
+ const AccountPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    _accountCubit = context.read<AccountCubit>();
     return Scaffold(
         appBar: AppBar(title: Text(AppLocalization.instance.keys.account)),
         body: SingleChildScrollView(
@@ -58,7 +53,7 @@ class AccountPage extends StatelessWidget {
                                     children: [
                                       ProfileActionWidget(AppLocalization.instance.keys.editAccount, AppIcons.account, onTap: () {
                                         const EditAccountRoute().push(context).then((value){
-                                          _accountCubit?.getAccountData();
+                                          context.read<AccountCubit>().getAccountData();
                                         });
                                       }),
                                       const Divider(),
@@ -84,14 +79,14 @@ class AccountPage extends StatelessWidget {
 
   void _logout(BuildContext context) {
     AppAlert(title: AppLocalization.instance.keys.logout, message: AppLocalization.instance.keys.logoutMessage, confirmBtnText: AppLocalization.instance.keys.logout,confirmTap: () {
-      _accountCubit?.logout();
+      context.read<AccountCubit>().logout();
       const OnboardingRoute().go(context);
     }).showDialogBox(context);
   }
 
   void _clear(BuildContext context) {
     AppAlert(title: AppLocalization.instance.keys.delete, message: AppLocalization.instance.keys.dataDeleteMessage,confirmBtnText:AppLocalization.instance.keys.clear, confirmTap: () {
-      _accountCubit?.clearData();
+      context.read<AccountCubit>().clearData();
       const OnboardingRoute().go(context);
     }).showDialogBox(context);
   }

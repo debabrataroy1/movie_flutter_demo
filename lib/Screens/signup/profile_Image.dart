@@ -8,6 +8,7 @@ import 'package:movie_flutter_demo/Utils/app_localization.dart';
 import 'package:movie_flutter_demo/Utils/image_picker.dart';
 import 'package:movie_flutter_demo/gen/assets.gen.dart';
 import 'dart:io';
+// ignore: must_be_immutable
 class ProfileImage extends StatefulWidget {
   final ValueChanged<File>? pickerImage;
   final String? gender;

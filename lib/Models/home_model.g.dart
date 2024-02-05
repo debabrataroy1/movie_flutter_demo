@@ -14,13 +14,6 @@ HomeResponse _$HomeResponseFromJson(Map<String, dynamic> json) => HomeResponse(
           .toList(),
     );
 
-Map<String, dynamic> _$HomeResponseToJson(HomeResponse instance) =>
-    <String, dynamic>{
-      'page': instance.page,
-      'total_pages': instance.totalPages,
-      'results': instance.results,
-    };
-
 MovieData _$MovieDataFromJson(Map<String, dynamic> json) => MovieData(
       imageUrl: json['backdrop_path'] as String?,
       adult: json['adult'] as bool?,
@@ -34,18 +27,3 @@ MovieData _$MovieDataFromJson(Map<String, dynamic> json) => MovieData(
       language: json['original_language'] as String?,
       poster: json['poster_path'] as String?,
     )..popularity = (json['popularity'] as num?)?.toDouble();
-
-Map<String, dynamic> _$MovieDataToJson(MovieData instance) => <String, dynamic>{
-      'backdrop_path': instance.imageUrl,
-      'adult': instance.adult,
-      'id': instance.id,
-      'title': instance.title,
-      'overview': instance.overview,
-      'media_type': instance.mediaType,
-      'release_date': instance.releaseDate,
-      'vote_count': instance.voteCount,
-      'vote_average': instance.voteAverage,
-      'popularity': instance.popularity,
-      'original_language': instance.language,
-      'poster_path': instance.poster,
-    };

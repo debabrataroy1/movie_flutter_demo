@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 part 'home_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(createToJson: false)
 class HomeResponse {
   int? page;
   @JsonKey(name: "total_pages")
@@ -12,7 +12,7 @@ class HomeResponse {
   factory HomeResponse.fromJson(Map<String, dynamic> json) => _$HomeResponseFromJson(json);
 }
 
-@JsonSerializable()
+@JsonSerializable(createToJson: false)
 class MovieData {
   @JsonKey(name: "backdrop_path")
   String? imageUrl;
@@ -33,7 +33,7 @@ class MovieData {
   String? language;
   @JsonKey(name: "poster_path")
   String? poster;
-  @JsonKey(includeToJson: false)
+  @JsonKey(includeFromJson: false)
   bool isFavourite = false;
 
   MovieData({this.imageUrl,this.adult, this.id, this.title, this.overview, this.mediaType, this.releaseDate, this.voteAverage, this.voteCount, this.language, this.poster});

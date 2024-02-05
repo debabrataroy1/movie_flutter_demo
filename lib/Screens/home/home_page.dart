@@ -7,10 +7,11 @@ import 'package:movie_flutter_demo/Screens/home/bloc/home_cubit.dart';
 import 'package:movie_flutter_demo/Screens/home/bloc/state/home_bloc_state.dart';
 import 'package:movie_flutter_demo/Utils/app_localization.dart';
 
+// ignore: must_be_immutable
 class HomePage extends StatelessWidget {
   final ScrollController _scrollController = ScrollController();
   late HomeCubit homeBloc;
-  ValueNotifier<bool> isLoading = ValueNotifier<bool>(true);
+  final ValueNotifier<bool> isLoading = ValueNotifier<bool>(true);
   HomePage( {super.key}) {
     _scrollController.addListener(_scrollListener);
   }

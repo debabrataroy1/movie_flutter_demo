@@ -13,7 +13,7 @@ import 'package:movie_flutter_demo/Screens/favourites/cubit/favourite_cubit.dart
 import 'package:movie_flutter_demo/Screens/favourites/cubit/state/favourite_state.dart';
 import 'package:movie_flutter_demo/Screens/home/widgets/home_movie_list.dart';
 import 'package:movie_flutter_demo/Utils/app_localization.dart';
-
+//ignore: must_be_immutable
 class FavouritesPage extends StatelessWidget {
   List<MovieData>? movieList;
   FavouritesPage({super.key});

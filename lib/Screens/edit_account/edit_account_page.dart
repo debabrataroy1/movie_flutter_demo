@@ -19,7 +19,7 @@ import 'package:movie_flutter_demo/Utils/file_manager.dart';
 import 'package:movie_flutter_demo/Utils/validator.dart';
 import 'dart:io';
 import 'package:movie_flutter_demo/di/injector.dart';
-
+//ignore: must_be_immutable
 class EditAccount extends StatelessWidget {
 
   final TextEditingController _dobEditingController = TextEditingController();

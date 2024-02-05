@@ -17,10 +17,10 @@ import 'package:movie_flutter_demo/Utils/validator.dart';
 import 'bloc/login_cubit.dart';
 import 'bloc/state/login_state.dart';
 
+// ignore: must_be_immutable
 class Login extends StatelessWidget {
 
   late LoginCubit _loginCubit;
-
   Login({super.key}) {
     _loginCubit = LoginCubit();
   }
@@ -81,7 +81,7 @@ class Login extends StatelessWidget {
                                       listener: (context, state) {
                                         if (state is LoginError) {
                                           SnackBar snackBar = SnackBar(
-                                              content: Text(state.message ?? '')
+                                              content: Text(state.message)
                                           );
                                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                         } else if (state is LoginSuccessState) {

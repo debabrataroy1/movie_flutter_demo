@@ -226,7 +226,7 @@ extension $EditAccountRouteExtension on EditAccountRoute {
 }
 
 RouteBase get $changePasswordRoute => GoRouteData.$route(
-      path: '/chnagepassword',
+      path: '/changePassword',
       factory: $ChangePasswordRouteExtension._fromState,
     );
 
@@ -235,7 +235,7 @@ extension $ChangePasswordRouteExtension on ChangePasswordRoute {
       const ChangePasswordRoute();
 
   String get location => GoRouteData.$location(
-        '/chnagepassword',
+        '/changePassword',
       );
 
   void go(BuildContext context) => context.go(location);

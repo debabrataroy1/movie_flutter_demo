@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_flutter_demo/Constants/app_shared_pref_key.dart';
 import 'package:movie_flutter_demo/Screens/account/cubit/account_cubit.dart';
@@ -96,7 +95,7 @@ class AccountRoute extends GoRouteData {
   Widget build(BuildContext context, GoRouterState state) =>
       BlocProvider(
         create: ( context)=> AccountCubit(),
-        child: AccountPage()
+        child: const AccountPage()
       );
 }
 

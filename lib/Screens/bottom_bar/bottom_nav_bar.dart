@@ -70,7 +70,7 @@ class _AppBottomBarState extends State<AppBottomBar> with WidgetsBindingObserver
           child: FavouritesPage()),
       BlocProvider(
           create: (context)=> AccountCubit(),
-          child: AccountPage()),
+          child: const AccountPage()),
     ];
     super.initState();
   }

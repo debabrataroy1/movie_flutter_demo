@@ -31,7 +31,6 @@ class _APIServices implements APIServices {
       r'page': page,
     };
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<HomeResponse>(Options(
       method: 'GET',
@@ -42,7 +41,6 @@ class _APIServices implements APIServices {
               _dio.options,
               '3/trending/movie/week',
               queryParameters: queryParameters,
-              data: _data,
             )
             .copyWith(
                 baseUrl: _combineBaseUrls(
